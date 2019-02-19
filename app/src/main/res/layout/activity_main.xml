@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/trader_skill2"
+        android:id="@+id/engineer_skill"
         android:layout_width="45dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -53,8 +53,8 @@
         android:layout_marginEnd="24dp"
         android:text="Engineer"
         android:textAppearance="@style/TextAppearance.AppCompat.Button"
-        app:layout_constraintEnd_toStartOf="@+id/trader_skill2"
-        app:layout_constraintTop_toTopOf="@+id/trader_skill2" />
+        app:layout_constraintEnd_toStartOf="@+id/engineer_skill"
+        app:layout_constraintTop_toTopOf="@+id/engineer_skill" />
 
     <Button
         android:id="@+id/engineer_minus"
@@ -62,9 +62,10 @@
         android:layout_width="33dp"
         android:layout_height="38dp"
         android:layout_marginTop="4dp"
+        android:onClick="onEngineerMinusPressed"
         android:text="−"
         app:layout_constraintStart_toEndOf="@+id/engineer_plus"
-        app:layout_constraintTop_toTopOf="@+id/trader_skill2" />
+        app:layout_constraintTop_toTopOf="@+id/engineer_skill" />
 
     <Button
         android:id="@+id/engineer_plus"
@@ -73,9 +74,10 @@
         android:layout_height="38dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
+        android:onClick="onEngineerPlusPressed"
         android:text="+"
-        app:layout_constraintStart_toEndOf="@+id/trader_skill2"
-        app:layout_constraintTop_toTopOf="@+id/trader_skill2" />
+        app:layout_constraintStart_toEndOf="@+id/engineer_skill"
+        app:layout_constraintTop_toTopOf="@+id/engineer_skill" />
 
     <TextView
         android:id="@+id/trader_label"
@@ -94,6 +96,7 @@
         android:layout_width="33dp"
         android:layout_height="38dp"
         android:layout_marginTop="4dp"
+        android:onClick="onTraderMinusPressed"
         android:text="−"
         app:layout_constraintStart_toEndOf="@+id/trader_plus"
         app:layout_constraintTop_toTopOf="@+id/trader_skill" />
@@ -105,6 +108,7 @@
         android:layout_height="38dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
+        android:onClick="onTraderPlusPressed"
         android:text="+"
         app:layout_constraintStart_toEndOf="@+id/trader_skill"
         app:layout_constraintTop_toTopOf="@+id/trader_skill" />
@@ -126,17 +130,19 @@
         android:layout_width="33dp"
         android:layout_height="38dp"
         android:layout_marginTop="4dp"
+        android:onClick="onFighterMinusPressed"
         android:text="−"
-        app:layout_constraintStart_toEndOf="@+id/figher_plus"
+        app:layout_constraintStart_toEndOf="@+id/fighter_plus"
         app:layout_constraintTop_toTopOf="@+id/fighter_skill" />
 
     <Button
-        android:id="@+id/figher_plus"
+        android:id="@+id/fighter_plus"
         style="@style/Widget.AppCompat.Button.Small"
         android:layout_width="33dp"
         android:layout_height="38dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
+        android:onClick="onFighterAddPressed"
         android:text="+"
         app:layout_constraintStart_toEndOf="@+id/fighter_skill"
         app:layout_constraintTop_toTopOf="@+id/fighter_skill" />
@@ -147,6 +153,7 @@
         android:layout_width="33dp"
         android:layout_height="38dp"
         android:layout_marginTop="4dp"
+        android:onClick="onPilotMinusPressed"
         android:text="−"
         app:layout_constraintStart_toEndOf="@+id/pilot_plus"
         app:layout_constraintTop_toTopOf="@+id/pilot_skill" />
@@ -155,25 +162,25 @@
         android:id="@+id/name_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:text="Name"
         android:textAppearance="@style/TextAppearance.AppCompat.Button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toStartOf="@+id/name_text"
+        app:layout_constraintTop_toTopOf="@+id/name_text" />
 
     <EditText
         android:id="@+id/name_text"
-        android:layout_width="294dp"
-        android:layout_height="42dp"
+        android:layout_width="235dp"
+        android:layout_height="37dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/name_label"
+        app:layout_constraintHorizontal_bias="0.693"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
@@ -220,7 +227,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:text="(cannot exceed 16 total)"
+        android:text="(must be 16 total)"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/points_label" />
@@ -243,6 +250,7 @@
         android:layout_height="38dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
+        android:onClick="onPilotAddPressed"
         android:text="+"
         app:layout_constraintStart_toEndOf="@+id/pilot_skill"
         app:layout_constraintTop_toTopOf="@+id/pilot_skill" />
@@ -255,11 +263,12 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
+        android:onClick="onCreatePlayer"
         android:text="Create Player"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/trader_skill2"
+        app:layout_constraintTop_toBottomOf="@+id/engineer_skill"
         app:layout_constraintVertical_bias="0.194" />
 
     <TextView
