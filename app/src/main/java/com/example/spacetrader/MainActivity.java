@@ -2,6 +2,7 @@ package com.example.spacetrader;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -51,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         fighterPoints = 4;
         traderPoints = 4;
         engineerPoints = 4;
+        player = new Player();
 
         Button addPilot = findViewById(R.id.pilot_plus);
         Button addFighter = findViewById(R.id.fighter_plus);
@@ -116,12 +118,13 @@ public class MainActivity extends AppCompatActivity {
             limit.setText("The number of skill points exceeds 16.");
         } else if (totalPoints < 16) {
             limit.setText("The number of skill points is below 16.");
-        } /*else {
+        } else {
             player.setName(name.getText().toString())
                     .setPilotPoints(pilotPoints)
                     .setFighterPoints(fighterPoints)
                     .setTraderPoints(traderPoints)
                     .setEngineerPoints(engineerPoints);
-        }*/
+            Log.i("Player output", player.toString());
+        }
     }
 }

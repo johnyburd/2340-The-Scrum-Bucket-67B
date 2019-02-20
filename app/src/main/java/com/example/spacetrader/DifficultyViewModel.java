@@ -9,5 +9,5 @@ public class DifficultyViewModel extends AndroidViewModel {
     public DifficultyViewModel(@NonNull Application application) {
         super (application);
     }
-    
+
 }
