@@ -1,5 +1,7 @@
 package com.example.spacetrader.views;
 
+
+import android.arch.lifecycle.ViewModelProviders;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,7 +12,10 @@ import android.widget.Button;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.spacetrader.models.Difficulty;
+import com.example.spacetrader.models.Player;
 import com.example.spacetrader.R;
+import com.example.spacetrader.viewmodels.ConfigurationViewModel;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,13 +35,14 @@ public class MainActivity extends AppCompatActivity {
     private TextView engineerText;
 
     private Spinner difficultySpinner;
+    private ConfigurationViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        totalPoints = 16;
+        viewModel = ViewModelProviders.of(this).get(ConfigurationViewModel.class);
 
         difficultySpinner = findViewById(R.id.difficulty_spinner);
         ArrayAdapter<Difficulty> difficulty_adapter = new ArrayAdapter<>
@@ -54,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
         fighterPoints = 4;
         traderPoints = 4;
         engineerPoints = 4;
+        totalPoints = 16;
         player = new Player();
 
         Button addPilot = findViewById(R.id.pilot_plus);
@@ -67,50 +74,58 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onPilotAddPressed(View view) {
-        totalPoints++;
-        pilotPoints++;
-        pilotText.setText(String.format("%02d", pilotPoints));
+        if (viewModel.validatePoints(pilotPoints + 1, fighterPoints, traderPoints, engineerPoints)) {
+            pilotPoints++;
+            totalPoints++;
+            pilotText.setText(String.format("%02d", pilotPoints));
+        }
     }
     public void onPilotMinusPressed(View view) {
-        if (pilotPoints > 0) {
-            totalPoints--;
+        if (viewModel.validatePoints(pilotPoints - 1, fighterPoints, traderPoints, engineerPoints)) {
             pilotPoints--;
+            totalPoints--;
             pilotText.setText(String.format("%02d", pilotPoints));
         }
     }
     public void onFighterAddPressed(View view) {
-        totalPoints++;
-        fighterPoints++;
-        fighterText.setText(String.format("%02d", fighterPoints));
+        if (viewModel.validatePoints(pilotPoints, fighterPoints + 1, traderPoints, engineerPoints)) {
+            fighterPoints++;
+            totalPoints++;
+            fighterText.setText(String.format("%02d", fighterPoints));
+        }
     }
     public void onFighterMinusPressed(View view) {
-        if (fighterPoints > 0) {
-            totalPoints--;
+        if (viewModel.validatePoints(pilotPoints, fighterPoints - 1, traderPoints, engineerPoints)) {
             fighterPoints--;
+            totalPoints--;
             fighterText.setText(String.format("%02d", fighterPoints));
         }
     }
     public void onTraderPlusPressed(View view) {
-        totalPoints++;
-        traderPoints++;
-        traderText.setText(String.format("%02d", traderPoints));
+        if (viewModel.validatePoints(pilotPoints, fighterPoints, traderPoints + 1, engineerPoints)) {
+            traderPoints++;
+            totalPoints++;
+            traderText.setText(String.format("%02d", traderPoints));
+        }
     }
     public void onTraderMinusPressed(View view) {
-        if (traderPoints > 0) {
-            totalPoints--;
+        if (viewModel.validatePoints(pilotPoints, fighterPoints, traderPoints - 1, engineerPoints)) {
             traderPoints--;
+            totalPoints--;
             traderText.setText(String.format("%02d", traderPoints));
         }
     }
     public void onEngineerPlusPressed(View view) {
-        totalPoints++;
-        engineerPoints++;
-        engineerText.setText(String.format("%02d", engineerPoints));
+        if (viewModel.validatePoints(pilotPoints, fighterPoints, traderPoints, engineerPoints + 1)) {
+            engineerPoints++;
+            totalPoints++;
+            engineerText.setText(String.format("%02d", engineerPoints));
+        }
     }
     public void onEngineerMinusPressed(View view) {
-        if (engineerPoints > 0) {
-            totalPoints--;
+        if (viewModel.validatePoints(pilotPoints, fighterPoints, traderPoints, engineerPoints - 1)) {
             engineerPoints--;
+            totalPoints--;
             engineerText.setText(String.format("%02d", engineerPoints));
         }
     }

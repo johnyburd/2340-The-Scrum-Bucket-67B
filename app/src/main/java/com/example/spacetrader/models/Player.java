@@ -1,4 +1,4 @@
-package com.example.spacetrader;
+package com.example.spacetrader.models;
 
 public class Player {
     String name;
