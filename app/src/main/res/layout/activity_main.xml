@@ -4,187 +4,188 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".views.MainActivity">
+
+    <TextView
+        android:id="@+id/engineer_skill"
+        android:layout_width="45dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:text="04"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.487"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/trader_skill" />
+
+    <TextView
+        android:id="@+id/fighter_skill"
+        android:layout_width="45dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:text="04"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pilot_skill" />
+
+    <TextView
+        android:id="@+id/trader_skill"
+        android:layout_width="45dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:text="04"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.487"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fighter_skill" />
 
     <TextView
         android:id="@+id/engineer_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="66dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="24dp"
         android:text="Engineer"
         android:textAppearance="@style/TextAppearance.AppCompat.Button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/trader_skill" />
+        app:layout_constraintEnd_toStartOf="@+id/engineer_skill"
+        app:layout_constraintTop_toTopOf="@+id/engineer_skill" />
 
     <Button
         android:id="@+id/engineer_minus"
         style="@style/Widget.AppCompat.Button.Small"
         android:layout_width="33dp"
         android:layout_height="38dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="4dp"
+        android:onClick="onEngineerMinusPressed"
         android:text="−"
         app:layout_constraintStart_toEndOf="@+id/engineer_plus"
-        app:layout_constraintTop_toBottomOf="@+id/trader_skill" />
-
-    <EditText
-        android:id="@+id/engineer_skill"
-        android:layout_width="77dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:ems="10"
-        android:inputType="number"
-        android:text="4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.016"
-        app:layout_constraintStart_toEndOf="@+id/engineer_label"
-        app:layout_constraintTop_toBottomOf="@+id/trader_skill" />
+        app:layout_constraintTop_toTopOf="@+id/engineer_skill" />
 
     <Button
         android:id="@+id/engineer_plus"
         style="@style/Widget.AppCompat.Button.Small"
         android:layout_width="33dp"
         android:layout_height="38dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:onClick="onEngineerPlusPressed"
         android:text="+"
         app:layout_constraintStart_toEndOf="@+id/engineer_skill"
-        app:layout_constraintTop_toBottomOf="@+id/trader_skill" />
-
-    <EditText
-        android:id="@+id/trader_skill"
-        android:layout_width="77dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:ems="10"
-        android:inputType="number"
-        android:text="4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.016"
-        app:layout_constraintStart_toEndOf="@+id/trader_label"
-        app:layout_constraintTop_toBottomOf="@+id/fighter_skill" />
+        app:layout_constraintTop_toTopOf="@+id/engineer_skill" />
 
     <TextView
         android:id="@+id/trader_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="24dp"
         android:text="Trader"
         android:textAppearance="@style/TextAppearance.AppCompat.Button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fighter_skill" />
+        app:layout_constraintEnd_toStartOf="@+id/trader_skill"
+        app:layout_constraintTop_toTopOf="@+id/trader_skill" />
 
     <Button
         android:id="@+id/trader_minus"
         style="@style/Widget.AppCompat.Button.Small"
         android:layout_width="33dp"
         android:layout_height="38dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="4dp"
+        android:onClick="onTraderMinusPressed"
         android:text="−"
         app:layout_constraintStart_toEndOf="@+id/trader_plus"
-        app:layout_constraintTop_toBottomOf="@+id/fighter_skill" />
+        app:layout_constraintTop_toTopOf="@+id/trader_skill" />
 
     <Button
         android:id="@+id/trader_plus"
         style="@style/Widget.AppCompat.Button.Small"
         android:layout_width="33dp"
         android:layout_height="38dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:onClick="onTraderPlusPressed"
         android:text="+"
         app:layout_constraintStart_toEndOf="@+id/trader_skill"
-        app:layout_constraintTop_toBottomOf="@+id/fighter_skill" />
-
-    <EditText
-        android:id="@+id/fighter_skill"
-        android:layout_width="77dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:ems="10"
-        android:inputType="number"
-        android:text="4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.01"
-        app:layout_constraintStart_toEndOf="@+id/fighter_label"
-        app:layout_constraintTop_toBottomOf="@+id/pilot_skill" />
+        app:layout_constraintTop_toTopOf="@+id/trader_skill" />
 
     <TextView
         android:id="@+id/fighter_label"
-        android:layout_width="0dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="77dp"
-        android:layout_marginTop="24dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="24dp"
         android:text="Fighter"
         android:textAppearance="@style/TextAppearance.AppCompat.Button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pilot_skill" />
+        app:layout_constraintEnd_toStartOf="@+id/fighter_skill"
+        app:layout_constraintTop_toTopOf="@+id/fighter_skill" />
 
     <Button
         android:id="@+id/fighter_minus"
         style="@style/Widget.AppCompat.Button.Small"
         android:layout_width="33dp"
         android:layout_height="38dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="4dp"
+        android:onClick="onFighterMinusPressed"
         android:text="−"
-        app:layout_constraintStart_toEndOf="@+id/figher_plus"
-        app:layout_constraintTop_toBottomOf="@+id/pilot_skill" />
+        app:layout_constraintStart_toEndOf="@+id/fighter_plus"
+        app:layout_constraintTop_toTopOf="@+id/fighter_skill" />
 
     <Button
-        android:id="@+id/figher_plus"
+        android:id="@+id/fighter_plus"
         style="@style/Widget.AppCompat.Button.Small"
         android:layout_width="33dp"
         android:layout_height="38dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:onClick="onFighterAddPressed"
         android:text="+"
         app:layout_constraintStart_toEndOf="@+id/fighter_skill"
-        app:layout_constraintTop_toBottomOf="@+id/pilot_skill" />
+        app:layout_constraintTop_toTopOf="@+id/fighter_skill" />
 
     <Button
         android:id="@+id/pilot_minus"
         style="@style/Widget.AppCompat.Button.Small"
         android:layout_width="33dp"
         android:layout_height="38dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="4dp"
+        android:onClick="onPilotMinusPressed"
         android:text="−"
         app:layout_constraintStart_toEndOf="@+id/pilot_plus"
-        app:layout_constraintTop_toBottomOf="@+id/points_limit_label" />
+        app:layout_constraintTop_toTopOf="@+id/pilot_skill" />
 
     <TextView
         android:id="@+id/name_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:text="Name"
         android:textAppearance="@style/TextAppearance.AppCompat.Button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toStartOf="@+id/name_text"
+        app:layout_constraintTop_toTopOf="@+id/name_text" />
 
     <EditText
         android:id="@+id/name_text"
-        android:layout_width="294dp"
-        android:layout_height="42dp"
+        android:layout_width="235dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/name_label"
+        app:layout_constraintHorizontal_bias="0.693"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
         android:id="@+id/difficulty_spinner"
-        android:layout_width="345dp"
+        android:layout_width="219dp"
         android:layout_height="38dp"
         android:layout_marginStart="33dp"
         android:layout_marginTop="8dp"
@@ -212,12 +213,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="28dp"
         android:layout_marginEnd="8dp"
         android:text="Skill Points:"
         android:textAppearance="@style/TextAppearance.AppCompat.Button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/difficulty_spinner" />
 
@@ -227,58 +227,60 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:text="(cannot exceed 16 total)"
+        android:text="(must be 16 total)"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/points_label" />
-
-    <EditText
-        android:id="@+id/pilot_skill"
-        android:layout_width="77dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="8dp"
-        android:ems="10"
-        android:inputType="number"
-        android:text="4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.026"
-        app:layout_constraintStart_toEndOf="@+id/pilot_label"
-        app:layout_constraintTop_toBottomOf="@+id/points_limit_label" />
 
     <TextView
         android:id="@+id/pilot_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="92dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="24dp"
         android:text="Pilot"
         android:textAppearance="@style/TextAppearance.AppCompat.Button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/points_limit_label" />
+        app:layout_constraintEnd_toStartOf="@+id/pilot_skill"
+        app:layout_constraintTop_toTopOf="@+id/pilot_skill" />
 
     <Button
         android:id="@+id/pilot_plus"
         style="@style/Widget.AppCompat.Button.Small"
         android:layout_width="33dp"
         android:layout_height="38dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:onClick="onPilotAddPressed"
         android:text="+"
         app:layout_constraintStart_toEndOf="@+id/pilot_skill"
-        app:layout_constraintTop_toBottomOf="@+id/points_limit_label" />
+        app:layout_constraintTop_toTopOf="@+id/pilot_skill" />
 
     <Button
         android:id="@+id/create_player_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:onClick="onCreatePlayer"
         android:text="Create Player"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.515"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/engineer_skill" />
+        app:layout_constraintTop_toBottomOf="@+id/engineer_skill"
+        app:layout_constraintVertical_bias="0.194" />
+
+    <TextView
+        android:id="@+id/pilot_skill"
+        android:layout_width="45dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
+        android:text="04"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.487"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/points_limit_label" />
 </android.support.constraint.ConstraintLayout>

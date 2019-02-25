@@ -1,9 +1,12 @@
-package com.example.spacetrader;
+package com.example.spacetrader.views;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+
+import com.example.spacetrader.R;
+import com.example.spacetrader.models.Difficulty;
 
 public class EditDifficulty extends AppCompatActivity {
     private Spinner difficultySpinner;

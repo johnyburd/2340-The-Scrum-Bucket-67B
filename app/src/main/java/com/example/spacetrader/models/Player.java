@@ -1,4 +1,4 @@
-package com.example.spacetrader;
+package com.example.spacetrader.models;
 
 public class Player {
     String name;
@@ -16,36 +16,44 @@ public class Player {
         spaceship = Spaceship.GNAT;
     }
 
-    public void setName(String name) {
+    public Player setName(String name) {
         this.name = name;
+        return this;
     }
 
-    public void setSkillPoints(int skillPoints) {
+    public Player setSkillPoints(int skillPoints) {
         this.skillPoints = skillPoints;
+        return this;
     }
 
-    public void setPilotPoints(int pilotPoints) {
+    public Player setPilotPoints(int pilotPoints) {
         this.pilotPoints = pilotPoints;
+        return this;
     }
 
-    public void setFighterPoints(int fighterPoints) {
+    public Player setFighterPoints(int fighterPoints) {
         this.fighterPoints = fighterPoints;
+        return this;
     }
 
-    public void setTraderPoints(int traderPoints) {
+    public Player setTraderPoints(int traderPoints) {
         this.traderPoints = traderPoints;
+        return this;
     }
 
-    public void setEngineerPoints(int engineerPoints) {
+    public Player setEngineerPoints(int engineerPoints) {
         this.engineerPoints = engineerPoints;
+        return this;
     }
 
-    public void setCredits(int credits) {
+    public Player setCredits(int credits) {
         this.credits = credits;
+        return this;
     }
 
-    public void setSpaceship(Spaceship spaceship) {
+    public Player setSpaceship(Spaceship spaceship) {
         this.spaceship = spaceship;
+        return this;
     }
 
     public String getName() {
@@ -78,5 +86,12 @@ public class Player {
 
     public Spaceship getSpaceship() {
         return spaceship;
+    }
+
+    public String toString() {
+        return "Player's name is " + name + " and has " + credits +
+                " credits with the " + spaceship.toString() + " ship. " + engineerPoints
+                + " points in Engineer, " + fighterPoints + " points in Fighter, " + pilotPoints
+                + " points in Pilot, and " + traderPoints + " in Trader.";
     }
 }
