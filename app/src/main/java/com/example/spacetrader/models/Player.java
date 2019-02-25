@@ -1,14 +1,14 @@
 package com.example.spacetrader.models;
 
 public class Player {
-    String name;
-    int skillPoints;
-    int pilotPoints;
-    int fighterPoints;
-    int traderPoints;
-    int engineerPoints;
-    int credits;
-    Spaceship spaceship;
+    private String name;
+    private int skillPoints;
+    private int pilotPoints;
+    private int fighterPoints;
+    private int traderPoints;
+    private int engineerPoints;
+    private int credits;
+    private Spaceship spaceship;
 
     public Player (){
         skillPoints = 16;
