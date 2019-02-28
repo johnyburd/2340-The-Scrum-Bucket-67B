@@ -1,4 +1,4 @@
-package com.example.spacetrader.models;
+package com.example.spacetrader.entity;
 
 public class Coordinate {
     private int x;
@@ -8,6 +8,9 @@ public class Coordinate {
     private final int MAX_Y = 100;
 
     public Coordinate (int x, int y) {
+        if (x < 0 || x > MAX_X || y < 0 || y > MAX_Y) {
+            throw new IllegalArgumentException("given coordinates are out of bounds");
+        }
         this.x = x;
         this.y = y;
     }
@@ -32,5 +35,10 @@ public class Coordinate {
         // comparing the state of argument with
         // the state of 'this' Object.
         return (coordinate.x == this.x && coordinate.y == this.y);
+    }
+
+    @Override
+    public String toString() {
+        return "(" + x + ", " + y + ")";
     }
 }

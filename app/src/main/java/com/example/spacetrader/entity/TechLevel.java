@@ -1,4 +1,4 @@
-package com.example.spacetrader.models;
+package com.example.spacetrader.entity;
 
 public enum TechLevel {
     PA (0, "PRE-AGRICULTURE"),
@@ -16,5 +16,13 @@ public enum TechLevel {
     TechLevel (int level, String name) {
         this.level = level;
         this.name = name;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public String getName() {
+        return name;
     }
 }

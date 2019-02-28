@@ -6,7 +6,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import com.example.spacetrader.R;
-import com.example.spacetrader.models.Difficulty;
+import com.example.spacetrader.entity.Difficulty;
 
 public class EditDifficulty extends AppCompatActivity {
     private Spinner difficultySpinner;

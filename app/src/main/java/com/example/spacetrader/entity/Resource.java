@@ -1,4 +1,4 @@
-package com.example.spacetrader.models;
+package com.example.spacetrader.entity;
 
 public enum Resource {
     NR (0, "NO SPECIAL RESOURCES"),
