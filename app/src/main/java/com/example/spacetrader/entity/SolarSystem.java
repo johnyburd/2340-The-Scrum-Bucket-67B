@@ -25,4 +25,7 @@ public class SolarSystem {
                 + ", resource: " + resource.getName();
     }
 
+    public TechLevel getTechLevel() {
+        return techLevel;
+    }
 }

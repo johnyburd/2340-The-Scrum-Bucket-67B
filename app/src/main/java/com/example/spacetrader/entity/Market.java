@@ -130,8 +130,86 @@ public class Market {
         return 0;
     }
 
-    private int calcPrice(Good good, Event condition) {
-        //TODO
+    private boolean canSell(Good good) {
+        switch (good) {
+            case WATER:
+                return planet.getTechLevel().getLevel() >= 0;
+
+            case FURS:
+                return planet.getTechLevel().getLevel() >= 0;
+            case FOOD:
+                return planet.getTechLevel().getLevel() >= 0;
+            case ORE:
+                return planet.getTechLevel().getLevel() >= 2;
+            case GAMES:
+                return planet.getTechLevel().getLevel() >= 1;
+            case FIREARMS:
+                return planet.getTechLevel().getLevel() >= 1;
+            case MEDICINE:
+                return planet.getTechLevel().getLevel() >= 1;
+            case MACHINES:
+                return planet.getTechLevel().getLevel() >= 3;
+            case NARCOTICS:
+                return planet.getTechLevel().getLevel() >= 0;
+            case ROBOTS:
+                return planet.getTechLevel().getLevel() >= 4;
+        }
+        return false;
+    }
+
+    private int getMTLP(Good good) {
+        switch (good) {
+            case WATER:
+                return 0;
+            case FURS:
+                return 0;
+            case FOOD:
+                return 1;
+            case ORE:
+                return 2;
+            case GAMES:
+                return 3;
+            case FIREARMS:
+                return 3;
+            case MEDICINE:
+                return 4;
+            case MACHINES:
+                return 4;
+            case NARCOTICS:
+                return 5;
+            case ROBOTS:
+                return 6;
+        }
         return 0;
+    }
+
+    private int IPL(Good good) {
+        switch (good) {
+            case WATER:
+                return 3;
+            case FURS:
+                return 10;
+            case FOOD:
+                return 5;
+            case ORE:
+                return 20;
+            case GAMES:
+                return -10;
+            case FIREARMS:
+                return -75;
+            case MEDICINE:
+                return -20;
+            case MACHINES:
+                return -30;
+            case NARCOTICS:
+                return -125;
+            case ROBOTS:
+                return -150;
+        }
+        return 0;
+    }
+
+    private int calcPrice(Good good) {
+        return BasePrice(good) + (IPL(good)*(planet.getTechLevel().getLevel()-getMTLP(good))) + BasePrice(good)*calcVar(good);
     }
 }
