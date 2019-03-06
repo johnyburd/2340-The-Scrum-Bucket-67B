@@ -1,9 +1,21 @@
 package com.example.spacetrader.entity;
 
+import java.util.EnumMap;
+import java.util.Random;
+
 public class Market {
 
-    public Market() {
+    private Player player;
+    private SolarSystem planet;
+    private Event event;
+    private int var;
 
+    public Market(Player player, SolarSystem planet, Event event) {
+        this.player = player;
+        this.planet = planet;
+        this.event = event;
+        Random rand = new Random();
+        var = rand.nextInt(5);
     }
 
     private int BasePrice(Good good) {
@@ -38,5 +50,88 @@ public class Market {
             return 5000;
         }
         else return -1;
+    }
+
+    private int calcVar(Good good) {
+        Random rand = new Random();
+        int increase = rand.nextInt(2);
+        switch (good) {
+            case WATER:
+                if (increase == 0) {
+                    return -1 * rand.nextInt(5);
+                }
+                else {
+                    return rand.nextInt(5);
+                }
+            case FURS:
+                if (increase == 0) {
+                    return -1* rand.nextInt(11);
+                }
+                else {
+                    return rand.nextInt(11);
+                }
+            case FOOD:
+                if (increase == 0) {
+                    return -1*rand.nextInt(6);
+                }
+                else {
+                    return rand.nextInt(6);
+                }
+            case ORE:
+                if (increase == 0) {
+                    return -1*rand.nextInt(11);
+                }
+                else {
+                    return rand.nextInt(11);
+                }
+            case GAMES:
+                if (increase == 0) {
+                    return -1*rand.nextInt(6);
+                }
+                else {
+                    return rand.nextInt(6);
+                }
+            case FIREARMS:
+                if (increase == 0) {
+                    return -1*rand.nextInt(11);
+                }
+                else {
+                    return rand.nextInt(11);
+                }
+            case MEDICINE:
+                if (increase == 0) {
+                    return -1*rand.nextInt(11);
+                }
+                else {
+                    return rand.nextInt(11);
+                }
+            case MACHINES:
+                if (increase == 0) {
+                    return -1*rand.nextInt(6);
+                }
+                else {
+                    return rand.nextInt(6);
+                }
+            case NARCOTICS:
+                if (increase == 0) {
+                    return -1*rand.nextInt(16);
+                }
+                else {
+                    return rand.nextInt(16);
+                }
+            case ROBOTS:
+                if (increase == 0) {
+                    return -1*rand.nextInt(11);
+                }
+                else {
+                    return rand.nextInt(11);
+                }
+        }
+        return 0;
+    }
+
+    private int calcPrice(Good good, Event condition) {
+        //TODO
+        return 0;
     }
 }
