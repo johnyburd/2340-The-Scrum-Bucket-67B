@@ -1,5 +1,7 @@
 package com.example.spacetrader.entity;
 
+import java.util.EnumMap;
+
 public class Player {
     private String name;
     private int skillPoints;
@@ -8,12 +10,13 @@ public class Player {
     private int traderPoints;
     private int engineerPoints;
     private int credits;
-    private Spaceship spaceship;
+    private Ship spaceship;
+    private EnumMap<Good, Integer> inventory;
 
     public Player (){
         skillPoints = 16;
         credits = 1000;
-        spaceship = Spaceship.GNAT;
+        spaceship = new Ship(Spaceship.GNAT);
     }
 
     public Player setName(String name) {
@@ -52,7 +55,7 @@ public class Player {
     }
 
     public Player setSpaceship(Spaceship spaceship) {
-        this.spaceship = spaceship;
+        this.spaceship = new Ship(spaceship);
         return this;
     }
 
@@ -85,7 +88,7 @@ public class Player {
     }
 
     public Spaceship getSpaceship() {
-        return spaceship;
+        return spaceship.getShip();
     }
 
     public String toString() {
