@@ -2,6 +2,7 @@ package com.example.spacetrader.views;
 
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,10 +13,10 @@ import android.widget.Button;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.spacetrader.models.Difficulty;
-import com.example.spacetrader.models.Player;
+import com.example.spacetrader.entity.Difficulty;
+import com.example.spacetrader.entity.Player;
 import com.example.spacetrader.R;
-import com.example.spacetrader.viewmodels.ConfigurationViewModel;
+import com.example.spacetrader.viewmodels.PlayerViewModel;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,14 +36,14 @@ public class MainActivity extends AppCompatActivity {
     private TextView engineerText;
 
     private Spinner difficultySpinner;
-    private ConfigurationViewModel viewModel;
+    private PlayerViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.main_activity);
 
-        viewModel = ViewModelProviders.of(this).get(ConfigurationViewModel.class);
+        viewModel = ViewModelProviders.of(this).get(PlayerViewModel.class);
 
         difficultySpinner = findViewById(R.id.difficulty_spinner);
         ArrayAdapter<Difficulty> difficulty_adapter = new ArrayAdapter<>
@@ -136,12 +137,10 @@ public class MainActivity extends AppCompatActivity {
         } else if (totalPoints < 16) {
             limit.setText("The number of skill points is below 16.");
         } else {
-            player.setName(name.getText().toString())
-                    .setPilotPoints(pilotPoints)
-                    .setFighterPoints(fighterPoints)
-                    .setTraderPoints(traderPoints)
-                    .setEngineerPoints(engineerPoints);
-            Log.i("Player output", player.toString());
+            viewModel.updatePlayer(name.getText().toString(),
+                    pilotPoints, fighterPoints, traderPoints, engineerPoints);
+            Log.i("Player output", viewModel.getPlayer().toString());
+            startActivity(new Intent(MainActivity.this, GameScreenActivity.class));
         }
     }
 }

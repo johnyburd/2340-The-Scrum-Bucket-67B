@@ -1,4 +1,4 @@
-package com.example.spacetrader.models;
+package com.example.spacetrader.entity;
 
 import java.lang.reflect.GenericSignatureFormatError;
 

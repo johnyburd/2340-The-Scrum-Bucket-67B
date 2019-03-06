@@ -1,4 +1,6 @@
-package com.example.spacetrader.models;
+package com.example.spacetrader.entity;
+
+import com.example.spacetrader.entity.SolarSystem;
 
 public class Universe {
     private SolarSystem[] solarSystems;
