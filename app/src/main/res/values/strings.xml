@@ -2,4 +2,7 @@
     <string name="app_name">Space Trader</string>
     <string name="space_trader">Space Trader</string>
     <string name="enter_name">Enter Name</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
