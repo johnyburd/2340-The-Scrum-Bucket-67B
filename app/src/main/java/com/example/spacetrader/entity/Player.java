@@ -11,6 +11,7 @@ public class Player {
     private int engineerPoints;
     private int credits;
     private Ship spaceship;
+    private SolarSystem location;
     private EnumMap<Good, Integer> inventory;
 
     public Player (){
@@ -59,6 +60,11 @@ public class Player {
         return this;
     }
 
+    public Player setLocation(SolarSystem location) {
+        this.location = location;
+        return this;
+    }
+
     public String getName() {
         return name;
     }
@@ -89,6 +95,14 @@ public class Player {
 
     public Spaceship getSpaceship() {
         return spaceship.getShip();
+    }
+
+    public SolarSystem getLocation() {
+        return location;
+    }
+
+    public EnumMap<Good, Integer> getInventory() {
+        return inventory;
     }
 
     public String toString() {

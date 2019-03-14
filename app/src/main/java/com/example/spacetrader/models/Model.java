@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.EnumSet;
 
+import com.example.spacetrader.entity.Event;
+import com.example.spacetrader.entity.Market;
 import com.example.spacetrader.entity.Player;
 import com.example.spacetrader.entity.Resource;
 import com.example.spacetrader.entity.SolarSystem;
@@ -16,6 +18,7 @@ public class Model {
 
     private Player player;
     private List<SolarSystem> systems;
+    private Market market;
 
     public Model() {
         systems = new ArrayList<>();
@@ -52,5 +55,14 @@ public class Model {
         player = new Player().setName(name)
                 .setPilotPoints(pilot).setFighterPoints(fighter)
                 .setTraderPoints(trader).setEngineerPoints(engineer);
+        market = new Market(player, systems.get(0), Event.BOREDOM);
+    }
+
+    public Market getMarket() {
+        return market;
+    }
+
+    public void createMarket(Player player, SolarSystem planet, Event event) {
+        market = new Market(player, planet, event);
     }
 }

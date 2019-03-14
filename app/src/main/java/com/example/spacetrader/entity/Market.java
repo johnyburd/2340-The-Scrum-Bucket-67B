@@ -269,7 +269,7 @@ public class Market {
         return BasePrice(good, event) + (IPL(good)*(planet.getTechLevel().getLevel()-getMTLP(good))) + BasePrice(good, event)*calcVar(good);
     }
 
-    public String Buy(Good good, Event event, int quantity) {
+    public String buy(Good good, Event event, int quantity) {
         if (player.getCredits() < quantity*calcPrice(good, event)) {
             return "You do not have enough credits to buy that!";
         }
@@ -277,7 +277,7 @@ public class Market {
         return "Purchase complete";
     }
 
-    public String Sell(Good good, Event event, int quantity) {
+    public String sell(Good good, Event event, int quantity) {
         if (!canSell(good)) {
             return "Planet's tech level is too low to buy this!";
         }
