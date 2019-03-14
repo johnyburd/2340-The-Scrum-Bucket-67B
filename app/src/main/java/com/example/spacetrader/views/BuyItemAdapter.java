@@ -13,6 +13,7 @@ import com.example.spacetrader.R;
 import com.example.spacetrader.entity.Event;
 import com.example.spacetrader.entity.Good;
 import com.example.spacetrader.entity.Market;
+import com.example.spacetrader.entity.Player;
 import com.example.spacetrader.models.Model;
 
 import java.util.EnumMap;
@@ -21,39 +22,42 @@ public class BuyItemAdapter extends RecyclerView.Adapter<BuyItemAdapter.BuyItemV
 
     private Market market;
     private EnumMap<Good, Integer> inventory;
+    private Player player;
 
     public BuyItemAdapter() {
         market = Model.getInstance().getMarket();
         inventory = Model.getInstance().getPlayer().getInventory();
+        player = Model.getInstance().getPlayer();
     }
 
     public class BuyItemViewHolder extends RecyclerView.ViewHolder {
         private TextView name;
         private TextView number;
         private TextView credits;
-        //private Button sell;
+        private Button buy;
         private Good good;
 
         public BuyItemViewHolder(@NonNull View itemView) {
             super(itemView);
-            name = itemView.findViewById(R.id.sell_item_name);
-            number = itemView.findViewById(R.id.sell_item_num);
-            credits = itemView.findViewById(R.id.sell_item_credit);
-            //sell = itemView.findViewById(R.id.sell_item_button);
+            name = itemView.findViewById(R.id.buy_item_name);
+            number = itemView.findViewById(R.id.buy_item_num);
+            credits = itemView.findViewById(R.id.buy_item_credit);
+            buy = itemView.findViewById(R.id.buy_item_button);
+            buy.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    name.setText("buy button pressed");
+                    player.setCredits(player.getCredits() - good.getPrice());
+                }
+            });
         }
-/*
-        public void onSellPressed(View view) {
-            String message = market.sell(good, Event.BOREDOM, 1);
-            name.setText(name.getText() + "\n" + message);
-            number.setText(inventory.get(good));
-        }*/
     }
 
     @NonNull
     @Override
     public BuyItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.sell_item, parent, false);
+                .inflate(R.layout.buy_item, parent, false);
         return new BuyItemViewHolder(itemView);
     }
 
