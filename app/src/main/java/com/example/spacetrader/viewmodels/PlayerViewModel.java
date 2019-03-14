@@ -25,6 +25,10 @@ public class PlayerViewModel extends AndroidViewModel{
         model.updatePlayer(p);
     }
 
+    public void createPlayer(String name, int pilot, int fighter, int trader, int engineer) {
+        model.createPlayer(name, pilot, fighter, trader, engineer);
+    }
+
     public boolean validatePoints(int pilot, int fighter, int trader, int engineer) {
         return pilot + fighter + trader + engineer <= 16 &&
                 pilot >= 0 && fighter >= 0 && trader >= 0 && engineer >= 0;

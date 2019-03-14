@@ -30,8 +30,6 @@ public class GameScreenActivity extends AppCompatActivity {
         playerViewModel = ViewModelProviders.of(this).get(PlayerViewModel.class);
         systemViewModel = ViewModelProviders.of(this).get(SolarSystemViewModel.class);
 
-        data.setMovementMethod(new ScrollingMovementMethod());
-
         List<SolarSystem> systems = systemViewModel.getSolarSystems();
         String s = "";
         s += playerViewModel.getPlayer().toString() + "\n\n";
@@ -39,6 +37,5 @@ public class GameScreenActivity extends AppCompatActivity {
         for (SolarSystem system : systems) {
             s += system.toString() + "\n";
         }
-        data.setText(s);
     }
 }

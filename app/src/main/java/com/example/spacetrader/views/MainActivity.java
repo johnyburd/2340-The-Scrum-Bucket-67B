@@ -20,7 +20,6 @@ import com.example.spacetrader.viewmodels.PlayerViewModel;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Player player;
     private int totalPoints;
 
     private EditText name;
@@ -62,16 +61,6 @@ public class MainActivity extends AppCompatActivity {
         traderPoints = 4;
         engineerPoints = 4;
         totalPoints = 16;
-        player = new Player();
-
-        Button addPilot = findViewById(R.id.pilot_plus);
-        Button addFighter = findViewById(R.id.fighter_plus);
-        Button addTrader = findViewById(R.id.trader_plus);
-        Button addEngineer = findViewById(R.id.engineer_plus);
-        Button minusPilot = findViewById(R.id.pilot_minus);
-        Button minusFighter = findViewById(R.id.fighter_minus);
-        Button minusTrader = findViewById(R.id.trader_minus);
-        Button minusEngineer = findViewById(R.id.engineer_minus);
     }
 
     public void onPilotAddPressed(View view) {
@@ -137,9 +126,8 @@ public class MainActivity extends AppCompatActivity {
         } else if (totalPoints < 16) {
             limit.setText("The number of skill points is below 16.");
         } else {
-            viewModel.updatePlayer(name.getText().toString(),
+            viewModel.createPlayer(name.getText().toString(),
                     pilotPoints, fighterPoints, traderPoints, engineerPoints);
-            Log.i("Player output", viewModel.getPlayer().toString());
             startActivity(new Intent(MainActivity.this, GameScreenActivity.class));
         }
     }
