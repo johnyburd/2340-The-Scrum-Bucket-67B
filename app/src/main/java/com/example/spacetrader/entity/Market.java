@@ -273,6 +273,9 @@ public class Market {
         if (player.getCredits() < quantity*calcPrice(good, event)) {
             return "You do not have enough credits to buy that!";
         }
+        if (player.getTotalGoods()+quantity > player.getShip().getCargo()) {
+            return "You cannot hold that many goods!";
+        }
         player.buy(good, quantity, quantity*calcPrice(good, event));
         return "Purchase complete";
     }
