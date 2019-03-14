@@ -1,4 +1,4 @@
-package com.example.spacetrader;
+package com.example.spacetrader.views;
 
 import android.content.Context;
 import android.net.Uri;
@@ -8,16 +8,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.spacetrader.R;
+
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link buy_tab.OnFragmentInteractionListener} interface
+ * {@link BuyTab.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link buy_tab#newInstance} factory method to
+ * Use the {@link BuyTab#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class buy_tab extends Fragment {
+public class BuyTab extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -29,7 +31,7 @@ public class buy_tab extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public buy_tab() {
+    public BuyTab() {
         // Required empty public constructor
     }
 
@@ -42,8 +44,8 @@ public class buy_tab extends Fragment {
      * @return A new instance of fragment buy_tab.
      */
     // TODO: Rename and change types and number of parameters
-    public static buy_tab newInstance(String param1, String param2) {
-        buy_tab fragment = new buy_tab();
+    public static BuyTab newInstance(String param1, String param2) {
+        BuyTab fragment = new BuyTab();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);

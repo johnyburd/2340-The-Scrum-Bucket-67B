@@ -9,18 +9,15 @@ import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Button;
 import android.view.View;
 import android.widget.TextView;
 
 import com.example.spacetrader.entity.Difficulty;
-import com.example.spacetrader.entity.Player;
 import com.example.spacetrader.R;
 import com.example.spacetrader.viewmodels.PlayerViewModel;
 
-public class MainActivity extends AppCompatActivity {
+public class CreatePlayer extends AppCompatActivity {
 
-    private Player player;
     private int totalPoints;
 
     private EditText name;
@@ -62,16 +59,6 @@ public class MainActivity extends AppCompatActivity {
         traderPoints = 4;
         engineerPoints = 4;
         totalPoints = 16;
-        player = new Player();
-
-        Button addPilot = findViewById(R.id.pilot_plus);
-        Button addFighter = findViewById(R.id.fighter_plus);
-        Button addTrader = findViewById(R.id.trader_plus);
-        Button addEngineer = findViewById(R.id.engineer_plus);
-        Button minusPilot = findViewById(R.id.pilot_minus);
-        Button minusFighter = findViewById(R.id.fighter_minus);
-        Button minusTrader = findViewById(R.id.trader_minus);
-        Button minusEngineer = findViewById(R.id.engineer_minus);
     }
 
     public void onPilotAddPressed(View view) {
@@ -140,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
             viewModel.updatePlayer(name.getText().toString(),
                     pilotPoints, fighterPoints, traderPoints, engineerPoints);
             Log.i("Player output", viewModel.getPlayer().toString());
-            startActivity(new Intent(MainActivity.this, GameScreenActivity.class));
+            startActivity(new Intent(CreatePlayer.this, GameScreenActivity.class));
         }
     }
 }
