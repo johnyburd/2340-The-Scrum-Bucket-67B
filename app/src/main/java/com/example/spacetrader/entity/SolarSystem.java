@@ -28,4 +28,8 @@ public class SolarSystem {
     public TechLevel getTechLevel() {
         return techLevel;
     }
+
+    public Resource getResource() {
+        return resource;
+    }
 }
