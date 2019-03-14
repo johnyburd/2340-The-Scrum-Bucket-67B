@@ -18,38 +18,95 @@ public class Market {
         var = rand.nextInt(5);
     }
 
-    private int BasePrice(Good good) {
+    private int BasePrice(Good good, Event event) {
+        int price = good.getPrice();
         if (good.equals(Good.WATER)) {
-            return 30;
+            if (event == Event.DROUGHT) {
+                price += 20;
+            }
+            if (planet.getResource() == Resource.DS) {
+                price += 20;
+            }
+            else if (planet.getResource() == Resource.WA) {
+                price -= 20;
+            }
         }
         else if (good.equals(Good.FURS)) {
-            return 250;
+            if (event == Event.COLD) {
+                price += 150;
+            }
+            if (planet.getResource() == Resource.RF) {
+                price -= 150;
+            }
+            else if (planet.getResource() == Resource.LL) {
+                price += 150;
+            }
         }
         else if (good.equals(Good.FOOD)) {
-            return 100;
+            if (event == Event.CROPFAIL) {
+                price += 50;
+            }
+            if (planet.getResource() == Resource.RS) {
+                price -= 50;
+            }
+            else if (planet.getResource() == Resource.PS) {
+                price += 50;
+            }
         }
         else if (good.equals(Good.ORE)) {
-            return 350;
+            if (event == Event.WAR) {
+                price += 200;
+            }
+            if (planet.getResource() == Resource.MR) {
+                price -= 200;
+            }
+            else if (planet.getResource() == Resource.MP) {
+                price += 200;
+            }
         }
         else if (good.equals(Good.GAMES)) {
-            return 250;
+            if (event == Event.BOREDOM) {
+                price += 150;
+            }
+            if (planet.getResource() == Resource.AR) {
+                price -= 150;
+            }
         }
         else if (good.equals(Good.FIREARMS)) {
-            return 1250;
+            if (event == Event.WAR) {
+                price += 500;
+            }
+            if (planet.getResource() == Resource.WL) {
+                price -= 500;
+            }
         }
         else if (good.equals(Good.MEDICINE)) {
-            return 650;
+            if (event == Event.PLAGUE) {
+                price += 350;
+            }
+            if (planet.getResource() == Resource.HE) {
+                price -= 350;
+            }
         }
         else if (good.equals(Good.MACHINES)) {
-            return 900;
+            if (event == Event.LACKOFWORKERS) {
+                price += 400;
+            }
         }
         else if (good.equals(Good.NARCOTICS)) {
-            return 3500;
+            if (event == Event.BOREDOM) {
+                price += 1000;
+            }
+            if (planet.getResource() == Resource.WM) {
+                price -= 1000;
+            }
         }
         else if (good.equals(Good.ROBOTS)) {
-            return 5000;
+            if (event == Event.LACKOFWORKERS) {
+                price += 2000;
+            }
         }
-        else return -1;
+        return price;
     }
 
     private int calcVar(Good good) {
@@ -134,7 +191,6 @@ public class Market {
         switch (good) {
             case WATER:
                 return planet.getTechLevel().getLevel() >= 0;
-
             case FURS:
                 return planet.getTechLevel().getLevel() >= 0;
             case FOOD:
@@ -209,7 +265,7 @@ public class Market {
         return 0;
     }
 
-    private int calcPrice(Good good) {
-        return BasePrice(good) + (IPL(good)*(planet.getTechLevel().getLevel()-getMTLP(good))) + BasePrice(good)*calcVar(good);
+    private int calcPrice(Good good, Event event) {
+        return BasePrice(good, event) + (IPL(good)*(planet.getTechLevel().getLevel()-getMTLP(good))) + BasePrice(good, event)*calcVar(good);
     }
 }
