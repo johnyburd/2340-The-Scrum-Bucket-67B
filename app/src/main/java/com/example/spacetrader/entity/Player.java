@@ -97,4 +97,19 @@ public class Player {
                 + " points in Engineer, " + fighterPoints + " points in Fighter, " + pilotPoints
                 + " points in Pilot, and " + traderPoints + " in Trader.";
     }
+
+    public void buy(Good good, int quantity, int cost) {
+        if (inventory.containsKey(good)) {
+            inventory.put(good, inventory.get(good)+quantity);
+        }
+        else {
+            inventory.put(good, quantity);
+        }
+        credits -= cost;
+    }
+
+    public void sell(Good good, int quantity, int profit) {
+        inventory.put(good, inventory.get(good)-quantity);
+        credits += profit;
+    }
 }
