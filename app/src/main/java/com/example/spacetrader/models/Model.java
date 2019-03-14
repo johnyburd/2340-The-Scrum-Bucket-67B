@@ -39,7 +39,7 @@ public class Model {
             int r = (int) (Math.random() * resources.length);
             SolarSystem s = new SolarSystem(p, levels[l], resources[r]);
             systems.add(s);
-            Log.i("SOLAR SYSTEM", s.toString());
+            //Log.i("SOLAR SYSTEM", s.toString());
         }
     }
 

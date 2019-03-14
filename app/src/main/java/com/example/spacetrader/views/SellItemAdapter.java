@@ -43,10 +43,10 @@ public class SellItemAdapter extends RecyclerView.Adapter<SellItemAdapter.SellIt
             sell.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //String message = market.sell(good, Event.BOREDOM, 1);
-                    //name.setText(name.getText() + "\n" + message);
-                    name.setText("sell button pressed");
-                    //number.setText(inventory.get(good));
+                    String message = market.sell(good,1);
+                    name.setText(good.getName() + "\n" + message);
+                    //name.setText("sell button pressed");
+                    number.setText(inventory.get(good).toString());
                 }
             });
         }

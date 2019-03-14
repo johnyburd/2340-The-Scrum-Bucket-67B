@@ -32,4 +32,8 @@ public class SolarSystem {
     public Resource getResource() {
         return resource;
     }
+
+    public String getName() {
+        return name;
+    }
 }

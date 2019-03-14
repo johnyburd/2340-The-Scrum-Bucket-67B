@@ -9,6 +9,7 @@ public class Market {
     private SolarSystem planet;
     private Event event;
     private int var;
+    private EnumMap<Good, Integer> inventory;
 
     public Market(Player player, SolarSystem planet, Event event) {
         this.player = player;
@@ -16,9 +17,22 @@ public class Market {
         this.event = event;
         Random rand = new Random();
         var = rand.nextInt(5);
+        inventory = new EnumMap<>(Good.class);
+        Good[] goods = Good.values();
+        for (Good good : goods) {
+            inventory.put(good, rand.nextInt(50));
+        }
     }
 
-    private int BasePrice(Good good, Event event) {
+    public EnumMap<Good, Integer> getInventory() {
+        return inventory;
+    }
+
+    public Event getEvent() {
+        return event;
+    }
+
+    private int BasePrice(Good good) {
         int price = good.getPrice();
         if (good.equals(Good.WATER)) {
             if (event == Event.DROUGHT) {
@@ -265,29 +279,33 @@ public class Market {
         return 0;
     }
 
-    public int calcPrice(Good good, Event event) {
-        return BasePrice(good, event) + (IPL(good)*(planet.getTechLevel().getLevel()-getMTLP(good))) + BasePrice(good, event)*calcVar(good);
+    public int calcPrice(Good good) {
+        return BasePrice(good) + (IPL(good)*(planet.getTechLevel().getLevel()-getMTLP(good))) + BasePrice(good)*calcVar(good);
     }
 
-    public String buy(Good good, Event event, int quantity) {
-        if (player.getCredits() < quantity*calcPrice(good, event)) {
+    public String buy(Good good, int quantity) {
+        if (player.getCredits() < quantity*calcPrice(good)) {
             return "You do not have enough credits to buy that!";
         }
         if (player.getTotalGoods()+quantity > player.getShip().getCargo()) {
             return "You cannot hold that many goods!";
         }
-        player.buy(good, quantity, quantity*calcPrice(good, event));
+        if (inventory.get(good) < 1) {
+            return "There is/are no " + good.getName() + " left on this planet!";
+        }
+        player.buy(good, quantity, quantity * calcPrice(good));
+        inventory.put(good, inventory.get(good) - 1);
         return "Purchase complete";
     }
 
-    public String sell(Good good, Event event, int quantity) {
+    public String sell(Good good, int quantity) {
         if (!canSell(good)) {
             return "Planet's tech level is too low to buy this!";
         }
         if (quantity > player.getInventory().get(good)) {
             return "You are trying to sell more than you have!";
         }
-        player.sell(good, quantity, quantity*calcPrice(good, event));
+        player.sell(good, quantity, quantity*calcPrice(good));
         return "Sale complete";
     }
 }

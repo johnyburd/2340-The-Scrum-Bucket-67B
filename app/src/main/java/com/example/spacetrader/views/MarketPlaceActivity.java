@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.spacetrader.R;
@@ -25,11 +26,16 @@ public class MarketPlaceActivity extends AppCompatActivity {
 
     private TextView credits;
     private TextView storage;
+    private TextView info;
 
     private Player player;
 
     private SellItemAdapter sellItemAdapter;
     private BuyItemAdapter buyItemAdapter;
+
+    private Market market;
+
+    private Button sellItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +49,11 @@ public class MarketPlaceActivity extends AppCompatActivity {
 
         systemViewModel = ViewModelProviders.of(this).get(SolarSystemViewModel.class);
         SolarSystem planet = systemViewModel.getSolarSystems().get(0);
+        player.setLocation(planet);
 
-        Model.getInstance().createMarket(player, planet, Event.BOREDOM);
+        // fix this so that event is not always boredom
+        marketPlaceViewModel.createMarket(player, planet, Event.BOREDOM);
+        market = marketPlaceViewModel.getMarket();
 
         credits = findViewById(R.id.marketplace_credits);
         credits.setText("Credits: " + player.getCredits());
@@ -60,10 +69,12 @@ public class MarketPlaceActivity extends AppCompatActivity {
         // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.
         //player.getCredits().observe(this, creditsObserver);
 
-
-
-
         storage = findViewById(R.id.marketplace_storage);
+        storage.setText("Storage: " + player.getTotalGoods() + "/30");
+
+        info = findViewById(R.id.marketplace_info_label);
+        info.setText("Current planet: " + player.getLocation().toString()
+                + "\nCurrent Event: " + market.getEvent().toString());
 
         RecyclerView sellView = findViewById(R.id.sell_recycler);
         sellView.setLayoutManager(new LinearLayoutManager(this));

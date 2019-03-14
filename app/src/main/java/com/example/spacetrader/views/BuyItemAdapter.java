@@ -26,7 +26,7 @@ public class BuyItemAdapter extends RecyclerView.Adapter<BuyItemAdapter.BuyItemV
 
     public BuyItemAdapter() {
         market = Model.getInstance().getMarket();
-        inventory = Model.getInstance().getPlayer().getInventory();
+        inventory = market.getInventory();
         player = Model.getInstance().getPlayer();
     }
 
@@ -46,8 +46,11 @@ public class BuyItemAdapter extends RecyclerView.Adapter<BuyItemAdapter.BuyItemV
             buy.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    name.setText("buy button pressed");
-                    player.setCredits(player.getCredits() - good.getPrice());
+                    //name.setText("buy button pressed");
+                    String message = market.buy(good, 1);
+                    name.setText(good.getName() + "\n" + message);
+                    number.setText(inventory.get(good).toString());
+                    //player.setCredits(player.getCredits() - good.getPrice());
                 }
             });
         }

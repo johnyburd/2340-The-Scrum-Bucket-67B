@@ -16,7 +16,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
         app:layout_constraintBottom_toTopOf="@+id/marketplace_credits"
         app:layout_constraintStart_toStartOf="@+id/sell_label"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sell_label"
         app:layout_constraintVertical_bias="0.509" />
 
     <TextView
@@ -24,6 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:text="Sell"
@@ -32,8 +33,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.022"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.023" />
+        app:layout_constraintTop_toBottomOf="@+id/marketplace_info_label"
+        app:layout_constraintVertical_bias="0.0" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/sell_recycler"
@@ -86,5 +87,35 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionMode.Subtitle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/sell_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="4dp"
+        android:text="no item sold yet"
+        app:layout_constraintBottom_toBottomOf="@+id/sell_label"
+        app:layout_constraintStart_toEndOf="@+id/sell_label" />
+
+    <TextView
+        android:id="@+id/buy_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="4dp"
+        android:text="no item bought yet"
+        app:layout_constraintBottom_toBottomOf="@+id/buy_label"
+        app:layout_constraintStart_toEndOf="@+id/buy_label" />
+
+    <TextView
+        android:id="@+id/marketplace_info_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="current planet + current event"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

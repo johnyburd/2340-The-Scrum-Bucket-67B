@@ -24,7 +24,6 @@ public class Player {
         for (Good good : goods) {
             inventory.put(good, 0);
         }
-        System.out.println("Inventory created");
     }
 
     public Player setName(String name) {
