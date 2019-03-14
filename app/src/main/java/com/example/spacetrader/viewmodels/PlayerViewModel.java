@@ -16,15 +16,6 @@ public class PlayerViewModel extends AndroidViewModel{
         model = Model.getInstance();
     }
 
-    public void updatePlayer(String name, int pilot, int fighter, int trader, int engineer) {
-        Player p = new Player().setName(name)
-                .setPilotPoints(pilot)
-                .setFighterPoints(fighter)
-                .setTraderPoints(trader)
-                .setEngineerPoints(engineer);
-        model.updatePlayer(p);
-    }
-
     public void createPlayer(String name, int pilot, int fighter, int trader, int engineer) {
         model.createPlayer(name, pilot, fighter, trader, engineer);
     }
