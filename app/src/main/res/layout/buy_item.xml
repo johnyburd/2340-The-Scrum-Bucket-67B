@@ -10,19 +10,18 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/buy_item_name"
+            android:id="@+id/buy_item_message"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:text="name"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/buy_item_credit"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/buy_item_num"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.482" />
+            app:layout_constraintTop_toBottomOf="@+id/buy_item_name"
+            app:layout_constraintVertical_bias="0.0" />
 
         <Button
             android:id="@+id/buy_item_button"
@@ -30,7 +29,6 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:text="buy"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -41,19 +39,28 @@
             android:layout_marginEnd="16dp"
             android:text="cr"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/buy_item_button"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/buy_item_name" />
 
         <TextView
             android:id="@+id/buy_item_num"
             android:layout_width="30dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
             android:text="10"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/buy_item_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="Name"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            app:layout_constraintStart_toEndOf="@+id/buy_item_num"
+            app:layout_constraintTop_toTopOf="@+id/buy_item_num" />
 
     </android.support.constraint.ConstraintLayout>
 </android.support.v7.widget.CardView>

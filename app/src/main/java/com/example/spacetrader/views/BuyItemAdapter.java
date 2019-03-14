@@ -16,6 +16,8 @@ import com.example.spacetrader.entity.Market;
 import com.example.spacetrader.entity.Player;
 import com.example.spacetrader.models.Model;
 
+import org.w3c.dom.Text;
+
 import java.util.EnumMap;
 
 public class BuyItemAdapter extends RecyclerView.Adapter<BuyItemAdapter.BuyItemViewHolder> {
@@ -32,6 +34,7 @@ public class BuyItemAdapter extends RecyclerView.Adapter<BuyItemAdapter.BuyItemV
 
     public class BuyItemViewHolder extends RecyclerView.ViewHolder {
         private TextView name;
+        private TextView message;
         private TextView number;
         private TextView credits;
         private Button buy;
@@ -40,17 +43,15 @@ public class BuyItemAdapter extends RecyclerView.Adapter<BuyItemAdapter.BuyItemV
         public BuyItemViewHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.buy_item_name);
+            message = itemView.findViewById(R.id.buy_item_message);
             number = itemView.findViewById(R.id.buy_item_num);
             credits = itemView.findViewById(R.id.buy_item_credit);
             buy = itemView.findViewById(R.id.buy_item_button);
             buy.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //name.setText("buy button pressed");
-                    String message = market.buy(good, 1);
-                    name.setText(good.getName() + "\n" + message);
+                    message.setText(market.buy(good, 1));
                     number.setText(inventory.get(good).toString());
-                    //player.setCredits(player.getCredits() - good.getPrice());
                 }
             });
         }

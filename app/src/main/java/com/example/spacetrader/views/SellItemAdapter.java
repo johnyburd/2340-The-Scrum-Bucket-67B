@@ -2,7 +2,6 @@ package com.example.spacetrader.views;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,10 +9,11 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.spacetrader.R;
-import com.example.spacetrader.entity.Event;
 import com.example.spacetrader.entity.Good;
 import com.example.spacetrader.entity.Market;
 import com.example.spacetrader.models.Model;
+
+import org.w3c.dom.Text;
 
 import java.util.EnumMap;
 
@@ -29,6 +29,7 @@ public class SellItemAdapter extends RecyclerView.Adapter<SellItemAdapter.SellIt
 
     public class SellItemViewHolder extends RecyclerView.ViewHolder {
         private TextView name;
+        private TextView message;
         private TextView number;
         private TextView credits;
         private Button sell;
@@ -37,25 +38,18 @@ public class SellItemAdapter extends RecyclerView.Adapter<SellItemAdapter.SellIt
         public SellItemViewHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.sell_item_name);
+            message = itemView.findViewById(R.id.sell_item_message);
             number = itemView.findViewById(R.id.sell_item_num);
             credits = itemView.findViewById(R.id.sell_item_credit);
             sell = itemView.findViewById(R.id.sell_item_button);
             sell.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String message = market.sell(good,1);
-                    name.setText(good.getName() + "\n" + message);
-                    //name.setText("sell button pressed");
+                    message.setText(market.sell(good, 1));
                     number.setText(inventory.get(good).toString());
                 }
             });
         }
-/*
-        public void onSellPressed(View view) {
-            String message = market.sell(good, Event.BOREDOM, 1);
-            name.setText(name.getText() + "\n" + message);
-            number.setText(inventory.get(good));
-        }*/
     }
 
     @NonNull
@@ -71,8 +65,8 @@ public class SellItemAdapter extends RecyclerView.Adapter<SellItemAdapter.SellIt
         Good good = Good.values()[position];
         holder.good = good;
         holder.name.setText(good.getName());
-        holder.number.setText(inventory.get(good).toString());
-        holder.credits.setText("" + good.getPrice());
+        holder.number.setText(String.format("%d", inventory.get(good).intValue()));
+        holder.credits.setText(String.format("%d", good.getPrice()));
         //holder.name.setText("test name " + position);
     }
 
