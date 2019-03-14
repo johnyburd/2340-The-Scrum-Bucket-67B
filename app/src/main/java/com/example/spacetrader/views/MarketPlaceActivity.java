@@ -25,6 +25,8 @@ public class MarketPlaceActivity extends AppCompatActivity {
 
     private Player player;
 
+    private SellItemAdapter sellItemAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,8 +49,8 @@ public class MarketPlaceActivity extends AppCompatActivity {
         sellView.setLayoutManager(new LinearLayoutManager(this));
         sellView.setHasFixedSize(true);
 
-        SellItemAdapter sellItemAdapter = new SellItemAdapter();
-        //sellView.setAdapter(sellItemAdapter);
+        sellItemAdapter = new SellItemAdapter();
+        sellView.setAdapter(sellItemAdapter);
 
         RecyclerView buyView = findViewById(R.id.buy_recycler);
         buyView.setLayoutManager(new LinearLayoutManager(this));

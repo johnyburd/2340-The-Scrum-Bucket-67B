@@ -19,6 +19,12 @@ public class Player {
         skillPoints = 16;
         credits = 1000;
         spaceship = new Ship(Spaceship.GNAT);
+        inventory = new EnumMap<>(Good.class);
+        Good[] goods = Good.values();
+        for (Good good : goods) {
+            inventory.put(good, 0);
+        }
+        System.out.println("Inventory created");
     }
 
     public Player setName(String name) {

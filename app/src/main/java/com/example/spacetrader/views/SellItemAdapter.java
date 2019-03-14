@@ -27,10 +27,11 @@ public class SellItemAdapter extends RecyclerView.Adapter<SellItemAdapter.SellIt
         inventory = Model.getInstance().getPlayer().getInventory();
     }
 
-    class SellItemViewHolder extends RecyclerView.ViewHolder {
+    public class SellItemViewHolder extends RecyclerView.ViewHolder {
         private TextView name;
         private TextView number;
         private TextView credits;
+        //private Button sell;
         private Good good;
 
         public SellItemViewHolder(@NonNull View itemView) {
@@ -38,9 +39,10 @@ public class SellItemAdapter extends RecyclerView.Adapter<SellItemAdapter.SellIt
             name = itemView.findViewById(R.id.sell_item_name);
             number = itemView.findViewById(R.id.sell_item_num);
             credits = itemView.findViewById(R.id.sell_item_credit);
+            //sell = itemView.findViewById(R.id.sell_item_button);
         }
-        /*
-        public void onSellPressed() {
+/*
+        public void onSellPressed(View view) {
             String message = market.sell(good, Event.BOREDOM, 1);
             name.setText(name.getText() + "\n" + message);
             number.setText(inventory.get(good));
@@ -49,7 +51,7 @@ public class SellItemAdapter extends RecyclerView.Adapter<SellItemAdapter.SellIt
 
     @NonNull
     @Override
-    public SellItemAdapter.SellItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
+    public SellItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.sell_item, parent, false);
         return new SellItemViewHolder(itemView);
@@ -60,12 +62,13 @@ public class SellItemAdapter extends RecyclerView.Adapter<SellItemAdapter.SellIt
         Good good = Good.values()[position];
         holder.good = good;
         holder.name.setText(good.getName());
-        holder.number.setText(inventory.get(good));
-        holder.credits.setText(good.getPrice());
+        holder.number.setText(inventory.get(good).toString());
+        holder.credits.setText("" + good.getPrice());
+        //holder.name.setText("test name " + position);
     }
 
     @Override
     public int getItemCount() {
-        return inventory.size();
+        return Good.values().length;
     }
 }
