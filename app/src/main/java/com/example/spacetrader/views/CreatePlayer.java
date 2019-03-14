@@ -126,7 +126,7 @@ public class CreatePlayer extends AppCompatActivity {
         } else {
             viewModel.createPlayer(name.getText().toString(),
                     pilotPoints, fighterPoints, traderPoints, engineerPoints);
-            startActivity(new Intent(CreatePlayer.this, GameScreenActivity.class));
+            startActivity(new Intent(CreatePlayer.this, MarketPlaceActivity.class));
         }
     }
 }

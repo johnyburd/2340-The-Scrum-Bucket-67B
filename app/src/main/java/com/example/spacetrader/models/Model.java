@@ -53,16 +53,4 @@ public class Model {
                 .setPilotPoints(pilot).setFighterPoints(fighter)
                 .setTraderPoints(trader).setEngineerPoints(engineer);
     }
-
-    public void updatePlayer(Player p) {
-        player.setCredits(p.getCredits());
-        player.setEngineerPoints(p.getEngineerPoints());
-        player.setFighterPoints(p.getFighterPoints());
-        player.setPilotPoints(p.getPilotPoints());
-        player.setTraderPoints(p.getTraderPoints());
-        player.setName(p.getName());
-        player.setSkillPoints(p.getSkillPoints());
-        player.setSpaceship(p.getSpaceship());
-        Log.i("PLAYER", player.toString());
-    }
 }
