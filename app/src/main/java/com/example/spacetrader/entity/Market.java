@@ -18,35 +18,65 @@ public class Market {
         var = rand.nextInt(5);
     }
 
-    private int BasePrice(Good good) {
+    private int BasePrice(Good good, Event event) {
         if (good.equals(Good.WATER)) {
+            if (event == Event.DROUGHT) {
+                return 50;
+            }
             return 30;
         }
         else if (good.equals(Good.FURS)) {
+            if (event == Event.COLD) {
+                return 400;
+            }
             return 250;
         }
         else if (good.equals(Good.FOOD)) {
+            if (event == Event.CROPFAIL) {
+                return 150;
+            }
             return 100;
         }
         else if (good.equals(Good.ORE)) {
+            if (event == Event.WAR) {
+                return 550;
+            }
             return 350;
         }
         else if (good.equals(Good.GAMES)) {
+            if (event == Event.BOREDOM) {
+                return 400;
+            }
             return 250;
         }
         else if (good.equals(Good.FIREARMS)) {
+            if (event == Event.WAR) {
+                return 1750;
+            }
             return 1250;
         }
         else if (good.equals(Good.MEDICINE)) {
+            if (event == Event.PLAGUE) {
+                return 1000;
+            }
             return 650;
         }
         else if (good.equals(Good.MACHINES)) {
+            if (event == Event.LACKOFWORKERS) {
+                return 1300;
+            }
             return 900;
         }
         else if (good.equals(Good.NARCOTICS)) {
+            if (event == Event.BOREDOM) {
+                return 4500;
+            }
             return 3500;
         }
         else if (good.equals(Good.ROBOTS)) {
+            if (event == Event.LACKOFWORKERS) {
+                return 7000;
+            }
             return 5000;
         }
         else return -1;
@@ -134,7 +164,6 @@ public class Market {
         switch (good) {
             case WATER:
                 return planet.getTechLevel().getLevel() >= 0;
-
             case FURS:
                 return planet.getTechLevel().getLevel() >= 0;
             case FOOD:
@@ -209,7 +238,7 @@ public class Market {
         return 0;
     }
 
-    private int calcPrice(Good good) {
-        return BasePrice(good) + (IPL(good)*(planet.getTechLevel().getLevel()-getMTLP(good))) + BasePrice(good)*calcVar(good);
+    private int calcPrice(Good good, Event event) {
+        return BasePrice(good, event) + (IPL(good)*(planet.getTechLevel().getLevel()-getMTLP(good))) + BasePrice(good, event)*calcVar(good);
     }
 }

@@ -1,6 +1,7 @@
 package com.example.spacetrader.entity;
 
 public enum Event {
+    NONE,
     DROUGHT,
     COLD,
     CROPFAIL,
