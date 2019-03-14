@@ -18,7 +18,6 @@ public class Model {
     private List<SolarSystem> systems;
 
     public Model() {
-        player = new Player();
         systems = new ArrayList<>();
         loadSolarSystems();
     }
@@ -47,6 +46,12 @@ public class Model {
 
     public Player getPlayer() {
         return player;
+    }
+
+    public void createPlayer(String name, int pilot, int fighter, int trader, int engineer) {
+        player = new Player().setName(name)
+                .setPilotPoints(pilot).setFighterPoints(fighter)
+                .setTraderPoints(trader).setEngineerPoints(engineer);
     }
 
     public void updatePlayer(Player p) {

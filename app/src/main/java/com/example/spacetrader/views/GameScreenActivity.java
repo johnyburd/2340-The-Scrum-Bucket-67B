@@ -20,8 +20,6 @@ public class GameScreenActivity extends AppCompatActivity {
     private PlayerViewModel playerViewModel;
     private SolarSystemViewModel systemViewModel;
 
-    private TextView data;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,8 +28,6 @@ public class GameScreenActivity extends AppCompatActivity {
         playerViewModel = ViewModelProviders.of(this).get(PlayerViewModel.class);
         systemViewModel = ViewModelProviders.of(this).get(SolarSystemViewModel.class);
 
-        data.setMovementMethod(new ScrollingMovementMethod());
-
         List<SolarSystem> systems = systemViewModel.getSolarSystems();
         String s = "";
         s += playerViewModel.getPlayer().toString() + "\n\n";
@@ -39,6 +35,5 @@ public class GameScreenActivity extends AppCompatActivity {
         for (SolarSystem system : systems) {
             s += system.toString() + "\n";
         }
-        data.setText(s);
     }
 }
