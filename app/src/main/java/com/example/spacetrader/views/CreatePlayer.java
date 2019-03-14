@@ -124,9 +124,8 @@ public class CreatePlayer extends AppCompatActivity {
         } else if (totalPoints < 16) {
             limit.setText("The number of skill points is below 16.");
         } else {
-            viewModel.updatePlayer(name.getText().toString(),
+            viewModel.createPlayer(name.getText().toString(),
                     pilotPoints, fighterPoints, traderPoints, engineerPoints);
-            Log.i("Player output", viewModel.getPlayer().toString());
             startActivity(new Intent(CreatePlayer.this, GameScreenActivity.class));
         }
     }
