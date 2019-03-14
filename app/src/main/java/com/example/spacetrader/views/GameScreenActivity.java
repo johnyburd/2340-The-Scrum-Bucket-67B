@@ -30,7 +30,6 @@ public class GameScreenActivity extends AppCompatActivity {
         playerViewModel = ViewModelProviders.of(this).get(PlayerViewModel.class);
         systemViewModel = ViewModelProviders.of(this).get(SolarSystemViewModel.class);
 
-        data = findViewById(R.id.game_data_label);
         data.setMovementMethod(new ScrollingMovementMethod());
 
         List<SolarSystem> systems = systemViewModel.getSolarSystems();
