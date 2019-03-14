@@ -96,6 +96,8 @@ public class Player {
 
     public Ship getShip() {return spaceship;}
 
+    public EnumMap<Good, Integer> getInventory() {return inventory;}
+
     public String toString() {
         return "Player's name is " + name + " and has " + credits +
                 " credits with the " + spaceship.toString() + " ship. " + engineerPoints

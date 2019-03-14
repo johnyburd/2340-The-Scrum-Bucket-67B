@@ -284,6 +284,9 @@ public class Market {
         if (!canSell(good)) {
             return "Planet's tech level is too low to buy this!";
         }
+        if (quantity > player.getInventory().get(good)) {
+            return "You are trying to sell more than you have!";
+        }
         player.sell(good, quantity, quantity*calcPrice(good, event));
         return "Sale complete";
     }
