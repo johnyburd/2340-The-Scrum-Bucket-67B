@@ -31,7 +31,7 @@ public class SellItemAdapter extends RecyclerView.Adapter<SellItemAdapter.SellIt
         private TextView name;
         private TextView number;
         private TextView credits;
-        //private Button sell;
+        private Button sell;
         private Good good;
 
         public SellItemViewHolder(@NonNull View itemView) {
@@ -39,7 +39,16 @@ public class SellItemAdapter extends RecyclerView.Adapter<SellItemAdapter.SellIt
             name = itemView.findViewById(R.id.sell_item_name);
             number = itemView.findViewById(R.id.sell_item_num);
             credits = itemView.findViewById(R.id.sell_item_credit);
-            //sell = itemView.findViewById(R.id.sell_item_button);
+            sell = itemView.findViewById(R.id.sell_item_button);
+            sell.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //String message = market.sell(good, Event.BOREDOM, 1);
+                    //name.setText(name.getText() + "\n" + message);
+                    name.setText("sell button pressed");
+                    //number.setText(inventory.get(good));
+                }
+            });
         }
 /*
         public void onSellPressed(View view) {
