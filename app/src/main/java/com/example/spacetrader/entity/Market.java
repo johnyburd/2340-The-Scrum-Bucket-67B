@@ -273,6 +273,9 @@ public class Market {
         if (player.getCredits() < quantity*calcPrice(good, event)) {
             return "You do not have enough credits to buy that!";
         }
+        if (player.getTotalGoods()+quantity > player.getShip().getCargo()) {
+            return "You cannot hold that many goods!";
+        }
         player.buy(good, quantity, quantity*calcPrice(good, event));
         return "Purchase complete";
     }
@@ -280,6 +283,9 @@ public class Market {
     public String sell(Good good, Event event, int quantity) {
         if (!canSell(good)) {
             return "Planet's tech level is too low to buy this!";
+        }
+        if (quantity > player.getInventory().get(good)) {
+            return "You are trying to sell more than you have!";
         }
         player.sell(good, quantity, quantity*calcPrice(good, event));
         return "Sale complete";

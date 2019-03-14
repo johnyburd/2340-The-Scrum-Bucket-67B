@@ -13,6 +13,7 @@ public class Player {
     private Ship spaceship;
     private SolarSystem location;
     private EnumMap<Good, Integer> inventory;
+    private int totalGoods;
 
     public Player (){
         skillPoints = 16;
@@ -93,6 +94,8 @@ public class Player {
         return credits;
     }
 
+    public int getTotalGoods() {return totalGoods;}
+
     public Spaceship getSpaceship() {
         return spaceship.getShip();
     }
@@ -103,6 +106,10 @@ public class Player {
 
     public EnumMap<Good, Integer> getInventory() {
         return inventory;
+    }
+
+    public Ship getShip() {
+        return spaceship;
     }
 
     public String toString() {
@@ -120,10 +127,12 @@ public class Player {
             inventory.put(good, quantity);
         }
         credits -= cost;
+        totalGoods += quantity;
     }
 
     public void sell(Good good, int quantity, int profit) {
         inventory.put(good, inventory.get(good)-quantity);
         credits += profit;
+        totalGoods -= quantity;
     }
 }
