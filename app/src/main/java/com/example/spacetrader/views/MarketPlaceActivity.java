@@ -19,6 +19,9 @@ import com.example.spacetrader.viewmodels.MarketPlaceViewModel;
 import com.example.spacetrader.viewmodels.PlayerViewModel;
 import com.example.spacetrader.viewmodels.SolarSystemViewModel;
 
+import java.util.Observable;
+import java.util.Observer;
+
 public class MarketPlaceActivity extends AppCompatActivity {
     private PlayerViewModel playerViewModel;
     private MarketPlaceViewModel marketPlaceViewModel;
@@ -35,7 +38,7 @@ public class MarketPlaceActivity extends AppCompatActivity {
 
     private Market market;
 
-    private Button sellItem;
+    private Observer creditsObserver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +60,15 @@ public class MarketPlaceActivity extends AppCompatActivity {
 
         credits = findViewById(R.id.marketplace_credits);
         credits.setText("Credits: " + player.getCredits());
+
+        creditsObserver = new Observer() {
+            @Override
+            public void update(Observable o, Object arg) {
+                credits.setText("Credits: " + arg);
+            }
+        };
+
+        player.addObserver(creditsObserver);
 
         /*final Observer<String> creditsObserver = new Observer<String>() {
             @Override

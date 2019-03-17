@@ -1,8 +1,9 @@
 package com.example.spacetrader.entity;
 
 import java.util.EnumMap;
+import java.util.Observable;
 
-public class Player {
+public class Player extends Observable {
     private String name;
     private int skillPoints;
     private int pilotPoints;
@@ -20,6 +21,7 @@ public class Player {
         credits = 1000;
         spaceship = new Ship(Spaceship.GNAT);
         inventory = new EnumMap<>(Good.class);
+
         Good[] goods = Good.values();
         for (Good good : goods) {
             inventory.put(good, 0);
@@ -133,11 +135,15 @@ public class Player {
         }
         credits -= cost;
         totalGoods += quantity;
+        this.setChanged();
+        this.notifyObservers(credits);
     }
 
     public void sell(Good good, int quantity, int profit) {
         inventory.put(good, inventory.get(good)-quantity);
         credits += profit;
         totalGoods -= quantity;
+        this.setChanged();
+        this.notifyObservers(credits);
     }
 }

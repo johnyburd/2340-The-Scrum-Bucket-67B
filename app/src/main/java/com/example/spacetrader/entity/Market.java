@@ -284,7 +284,8 @@ public class Market {
     }
 
     public String buy(Good good, int quantity) {
-        if (player.getCredits() < quantity*calcPrice(good)) {
+        int price = quantity * calcPrice(good);
+        if (player.getCredits() < price) {
             return "You do not have enough credits to buy that!";
         }
         if (player.getTotalGoods()+quantity > player.getShip().getCargo()) {
@@ -293,7 +294,7 @@ public class Market {
         if (inventory.get(good) < 1) {
             return "There is/are no " + good.getName() + " left on this planet!";
         }
-        player.buy(good, quantity, quantity * calcPrice(good));
+        player.buy(good, quantity, price);
         inventory.put(good, inventory.get(good) - 1);
         return "Purchase complete";
     }

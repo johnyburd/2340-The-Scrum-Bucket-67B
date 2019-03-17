@@ -16,6 +16,7 @@ import com.example.spacetrader.models.Model;
 import org.w3c.dom.Text;
 
 import java.util.EnumMap;
+import java.util.Observer;
 
 public class SellItemAdapter extends RecyclerView.Adapter<SellItemAdapter.SellItemViewHolder> {
 
@@ -34,6 +35,7 @@ public class SellItemAdapter extends RecyclerView.Adapter<SellItemAdapter.SellIt
         private TextView credits;
         private Button sell;
         private Good good;
+        private BuyItemAdapter.BuyItemViewHolder buy;
 
         public SellItemViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -67,11 +69,10 @@ public class SellItemAdapter extends RecyclerView.Adapter<SellItemAdapter.SellIt
         holder.name.setText(good.getName());
         holder.number.setText(String.format("%d", inventory.get(good).intValue()));
         holder.credits.setText(String.format("%d", good.getPrice()));
-        //holder.name.setText("test name " + position);
     }
 
     @Override
     public int getItemCount() {
-        return Good.values().length;
+        return inventory.size();
     }
 }

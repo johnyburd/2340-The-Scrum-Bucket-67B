@@ -19,6 +19,7 @@ import com.example.spacetrader.models.Model;
 import org.w3c.dom.Text;
 
 import java.util.EnumMap;
+import java.util.Observable;
 
 public class BuyItemAdapter extends RecyclerView.Adapter<BuyItemAdapter.BuyItemViewHolder> {
 
@@ -72,7 +73,6 @@ public class BuyItemAdapter extends RecyclerView.Adapter<BuyItemAdapter.BuyItemV
         holder.name.setText(good.getName());
         holder.number.setText(inventory.get(good).toString());
         holder.credits.setText("" + good.getPrice());
-        //holder.name.setText("test name " + position);
     }
 
     @Override
