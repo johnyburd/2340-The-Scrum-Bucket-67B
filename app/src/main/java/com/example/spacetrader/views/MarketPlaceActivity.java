@@ -39,6 +39,7 @@ public class MarketPlaceActivity extends AppCompatActivity {
     private Market market;
 
     private Observer creditsObserver;
+    private Observer storageObserver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,19 +71,16 @@ public class MarketPlaceActivity extends AppCompatActivity {
 
         player.addObserver(creditsObserver);
 
-        /*final Observer<String> creditsObserver = new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable final String newName) {
-                // Update the UI, in this case, a TextView.
-                credits.setText(newName);
-            }
-        };*/
-
-        // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.
-        //player.getCredits().observe(this, creditsObserver);
-
         storage = findViewById(R.id.marketplace_storage);
         storage.setText("Storage: " + player.getTotalGoods() + "/30");
+
+        storageObserver = new Observer() {
+            @Override
+            public void update(Observable o, Object arg) {
+                storage.setText("Storage: " + player.getTotalGoods() + "/30");
+            }
+        };
+        player.addObserver(storageObserver);
 
         info = findViewById(R.id.marketplace_info_label);
         info.setText("Current planet: " + player.getLocation().toString()
