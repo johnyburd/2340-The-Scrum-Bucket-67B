@@ -264,23 +264,24 @@ public class Market {
             case ORE:
                 return 20;
             case GAMES:
-                return -10;
+                return 10;
             case FIREARMS:
-                return -75;
+                return 75;
             case MEDICINE:
-                return -20;
+                return 20;
             case MACHINES:
-                return -30;
+                return 30;
             case NARCOTICS:
-                return -125;
+                return 125;
             case ROBOTS:
-                return -150;
+                return 150;
         }
         return 0;
     }
 
     public int calcPrice(Good good) {
-        return BasePrice(good) + (IPL(good)*(planet.getTechLevel().getLevel()-getMTLP(good))) + BasePrice(good)*calcVar(good);
+        int base = BasePrice(good);
+        return base + (IPL(good)*(planet.getTechLevel().getLevel()-getMTLP(good))) + (base*calcVar(good)/100);
     }
 
     public String buy(Good good, int quantity) {

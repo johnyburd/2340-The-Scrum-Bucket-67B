@@ -68,7 +68,7 @@ public class SellItemAdapter extends RecyclerView.Adapter<SellItemAdapter.SellIt
         holder.good = good;
         holder.name.setText(good.getName());
         holder.number.setText(String.format("%d", inventory.get(good).intValue()));
-        holder.credits.setText(String.format("%d", good.getPrice()));
+        holder.credits.setText(String.format("%d", market.calcPrice(good)));
     }
 
     @Override
