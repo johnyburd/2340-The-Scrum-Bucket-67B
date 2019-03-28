@@ -72,12 +72,12 @@ public class MarketPlaceActivity extends AppCompatActivity {
         player.addObserver(creditsObserver);
 
         storage = findViewById(R.id.marketplace_storage);
-        storage.setText("Storage: " + player.getTotalGoods() + "/30");
+        storage.setText("Storage: " + player.getTotalGoods() + "/15");
 
         storageObserver = new Observer() {
             @Override
             public void update(Observable o, Object arg) {
-                storage.setText("Storage: " + player.getTotalGoods() + "/30");
+                storage.setText("Storage: " + player.getTotalGoods() + "/15");
             }
         };
         player.addObserver(storageObserver);
