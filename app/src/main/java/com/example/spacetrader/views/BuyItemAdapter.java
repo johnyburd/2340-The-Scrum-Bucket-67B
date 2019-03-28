@@ -72,7 +72,7 @@ public class BuyItemAdapter extends RecyclerView.Adapter<BuyItemAdapter.BuyItemV
         holder.good = good;
         holder.name.setText(good.getName());
         holder.number.setText(inventory.get(good).toString());
-        holder.credits.setText("" + market.calcPrice(good));
+        holder.credits.setText("" + market.getPlanetPrices()[good.getNum()]);
     }
 
     @Override

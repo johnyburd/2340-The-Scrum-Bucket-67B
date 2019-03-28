@@ -10,6 +10,8 @@ public class Market {
     private Event event;
     private int var;
     private EnumMap<Good, Integer> inventory;
+    private int[] playerPrices = new int[10];
+    private int[] planetPrices = new int[10];
 
     public Market(Player player, SolarSystem planet, Event event) {
         this.player = player;
@@ -22,6 +24,10 @@ public class Market {
         for (Good good : goods) {
             inventory.put(good, rand.nextInt(50));
         }
+        for (int i = 0; i < 10; i++) {
+            playerPrices[i] = calcPrice(getGood(i));
+            planetPrices[i] = calcPrice(getGood(i));
+        }
     }
 
     public EnumMap<Good, Integer> getInventory() {
@@ -30,6 +36,40 @@ public class Market {
 
     public Event getEvent() {
         return event;
+    }
+
+    public int[] getPlayerPrices() {
+        return playerPrices;
+    }
+
+    public int[] getPlanetPrices() {
+        return planetPrices;
+    }
+
+    private Good getGood(int good) {
+        switch (good) {
+            case 0:
+                return Good.WATER;
+            case 1:
+                return Good.FURS;
+            case 2:
+                return Good.FOOD;
+            case 3:
+                return Good.ORE;
+            case 4:
+                return Good.GAMES;
+            case 5:
+                return Good.FIREARMS;
+            case 6:
+                return Good.MEDICINE;
+            case 7:
+                return Good.MACHINES;
+            case 8:
+                return Good.NARCOTICS;
+            case 9:
+                return Good.ROBOTS;
+        }
+        return Good.WATER;
     }
 
     private int BasePrice(Good good) {
@@ -285,7 +325,7 @@ public class Market {
     }
 
     public String buy(Good good, int quantity) {
-        int price = quantity * calcPrice(good);
+        int price = quantity * planetPrices[good.getNum()];
         if (player.getCredits() < price) {
             return "You do not have enough credits to buy that!";
         }
@@ -307,7 +347,7 @@ public class Market {
         if (quantity > player.getInventory().get(good)) {
             return "You are trying to sell more than you have!";
         }
-        player.sell(good, quantity, quantity*calcPrice(good));
+        player.sell(good, quantity, quantity*playerPrices[good.getNum()]);
         return "Sale complete";
     }
 }
