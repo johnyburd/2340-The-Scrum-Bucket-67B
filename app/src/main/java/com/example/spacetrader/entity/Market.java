@@ -27,6 +27,9 @@ public class Market {
         for (int i = 0; i < 10; i++) {
             playerPrices[i] = calcPrice(getGood(i));
             planetPrices[i] = calcPrice(getGood(i));
+            if (playerPrices[i] > planetPrices[i]) {
+                playerPrices[i] = planetPrices[i];
+            }
         }
     }
 
