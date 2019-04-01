@@ -71,7 +71,7 @@ public class Player extends Observable {
     public Player setLocation(SolarSystem location) {
         this.location = location;
         this.setChanged();
-        this.notifyObservers();
+        this.notifyObservers(credits);
         return this;
     }
 

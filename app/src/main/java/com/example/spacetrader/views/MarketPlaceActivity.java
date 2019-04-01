@@ -23,6 +23,7 @@ import com.example.spacetrader.viewmodels.SolarSystemViewModel;
 
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Random;
 
 public class MarketPlaceActivity extends AppCompatActivity {
     private PlayerViewModel playerViewModel;
@@ -31,7 +32,10 @@ public class MarketPlaceActivity extends AppCompatActivity {
 
     private TextView credits;
     private TextView storage;
-    private TextView info;
+    //private TextView info;
+
+    private TextView planet_info;
+    private TextView event_info;
 
     private Player player;
 
@@ -42,6 +46,7 @@ public class MarketPlaceActivity extends AppCompatActivity {
 
     private Observer creditsObserver;
     private Observer storageObserver;
+    private Observer locationObserver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,25 +89,42 @@ public class MarketPlaceActivity extends AppCompatActivity {
         };
         player.addObserver(storageObserver);
 
-        /*
-        info = findViewById(R.id.marketplace_info_label);
-        info.setText("Current planet: " + player.getLocation().toString()
-                + "\nCurrent Event: " + market.getEvent().toString());
-                */
+        planet_info = findViewById(R.id.market_planet_label);
+        planet_info.setText("Current Planet: " + player.getLocation().toString());
 
-        RecyclerView sellView = findViewById(R.id.sell_recycler);
+        event_info = findViewById(R.id.market_event_label);
+        event_info.setText("Current Event:\n" + market.getEvent());
+
+        final RecyclerView sellView = findViewById(R.id.sell_recycler);
         sellView.setLayoutManager(new LinearLayoutManager(this));
         sellView.setHasFixedSize(true);
 
         sellItemAdapter = new SellItemAdapter();
         sellView.setAdapter(sellItemAdapter);
 
-        RecyclerView buyView = findViewById(R.id.buy_recycler);
+        final RecyclerView buyView = findViewById(R.id.buy_recycler);
         buyView.setLayoutManager(new LinearLayoutManager(this));
         buyView.setHasFixedSize(true);
 
         buyItemAdapter = new BuyItemAdapter();
         buyView.setAdapter(buyItemAdapter);
+
+        final Random rand = new Random();
+        locationObserver = new Observer() {
+            @Override
+            public void update(Observable o, Object arg) {
+                marketPlaceViewModel.createMarket(player, player.getLocation(),
+                        Event.values()[rand.nextInt(Event.values().length)]);
+                market = marketPlaceViewModel.getMarket();
+                sellItemAdapter = new SellItemAdapter();
+                sellView.setAdapter(sellItemAdapter);
+                buyItemAdapter = new BuyItemAdapter();
+                buyView.setAdapter(buyItemAdapter);
+                planet_info.setText("Current Planet: " + player.getLocation().toString());
+                event_info.setText("Current Event:\n" + market.getEvent());
+            }
+        };
+        player.addObserver(locationObserver);
     }
 
     public void onTravelPressed(View view) {
