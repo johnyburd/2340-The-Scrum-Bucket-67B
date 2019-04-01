@@ -23,9 +23,6 @@
         <activity
             android:name=".views.CreatePlayer"
             android:parentActivityName=".views.StartActivity" />
-        <activity
-            android:name=".views.MarketPlaceActivity"
-            android:parentActivityName=".views.CreatePlayer" />
     </application>
 
 </manifest>
