@@ -1,11 +1,13 @@
 package com.example.spacetrader.views;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -82,9 +84,11 @@ public class MarketPlaceActivity extends AppCompatActivity {
         };
         player.addObserver(storageObserver);
 
+        /*
         info = findViewById(R.id.marketplace_info_label);
         info.setText("Current planet: " + player.getLocation().toString()
                 + "\nCurrent Event: " + market.getEvent().toString());
+                */
 
         RecyclerView sellView = findViewById(R.id.sell_recycler);
         sellView.setLayoutManager(new LinearLayoutManager(this));
@@ -99,5 +103,9 @@ public class MarketPlaceActivity extends AppCompatActivity {
 
         buyItemAdapter = new BuyItemAdapter();
         buyView.setAdapter(buyItemAdapter);
+    }
+
+    public void onTravelPressed(View view) {
+        startActivity(new Intent(MarketPlaceActivity.this, WarpActivity.class));
     }
 }

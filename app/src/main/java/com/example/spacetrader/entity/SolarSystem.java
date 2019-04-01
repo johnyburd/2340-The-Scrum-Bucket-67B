@@ -20,9 +20,9 @@ public class SolarSystem {
 
     @Override
     public String toString() {
-        return name + " | location: " + location.toString()
-                + ", tech level: " + techLevel.getName()
-                + ", resource: " + resource.getName();
+        return name + "\nlocation: " + location.toString()
+                + "\ntech level: " + techLevel.getName()
+                + "\nresource: " + resource.getName();
     }
 
     public TechLevel getTechLevel() {
@@ -35,5 +35,9 @@ public class SolarSystem {
 
     public String getName() {
         return name;
+    }
+
+    public Coordinate getLocation() {
+        return location;
     }
 }
