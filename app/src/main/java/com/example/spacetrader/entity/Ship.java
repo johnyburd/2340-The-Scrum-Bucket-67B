@@ -1,21 +1,25 @@
 package com.example.spacetrader.entity;
 
+import android.media.Image;
+
 public class Ship {
     private Spaceship ship;
     private int cargo;
     private int currHull;
     private int hull;
     //private int fuel;
-    //private int currentFuel;
+    private int currentFuel;
 
     public Ship() {
         ship = Spaceship.FLEA;
         cargo = 10;
         hull = 25;
         currHull = 25;
+        currentFuel = 500;
     }
 
     public Ship(Spaceship s) {
+        currentFuel = 500;
         if (s.equals(Spaceship.FLEA)) {
             ship = s;
             cargo = 10;
@@ -78,7 +82,19 @@ public class Ship {
         }
     }
 
+    public boolean Travel(Player player, SolarSystem system) {
+        Coordinate start = player.getLocation().getLocation();
+        Coordinate dest = system.getLocation();
+        double dist = Math.sqrt(Math.pow(start.getX() - dest.getX(), 2) + Math.pow(start.getY() - dest.getY(), 2));
+        if (dist < currentFuel) {
+            currentFuel -= dist;
+            return true;
+        }
+        return false;
+    }
+
     public Spaceship getShip() {return ship;}
     public int getCargo() {return cargo;}
+    public int getCurrentFuel() {return currentFuel;}
     public String toString() {return ship.toString();}
 }

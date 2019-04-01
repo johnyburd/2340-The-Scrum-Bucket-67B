@@ -45,7 +45,9 @@ public class WarpAdapter extends RecyclerView.Adapter<WarpAdapter.WarpItemViewHo
             warp.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    player.setLocation(system);
+                    if (player.getShip().Travel(player, system)) {
+                        player.setLocation(system);
+                    }
                 }
             });
         }

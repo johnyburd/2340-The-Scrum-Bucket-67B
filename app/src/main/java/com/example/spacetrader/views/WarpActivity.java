@@ -45,7 +45,7 @@ public class WarpActivity extends AppCompatActivity {
         text = findViewById(R.id.warp_label);
         cancel = findViewById(R.id.warp_cancel);
 
-        text.setText("Current planet: " + player.getLocation().toString());
+        text.setText("Current planet: " + player.getLocation().toString() + "\nFuel: " + player.getShip().getCurrentFuel());
 
         planets = findViewById(R.id.warp_recycler);
         planets.setLayoutManager(new LinearLayoutManager(this));
@@ -57,7 +57,7 @@ public class WarpActivity extends AppCompatActivity {
         locationObserver = new Observer() {
             @Override
             public void update(Observable o, Object arg) {
-                text.setText("Current planet: " + player.getLocation().toString());
+                text.setText("Current planet: " + player.getLocation().toString() + "\nFuel: " + player.getShip().getCurrentFuel());
                 finish();
             }
         };

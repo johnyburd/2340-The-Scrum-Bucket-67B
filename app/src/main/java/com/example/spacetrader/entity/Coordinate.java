@@ -15,6 +15,13 @@ public class Coordinate {
         this.y = y;
     }
 
+    public int getX() {
+        return x;
+    }
+    public int getY() {
+        return y;
+    }
+
     @Override
     public boolean equals(Object obj) {
         // checking if both the object references are
