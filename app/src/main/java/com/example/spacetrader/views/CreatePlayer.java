@@ -5,7 +5,6 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -126,7 +125,7 @@ public class CreatePlayer extends AppCompatActivity {
         } else {
             viewModel.createPlayer(name.getText().toString(),
                     pilotPoints, fighterPoints, traderPoints, engineerPoints);
-            startActivity(new Intent(CreatePlayer.this, MarketPlaceActivity.class));
+            startActivity(new Intent(CreatePlayer.this, TabActivity.class));
         }
     }
 }

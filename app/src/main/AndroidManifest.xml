@@ -9,6 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name=".views.TabActivity"
+            android:label="@string/title_activity_tab2"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".views.StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,12 +22,10 @@
         </activity>
         <activity
             android:name=".views.CreatePlayer"
-            android:parentActivityName=".views.StartActivity">
-        </activity>
+            android:parentActivityName=".views.StartActivity" />
         <activity
             android:name=".views.MarketPlaceActivity"
-            android:parentActivityName=".views.CreatePlayer">
-        </activity>
+            android:parentActivityName=".views.CreatePlayer" />
     </application>
 
 </manifest>
