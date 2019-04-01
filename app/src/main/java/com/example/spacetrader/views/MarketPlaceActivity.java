@@ -32,6 +32,7 @@ public class MarketPlaceActivity extends AppCompatActivity {
 
     private TextView credits;
     private TextView storage;
+    private TextView fuel;
     //private TextView info;
 
     private TextView planet_info;
@@ -89,6 +90,9 @@ public class MarketPlaceActivity extends AppCompatActivity {
         };
         player.addObserver(storageObserver);
 
+        fuel = findViewById(R.id.market_fuel);
+        //fuel.setText("Fuel: " + player.getShip());
+
         planet_info = findViewById(R.id.market_planet_label);
         planet_info.setText("Current Planet: " + player.getLocation().toString());
 
@@ -122,6 +126,7 @@ public class MarketPlaceActivity extends AppCompatActivity {
                 buyView.setAdapter(buyItemAdapter);
                 planet_info.setText("Current Planet: " + player.getLocation().toString());
                 event_info.setText("Current Event:\n" + market.getEvent());
+                //fuel.setText();
             }
         };
         player.addObserver(locationObserver);
