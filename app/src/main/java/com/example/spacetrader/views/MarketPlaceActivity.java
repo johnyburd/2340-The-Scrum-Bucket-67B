@@ -33,10 +33,8 @@ public class MarketPlaceActivity extends AppCompatActivity {
     private TextView credits;
     private TextView storage;
     private TextView fuel;
-    //private TextView info;
 
     private TextView planet_info;
-    private TextView event_info;
 
     private Player player;
 
@@ -64,7 +62,7 @@ public class MarketPlaceActivity extends AppCompatActivity {
         player.setLocation(planet);
 
         // fix this so that event is not always boredom
-        marketPlaceViewModel.createMarket(player, planet, Event.BOREDOM);
+        marketPlaceViewModel.createMarket(player, planet);
         market = marketPlaceViewModel.getMarket();
 
         credits = findViewById(R.id.marketplace_credits);
@@ -91,13 +89,10 @@ public class MarketPlaceActivity extends AppCompatActivity {
         player.addObserver(storageObserver);
 
         fuel = findViewById(R.id.market_fuel);
-        //fuel.setText("Fuel: " + player.getShip());
+        fuel.setText("Fuel: " + player.getShip().getCurrentFuel());
 
         planet_info = findViewById(R.id.market_planet_label);
         planet_info.setText("Current Planet: " + player.getLocation().toString());
-
-        event_info = findViewById(R.id.market_event_label);
-        event_info.setText("Current Event:\n" + market.getEvent());
 
         final RecyclerView sellView = findViewById(R.id.sell_recycler);
         sellView.setLayoutManager(new LinearLayoutManager(this));
@@ -113,20 +108,17 @@ public class MarketPlaceActivity extends AppCompatActivity {
         buyItemAdapter = new BuyItemAdapter();
         buyView.setAdapter(buyItemAdapter);
 
-        final Random rand = new Random();
         locationObserver = new Observer() {
             @Override
             public void update(Observable o, Object arg) {
-                marketPlaceViewModel.createMarket(player, player.getLocation(),
-                        Event.values()[rand.nextInt(Event.values().length)]);
+                marketPlaceViewModel.createMarket(player, player.getLocation());
                 market = marketPlaceViewModel.getMarket();
                 sellItemAdapter = new SellItemAdapter();
                 sellView.setAdapter(sellItemAdapter);
                 buyItemAdapter = new BuyItemAdapter();
                 buyView.setAdapter(buyItemAdapter);
                 planet_info.setText("Current Planet: " + player.getLocation().toString());
-                event_info.setText("Current Event:\n" + market.getEvent());
-                //fuel.setText();
+                fuel.setText("Fuel: " + player.getShip().getCurrentFuel());
             }
         };
         player.addObserver(locationObserver);

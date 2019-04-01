@@ -19,8 +19,8 @@ public class MarketPlaceViewModel extends AndroidViewModel{
         model = Model.getInstance();
     }
 
-    public void createMarket(Player player, SolarSystem planet, Event event) {
-        model.createMarket(player, planet, event);
+    public void createMarket(Player player, SolarSystem planet) {
+        model.createMarket(player, planet);
     }
 
     public Market getMarket() {

@@ -10,19 +10,22 @@ public class SolarSystem {
     private Coordinate location;
     private TechLevel techLevel;
     private Resource resource;
+    private Event event;
 
-    public SolarSystem(Planet planet, TechLevel techLevel, Resource resource) {
+    public SolarSystem(Planet planet, TechLevel techLevel, Resource resource, Event event) {
         this.name = planet.getName();
         this.location = planet.getCoordinates();
         this.techLevel = techLevel;
         this.resource = resource;
+        this.event = event;
     }
 
     @Override
     public String toString() {
         return name + "\nlocation: " + location.toString()
                 + "\ntech level: " + techLevel.getName()
-                + "\nresource: " + resource.getName();
+                + "\nresource: " + resource.getName()
+                + "\nevent: " + event.toString();
     }
 
     public TechLevel getTechLevel() {
@@ -39,5 +42,9 @@ public class SolarSystem {
 
     public Coordinate getLocation() {
         return location;
+    }
+
+    public Event getEvent() {
+        return event;
     }
 }

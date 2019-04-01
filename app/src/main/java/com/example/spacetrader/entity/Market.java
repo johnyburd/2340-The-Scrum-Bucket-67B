@@ -13,10 +13,9 @@ public class Market {
     private int[] playerPrices = new int[10];
     private int[] planetPrices = new int[10];
 
-    public Market(Player player, SolarSystem planet, Event event) {
+    public Market(Player player, SolarSystem planet) {
         this.player = player;
         this.planet = planet;
-        this.event = event;
         Random rand = new Random();
         var = rand.nextInt(5);
         inventory = new EnumMap<>(Good.class);
@@ -38,7 +37,7 @@ public class Market {
     }
 
     public Event getEvent() {
-        return event;
+        return planet.getEvent();
     }
 
     public int[] getPlayerPrices() {

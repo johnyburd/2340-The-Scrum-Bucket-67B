@@ -34,10 +34,12 @@ public class Model {
         EnumSet<Planet> planets = EnumSet.allOf(Planet.class);
         TechLevel[] levels = TechLevel.values();
         Resource[] resources = Resource.values();
+        Event[] events = Event.values();
         for(Planet p : planets) {
             int l = (int) (Math.random() * levels.length);
             int r = (int) (Math.random() * resources.length);
-            SolarSystem s = new SolarSystem(p, levels[l], resources[r]);
+            int e = (int) (Math.random() * events.length);
+            SolarSystem s = new SolarSystem(p, levels[l], resources[r], events[e]);
             systems.add(s);
             //Log.i("SOLAR SYSTEM", s.toString());
         }
@@ -55,14 +57,14 @@ public class Model {
         player = new Player().setName(name)
                 .setPilotPoints(pilot).setFighterPoints(fighter)
                 .setTraderPoints(trader).setEngineerPoints(engineer);
-        market = new Market(player, systems.get(0), Event.BOREDOM);
+        market = new Market(player, systems.get(0));
     }
 
     public Market getMarket() {
         return market;
     }
 
-    public void createMarket(Player player, SolarSystem planet, Event event) {
-        market = new Market(player, planet, event);
+    public void createMarket(Player player, SolarSystem planet) {
+        market = new Market(player, planet);
     }
 }
