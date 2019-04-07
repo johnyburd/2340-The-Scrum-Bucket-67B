@@ -3,7 +3,6 @@ package com.example.spacetrader.entity;
 import java.util.EnumMap;
 import java.util.Observable;
 import java.util.Random;
-
 public class Player extends Observable {
     private String name;
     private int skillPoints;
@@ -16,6 +15,8 @@ public class Player extends Observable {
     private SolarSystem location;
     private EnumMap<Good, Integer> inventory;
     private int totalGoods;
+    private boolean locationChanged;
+
     private int policeRecord;
     private int clout;
     public Player (){
@@ -23,6 +24,8 @@ public class Player extends Observable {
         credits = 1000;
         spaceship = new Ship(Spaceship.GNAT);
         inventory = new EnumMap<>(Good.class);
+        locationChanged = false;
+
         policeRecord = 50;
         int clout = 50;
         Good[] goods = Good.values();
@@ -30,6 +33,15 @@ public class Player extends Observable {
             inventory.put(good, 0);
         }
     }
+
+    public boolean isLocationChanged() {
+        if (locationChanged) {
+            locationChanged = false;
+            return true;
+        }
+        return false;
+    }
+
 
     public int bribeAmount(long seed) {
         Random rand = new Random(seed);
@@ -176,6 +188,7 @@ public class Player extends Observable {
 
     public Player setLocation(SolarSystem location) {
         this.location = location;
+        locationChanged = true;
         this.setChanged();
         this.notifyObservers(credits);
         return this;

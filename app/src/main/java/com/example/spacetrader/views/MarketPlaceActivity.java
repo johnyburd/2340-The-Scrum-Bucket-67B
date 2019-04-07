@@ -23,7 +23,6 @@ import com.example.spacetrader.viewmodels.SolarSystemViewModel;
 
 import java.util.Observable;
 import java.util.Observer;
-import java.util.Random;
 
 public class MarketPlaceActivity extends AppCompatActivity {
     private PlayerViewModel playerViewModel;
@@ -61,7 +60,6 @@ public class MarketPlaceActivity extends AppCompatActivity {
         SolarSystem planet = systemViewModel.getSolarSystems().get(0);
         player.setLocation(planet);
 
-        // fix this so that event is not always boredom
         marketPlaceViewModel.createMarket(player, planet);
         market = marketPlaceViewModel.getMarket();
 
@@ -111,14 +109,19 @@ public class MarketPlaceActivity extends AppCompatActivity {
         locationObserver = new Observer() {
             @Override
             public void update(Observable o, Object arg) {
-                marketPlaceViewModel.createMarket(player, player.getLocation());
-                market = marketPlaceViewModel.getMarket();
-                sellItemAdapter = new SellItemAdapter();
-                sellView.setAdapter(sellItemAdapter);
-                buyItemAdapter = new BuyItemAdapter();
-                buyView.setAdapter(buyItemAdapter);
-                planet_info.setText("Current Planet: " + player.getLocation().toString());
-                fuel.setText("Fuel: " + player.getShip().getCurrentFuel());
+                if (player.isLocationChanged()) {
+                    marketPlaceViewModel.createMarket(player, player.getLocation());
+                    market = marketPlaceViewModel.getMarket();
+                    sellItemAdapter = new SellItemAdapter();
+                    sellView.setAdapter(sellItemAdapter);
+                    buyItemAdapter = new BuyItemAdapter();
+                    buyView.setAdapter(buyItemAdapter);
+                    planet_info.setText("Current Planet: " + player.getLocation().toString());
+                    fuel.setText("Fuel: " + player.getShip().getCurrentFuel());
+                } else {
+                    sellItemAdapter.notifyDataSetChanged();
+                    buyItemAdapter.notifyDataSetChanged();
+                }
             }
         };
         player.addObserver(locationObserver);
