@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.spacetrader.R;
 import com.example.spacetrader.entity.Player;
+import com.example.spacetrader.entity.Ship;
 import com.example.spacetrader.entity.SolarSystem;
 import com.example.spacetrader.models.Model;
 import com.example.spacetrader.viewmodels.PlayerViewModel;
@@ -20,11 +21,13 @@ import com.example.spacetrader.viewmodels.SolarSystemViewModel;
 import org.w3c.dom.Text;
 
 import java.util.List;
+import java.util.Random;
 
 public class WarpAdapter extends RecyclerView.Adapter<WarpAdapter.WarpItemViewHolder> {
 
     private List<SolarSystem> solarSystems;
     private Player player;
+    private Ship ship;
 
     public WarpAdapter() {
         solarSystems = Model.getInstance().getSolarSystems();
@@ -46,6 +49,22 @@ public class WarpAdapter extends RecyclerView.Adapter<WarpAdapter.WarpItemViewHo
                 @Override
                 public void onClick(View v) {
                     if (player.getShip().Travel(player, system)) {
+                        if(system.underAttack(System.nanoTime(), player)) {
+                            //move to the pirate screen
+                            //dependent on the button pressed the player object can....
+                            //player.attackPirates(System.nanoTime());
+                            //player.fleePirates(System.nanoTime());
+                            //player.surrender();
+                        } else if (system.underArrest(System.nanoTime(), player)) {
+                            //move to the police screen
+                            //dependent on the button pressed the player object can....
+                            //there is...
+                            //amount = player.bribeAmount(System.nanoTime());
+                            //player.payBribe(amount);
+                            //player.submit(); //get their bag checked
+                            //player.attackPolice(System.nanoTime())
+                            //player.fleePolice(System.nanoTime());
+                        }
                         player.setLocation(system);
                     }
                 }

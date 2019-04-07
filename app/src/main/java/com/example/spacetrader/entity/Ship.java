@@ -2,6 +2,8 @@ package com.example.spacetrader.entity;
 
 import android.media.Image;
 
+import java.util.Random;
+
 public class Ship {
     private Spaceship ship;
     private int cargo;
@@ -17,7 +19,20 @@ public class Ship {
         currHull = 25;
         currentFuel = 500;
     }
+    public void setCurrHull(int currHull){
+        this.currHull = currHull;
+    }
+    public void setHull(int hull){
+        this.hull = hull;
+    }
 
+    public int getCurrHull() {
+        return currHull;
+    }
+
+    public int getHull() {
+        return hull;
+    }
     public Ship(Spaceship s) {
         currentFuel = 500;
         if (s.equals(Spaceship.FLEA)) {

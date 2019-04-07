@@ -5,6 +5,8 @@ import com.example.spacetrader.entity.Planet;
 import com.example.spacetrader.entity.Resource;
 import com.example.spacetrader.entity.TechLevel;
 
+import java.util.Random;
+
 public class SolarSystem {
     private String name;
     private Coordinate location;
@@ -18,6 +20,18 @@ public class SolarSystem {
         this.techLevel = techLevel;
         this.resource = resource;
         this.event = event;
+    }
+
+    public boolean underAttack(long seed, Player player){
+        Random rand = new Random(seed);
+        int chance = rand.nextInt(100);
+        return chance < 10;
+    }
+
+    public boolean underArrest(long seed, Player player){
+        Random rand = new Random(seed);
+        int chance = rand.nextInt(100);
+        return chance < player.getPoliceRecord();
     }
 
     @Override
