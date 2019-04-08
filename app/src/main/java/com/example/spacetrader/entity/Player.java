@@ -81,6 +81,7 @@ public class Player extends Observable implements Serializable {
         }
         if (found && policeRecord >= 10) {
             policeRecord -= 10;
+            if (policeRecord < 0) policeRecord = 0;
             setCredits(3 * credits / 4); // you lose a fourth of your credits
         } else {
             policeRecord += 10;
