@@ -8,7 +8,7 @@ public class Market {
     private Player player;
     private SolarSystem planet;
     private Event event;
-    private int var;
+    //private int var;
     private EnumMap<Good, Integer> inventory;
     private int[] playerPrices = new int[10];
     private int[] planetPrices = new int[10];
@@ -17,7 +17,7 @@ public class Market {
         this.player = player;
         this.planet = planet;
         Random rand = new Random();
-        var = rand.nextInt(5);
+        //var = rand.nextInt(5);
         inventory = new EnumMap<>(Good.class);
         Good[] goods = Good.values();
         for (Good good : goods) {
