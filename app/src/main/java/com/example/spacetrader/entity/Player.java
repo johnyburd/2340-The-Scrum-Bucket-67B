@@ -80,11 +80,11 @@ public class Player extends Observable implements Serializable {
             found = true;
         }
         if (found && policeRecord >= 10) {
-            policeRecord -= 10;
-            if (policeRecord < 0) policeRecord = 0;
+            policeRecord += 10;
             setCredits(3 * credits / 4); // you lose a fourth of your credits
         } else {
-            policeRecord += 10;
+            policeRecord -= 10;
+            if (policeRecord < 0) policeRecord = 0;
         }
         notifyObservers(credits);
         return found;
@@ -93,8 +93,13 @@ public class Player extends Observable implements Serializable {
     public void surrender() {
         //inventory.clear();
         Good[] goods = Good.values();
-        for (Good good : goods) {
-            inventory.put(good, 0);
+        if (totalGoods == 0) {
+            setCredits(credits/2);
+        }
+        else {
+            for (Good good : goods) {
+                inventory.put(good, 0);
+            }
         }
         totalGoods = 0;
         notifyObservers(credits);
