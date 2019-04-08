@@ -5,9 +5,10 @@ import com.example.spacetrader.entity.Planet;
 import com.example.spacetrader.entity.Resource;
 import com.example.spacetrader.entity.TechLevel;
 
+import java.io.Serializable;
 import java.util.Random;
 
-public class SolarSystem {
+public class SolarSystem implements Serializable {
     private String name;
     private Coordinate location;
     private TechLevel techLevel;

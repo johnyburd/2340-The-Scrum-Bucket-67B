@@ -2,9 +2,10 @@ package com.example.spacetrader.entity;
 
 import android.media.Image;
 
+import java.io.Serializable;
 import java.util.Random;
 
-public class Ship {
+public class Ship implements Serializable {
     private Spaceship ship;
     private int cargo;
     private int currHull;

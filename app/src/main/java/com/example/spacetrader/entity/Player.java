@@ -1,9 +1,10 @@
 package com.example.spacetrader.entity;
 
+import java.io.Serializable;
 import java.util.EnumMap;
 import java.util.Observable;
 import java.util.Random;
-public class Player extends Observable {
+public class Player extends Observable implements Serializable {
     private String name;
     private int skillPoints;
     private int pilotPoints;

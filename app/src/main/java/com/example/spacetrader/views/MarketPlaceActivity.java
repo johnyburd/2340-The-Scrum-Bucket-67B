@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -57,7 +58,10 @@ public class MarketPlaceActivity extends AppCompatActivity {
         marketPlaceViewModel = ViewModelProviders.of(this).get(MarketPlaceViewModel.class);
 
         systemViewModel = ViewModelProviders.of(this).get(SolarSystemViewModel.class);
-        SolarSystem planet = systemViewModel.getSolarSystems().get(0);
+        SolarSystem planet = player.getLocation();
+        if (planet == null) {
+            planet = systemViewModel.getSolarSystems().get(0);
+        }
         player.setLocation(planet);
 
         marketPlaceViewModel.createMarket(player, planet);
@@ -125,6 +129,12 @@ public class MarketPlaceActivity extends AppCompatActivity {
             }
         };
         player.addObserver(locationObserver);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        playerViewModel.savePlayer(MarketPlaceActivity.this);
     }
 
     public void onTravelPressed(View view) {
