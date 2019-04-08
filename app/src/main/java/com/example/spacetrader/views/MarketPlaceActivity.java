@@ -94,7 +94,7 @@ public class MarketPlaceActivity extends AppCompatActivity {
         fuel.setText("Fuel: " + player.getShip().getCurrentFuel());
 
         planet_info = findViewById(R.id.market_planet_label);
-        planet_info.setText("Current Planet: " + player.getLocation().toString());
+        planet_info.setText("Current Planet: " + player.getLocation().getName());
 
         final RecyclerView sellView = findViewById(R.id.sell_recycler);
         sellView.setLayoutManager(new LinearLayoutManager(this));
@@ -113,14 +113,14 @@ public class MarketPlaceActivity extends AppCompatActivity {
         locationObserver = new Observer() {
             @Override
             public void update(Observable o, Object arg) {
-                if (player.isLocationChanged()) {
+                if (player.isMarketLocationChanged()) {
                     marketPlaceViewModel.createMarket(player, player.getLocation());
                     market = marketPlaceViewModel.getMarket();
                     sellItemAdapter = new SellItemAdapter();
                     sellView.setAdapter(sellItemAdapter);
                     buyItemAdapter = new BuyItemAdapter();
                     buyView.setAdapter(buyItemAdapter);
-                    planet_info.setText("Current Planet: " + player.getLocation().toString());
+                    planet_info.setText("Current Planet: " + player.getLocation().getName());
                     fuel.setText("Fuel: " + player.getShip().getCurrentFuel());
                 } else {
                     sellItemAdapter.notifyDataSetChanged();

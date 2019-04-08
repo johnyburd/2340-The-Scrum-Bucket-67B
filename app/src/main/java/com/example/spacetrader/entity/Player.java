@@ -17,6 +17,7 @@ public class Player extends Observable implements Serializable {
     private EnumMap<Good, Integer> inventory;
     private int totalGoods;
     private boolean locationChanged;
+    private boolean marketLocationChanged;
 
     private int policeRecord;
     private int clout;
@@ -43,6 +44,17 @@ public class Player extends Observable implements Serializable {
         return false;
     }
 
+    public void resetLocationChanged() {
+        locationChanged = false;
+    }
+
+    public boolean isMarketLocationChanged() {
+        if (marketLocationChanged) {
+            marketLocationChanged = false;
+            return true;
+        }
+        return false;
+    }
 
     public int bribeAmount(long seed) {
         Random rand = new Random(seed);
@@ -52,28 +64,39 @@ public class Player extends Observable implements Serializable {
 
     public void payBribe(int amount) {
         credits -= amount;
+        notifyObservers(credits);
     }
 
     public boolean submit() {
         boolean found = false;
         if (inventory.get(Good.NARCOTICS) == null || inventory.get(Good.NARCOTICS) > 0) {
-            inventory.remove(Good.NARCOTICS);
+            Integer removed = inventory.remove(Good.NARCOTICS);
+            if (removed != null) {
+                totalGoods -= removed;
+            }
             found = true;
         } else if (inventory.get(Good.FIREARMS) == null || inventory.get(Good.FIREARMS) > 0) {
-            inventory.remove(Good.FIREARMS, 0);
+            //Integer removed = inventory.remove(Good.FIREARMS, 0);
             found = true;
         }
         if (found && policeRecord >= 10) {
             policeRecord -= 10;
-            credits =  3 * credits / 4; // you lose a fourth of your credits
+            setCredits(3 * credits / 4); // you lose a fourth of your credits
         } else {
             policeRecord += 10;
         }
+        notifyObservers(credits);
         return found;
     }
 
     public void surrender() {
-        inventory.clear();
+        //inventory.clear();
+        Good[] goods = Good.values();
+        for (Good good : goods) {
+            inventory.put(good, 0);
+        }
+        totalGoods = 0;
+        notifyObservers(credits);
     }
 
     public int attackPolice(long seed) {
@@ -84,6 +107,7 @@ public class Player extends Observable implements Serializable {
             spaceship.setCurrHull(0);
         }
         setPoliceRecord(getPoliceRecord() + 10);
+        //notifyObservers(credits);
         return damage;
     }
 
@@ -99,6 +123,7 @@ public class Player extends Observable implements Serializable {
         } else {
             setClout(getClout() + 5);
         }
+        //notifyObservers(credits);
         return damage;
     }
 
@@ -114,6 +139,7 @@ public class Player extends Observable implements Serializable {
         if(spaceship.getCurrHull() < 0) {
             spaceship.setCurrHull(0);
         }
+        //notifyObservers(credits);
         return damage;
     }
 
@@ -134,6 +160,7 @@ public class Player extends Observable implements Serializable {
         } else {
             setClout(getClout() + 5);
         }
+        //notifyObservers(credits);
         return damage;
     }
 
@@ -169,6 +196,8 @@ public class Player extends Observable implements Serializable {
 
     public Player setCredits(int credits) {
         this.credits = credits;
+        this.setChanged();
+        this.notifyObservers(this.credits);
         return this;
     }
 
@@ -190,6 +219,7 @@ public class Player extends Observable implements Serializable {
     public Player setLocation(SolarSystem location) {
         this.location = location;
         locationChanged = true;
+        marketLocationChanged = true;
         this.setChanged();
         this.notifyObservers(credits);
         return this;
