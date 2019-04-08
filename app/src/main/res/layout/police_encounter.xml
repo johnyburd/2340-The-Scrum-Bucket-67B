@@ -11,27 +11,28 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginEnd="100dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:onClick="onPoliceBribePressed"
         android:text="bribe"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/police_encounter_submit"
-        app:layout_constraintTop_toTopOf="@+id/police_encounter_submit" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/police_encounter_flee" />
 
     <Button
         android:id="@+id/police_encounter_submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="112dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:onClick="onPoliceSubmitPressed"
         android:text="submit"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/police_encounter_attack2" />
+        app:layout_constraintTop_toBottomOf="@+id/police_encounter_bribe" />
 
     <TextView
         android:id="@+id/police_encounter_label"
@@ -41,7 +42,7 @@
         android:layout_marginTop="64dp"
         android:layout_marginEnd="24dp"
         android:text="At 7 clicks from Planet you encounter a police wasp.\n\nThe police summon you to submit to an inspection."
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -52,25 +53,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginEnd="100dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:onClick="onPoliceFleePressed"
         android:text="Flee"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/police_encounter_attack2"
-        app:layout_constraintTop_toTopOf="@+id/police_encounter_attack2" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/police_encounter_attack" />
 
     <Button
-        android:id="@+id/police_encounter_attack2"
+        android:id="@+id/police_encounter_attack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="112dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
+        android:onClick="onPoliceAttackPressed"
         android:text="Attack"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/police_encounter_label" />
 </android.support.constraint.ConstraintLayout>

@@ -1,24 +1,17 @@
 package com.example.spacetrader.views;
 
 import android.arch.lifecycle.ViewModelProviders;
-import android.support.annotation.Nullable;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.spacetrader.R;
-import com.example.spacetrader.entity.Event;
-import com.example.spacetrader.entity.Market;
 import com.example.spacetrader.entity.Player;
-import com.example.spacetrader.entity.SolarSystem;
-import com.example.spacetrader.models.Model;
-import com.example.spacetrader.viewmodels.MarketPlaceViewModel;
 import com.example.spacetrader.viewmodels.PlayerViewModel;
-import com.example.spacetrader.viewmodels.SolarSystemViewModel;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -30,7 +23,6 @@ public class WarpActivity extends AppCompatActivity {
     private RecyclerView planets;
     private WarpAdapter adapter;
 
-    private Button cancel;
     private TextView text;
 
     private Observer locationObserver;
@@ -43,7 +35,6 @@ public class WarpActivity extends AppCompatActivity {
         player = ViewModelProviders.of(this).get(PlayerViewModel.class).getPlayer();
 
         text = findViewById(R.id.warp_label);
-        cancel = findViewById(R.id.warp_cancel);
 
         text.setText("Current planet: " + player.getLocation().toString() + "\nFuel: " + player.getShip().getCurrentFuel());
 
@@ -57,11 +48,18 @@ public class WarpActivity extends AppCompatActivity {
         locationObserver = new Observer() {
             @Override
             public void update(Observable o, Object arg) {
-                text.setText("Current planet: " + player.getLocation().toString() + "\nFuel: " + player.getShip().getCurrentFuel());
-                finish();
+                if (player.isLocationChanged()) {
+                    if (player.getLocation().underAttack(System.nanoTime(), player)) {
+                        startActivity(new Intent(WarpActivity.this, PirateEncounterActivity.class));
+                    } else if (player.getLocation().underArrest(System.nanoTime(), player)) {
+                        startActivity(new Intent(WarpActivity.this, PoliceEncounterActivity.class));
+                    }
+                    finish();
+                }
+                //finish();
+                //text.setText("Current planet: " + player.getLocation().toString() + "\nFuel: " + player.getShip().getCurrentFuel());
             }
         };
-
         player.addObserver(locationObserver);
     }
 
