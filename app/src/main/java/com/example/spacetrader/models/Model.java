@@ -75,17 +75,17 @@ public class Model {
         market = new Market(player, systems.get(0));
     }
 
+    /**
+     * Loads the serialized player from internal storage
+     *
+     * @param context Context from the main activity
+     * @return succesfully loaded the player
+     */
     public boolean continuePlayer(Context context) {
-      //  Ship spaceship = new Ship(Spaceship.GNAT);
-      //  EnumMap<Good, Integer> inventory = new EnumMap<>(Good.class);
-        //SolarSystem location = new SolarSystem();
-       // player = new Player(4, 4, 4, 4, 2000, spaceship, inventory, false, 0, 0)
-        Log.e("io", "resuming");
+        Log.i("io", "resuming");
 
         FileInputStream inStream = null;
         try {
-            //File f = new File(Environment.getExternalStorageDirectory(), "/player.dat");
-            //inStream = new FileInputStream(f);
             inStream = context.openFileInput("player.dat");
             ObjectInputStream objectInStream = new ObjectInputStream(inStream);
 
@@ -98,8 +98,12 @@ public class Model {
         return player != null;
     }
 
+    /**
+     * Serializes the player object into a file in internal storage
+     * @param context Context from the main activity
+     */
     public void savePlayer(Context context) {
-        Log.e("io", "saving");
+        Log.i("io", "saving");
         FileOutputStream outStream = null;
         try {
            // File f = new File(Environment.getExternalStorageDirectory(), "/player.dat");
