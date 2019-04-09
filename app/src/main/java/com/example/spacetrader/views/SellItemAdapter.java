@@ -13,10 +13,7 @@ import com.example.spacetrader.entity.Good;
 import com.example.spacetrader.entity.Market;
 import com.example.spacetrader.models.Model;
 
-import org.w3c.dom.Text;
-
 import java.util.EnumMap;
-import java.util.Observer;
 
 public class SellItemAdapter extends RecyclerView.Adapter<SellItemAdapter.SellItemViewHolder> {
 
@@ -35,9 +32,8 @@ public class SellItemAdapter extends RecyclerView.Adapter<SellItemAdapter.SellIt
         private TextView credits;
         private Button sell;
         private Good good;
-        private BuyItemAdapter.BuyItemViewHolder buy;
 
-        public SellItemViewHolder(@NonNull View itemView) {
+        SellItemViewHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.sell_item_name);
             message = itemView.findViewById(R.id.sell_item_message);
@@ -67,7 +63,7 @@ public class SellItemAdapter extends RecyclerView.Adapter<SellItemAdapter.SellIt
         Good good = Good.values()[position];
         holder.good = good;
         holder.name.setText(good.getName());
-        holder.number.setText(String.format("%d", inventory.get(good).intValue()));
+        holder.number.setText(String.format("%d", inventory.get(good)));
         holder.credits.setText(String.format("%d", market.getPlayerPrices()[good.getNum()]));
     }
 

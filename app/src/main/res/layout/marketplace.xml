@@ -31,7 +31,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.022"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/market_planet_label" />
+        app:layout_constraintTop_toBottomOf="@+id/hull_label" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/sell_recycler"
@@ -110,11 +110,22 @@
         android:id="@+id/market_fuel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
         android:text="Fuel: "
         android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/marketplace_storage" />
+        app:layout_constraintStart_toEndOf="@+id/hull_label"
+        app:layout_constraintTop_toBottomOf="@+id/market_planet_label" />
+
+    <TextView
+        android:id="@+id/hull_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:text="Hull:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/market_planet_label" />
 
 </android.support.constraint.ConstraintLayout>

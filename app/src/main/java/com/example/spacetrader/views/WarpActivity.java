@@ -20,13 +20,6 @@ public class WarpActivity extends AppCompatActivity {
 
     private Player player;
 
-    private RecyclerView planets;
-    private WarpAdapter adapter;
-
-    private TextView text;
-
-    private Observer locationObserver;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,18 +27,18 @@ public class WarpActivity extends AppCompatActivity {
 
         player = ViewModelProviders.of(this).get(PlayerViewModel.class).getPlayer();
 
-        text = findViewById(R.id.warp_label);
+        TextView text = findViewById(R.id.warp_label);
 
         text.setText("Current planet: " + player.getLocation().toString() + "\nFuel: " + player.getShip().getCurrentFuel());
 
-        planets = findViewById(R.id.warp_recycler);
+        RecyclerView planets = findViewById(R.id.warp_recycler);
         planets.setLayoutManager(new LinearLayoutManager(this));
         planets.setHasFixedSize(true);
 
-        adapter = new WarpAdapter();
+        WarpAdapter adapter = new WarpAdapter();
         planets.setAdapter(adapter);
 
-        locationObserver = new Observer() {
+        Observer locationObserver = new Observer() {
             @Override
             public void update(Observable o, Object arg) {
                 if (player.isLocationChanged()) {

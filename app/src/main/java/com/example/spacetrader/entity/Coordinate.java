@@ -6,10 +6,9 @@ public class Coordinate implements Serializable {
     private int x;
     private int y;
 
-    private final int MAX_X = 100;
-    private final int MAX_Y = 100;
-
     public Coordinate (int x, int y) {
+        int MAX_Y = 100;
+        int MAX_X = 100;
         if (x < 0 || x > MAX_X || y < 0 || y > MAX_Y) {
             throw new IllegalArgumentException("given coordinates are out of bounds");
         }

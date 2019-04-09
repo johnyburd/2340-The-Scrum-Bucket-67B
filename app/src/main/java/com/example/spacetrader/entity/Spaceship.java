@@ -12,6 +12,6 @@ public enum Spaceship {
     HORNET,
     GRASSHOPPER,
     TERMITE,
-    WASP;
+    WASP
 
 }

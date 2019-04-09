@@ -1,7 +1,6 @@
 package com.example.spacetrader.views;
 
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -12,8 +11,6 @@ import com.example.spacetrader.R;
 import com.example.spacetrader.viewmodels.PlayerViewModel;
 
 public class StartActivity extends AppCompatActivity {
-
-    private PlayerViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +23,7 @@ public class StartActivity extends AppCompatActivity {
     }
 
     public void onContinuePressed(View view) {
-        viewModel = ViewModelProviders.of(this).get(PlayerViewModel.class);
+        PlayerViewModel viewModel = ViewModelProviders.of(this).get(PlayerViewModel.class);
         if (viewModel.continuePlayer(StartActivity.this)) {
             startActivity(new Intent(StartActivity.this, MarketPlaceActivity.class));
         } else {

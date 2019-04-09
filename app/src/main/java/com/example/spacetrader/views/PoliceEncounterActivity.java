@@ -10,7 +10,6 @@ import com.example.spacetrader.entity.Player;
 import com.example.spacetrader.models.Model;
 
 public class PoliceEncounterActivity extends AppCompatActivity {
-    private TextView encounter;
 
     private Player player;
     @Override
@@ -19,7 +18,7 @@ public class PoliceEncounterActivity extends AppCompatActivity {
         setContentView(R.layout.police_encounter);
         player = Model.getInstance().getPlayer();
 
-        encounter = findViewById(R.id.police_encounter_label);
+        TextView encounter = findViewById(R.id.police_encounter_label);
         encounter.setText("On the way to " + player.getLocation().getName()
                 + ", you encounter a police wasp.\n\nThe police summon you to submit to an inspection.");
     }

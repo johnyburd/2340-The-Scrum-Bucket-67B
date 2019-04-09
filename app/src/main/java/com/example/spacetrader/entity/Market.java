@@ -321,7 +321,7 @@ public class Market {
         return 0;
     }
 
-    public int calcPrice(Good good) {
+    private int calcPrice(Good good) {
         int base = BasePrice(good);
         return base + (IPL(good)*(planet.getTechLevel().getLevel()-getMTLP(good))) + (base*calcVar(good)/100);
     }

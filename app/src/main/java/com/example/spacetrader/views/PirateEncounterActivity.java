@@ -10,7 +10,6 @@ import com.example.spacetrader.entity.Player;
 import com.example.spacetrader.models.Model;
 
 public class PirateEncounterActivity extends AppCompatActivity {
-    private TextView encounter;
     private Player player;
 
     @Override
@@ -20,7 +19,7 @@ public class PirateEncounterActivity extends AppCompatActivity {
 
         player = Model.getInstance().getPlayer();
 
-        encounter = findViewById(R.id.pirate_encounter_label);
+        TextView encounter = findViewById(R.id.pirate_encounter_label);
         encounter.setText("On your way to " + player.getLocation().getName()
                 + ", you encounter a pirate hornet.\n\nYour opponent attacks.");
     }

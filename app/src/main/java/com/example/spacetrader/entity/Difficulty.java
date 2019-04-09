@@ -7,5 +7,5 @@ public enum Difficulty {
     DEMANDING,
     HARD,
     BRUTAL,
-    IMPOSSIBLE;
+    IMPOSSIBLE
 }

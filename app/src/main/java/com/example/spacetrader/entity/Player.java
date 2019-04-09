@@ -44,10 +44,6 @@ public class Player extends Observable implements Serializable {
         return false;
     }
 
-    public void resetLocationChanged() {
-        locationChanged = false;
-    }
-
     public boolean isMarketLocationChanged() {
         if (marketLocationChanged) {
             marketLocationChanged = false;

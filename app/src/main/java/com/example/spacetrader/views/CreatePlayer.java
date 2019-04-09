@@ -1,11 +1,9 @@
 package com.example.spacetrader.views;
 
-
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -32,7 +30,6 @@ public class CreatePlayer extends AppCompatActivity {
     private TextView traderText;
     private TextView engineerText;
 
-    private Spinner difficultySpinner;
     private PlayerViewModel viewModel;
 
     @Override
@@ -42,7 +39,7 @@ public class CreatePlayer extends AppCompatActivity {
 
         viewModel = ViewModelProviders.of(this).get(PlayerViewModel.class);
 
-        difficultySpinner = findViewById(R.id.difficulty_spinner);
+        Spinner difficultySpinner = findViewById(R.id.difficulty_spinner);
         ArrayAdapter<Difficulty> difficulty_adapter = new ArrayAdapter<>
                 (this, android.R.layout.simple_spinner_item, Difficulty.values());
         difficultySpinner.setAdapter(difficulty_adapter);
