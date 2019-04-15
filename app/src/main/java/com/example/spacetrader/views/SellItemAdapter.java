@@ -45,7 +45,7 @@ public class SellItemAdapter extends RecyclerView.Adapter<SellItemAdapter.SellIt
                 @Override
                 public void onClick(View v) {
                     message.setText(market.sell(good, 1));
-                    number.setText(inventory.get(good).toString());
+                    number.setText(String.format(Locale.US, "%d", inventory.get(good)));
                 }
             });
         }

@@ -13,6 +13,7 @@ import com.example.spacetrader.R;
 import com.example.spacetrader.entity.Player;
 import com.example.spacetrader.viewmodels.PlayerViewModel;
 
+import java.util.Locale;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -28,8 +29,10 @@ public class WarpActivity extends AppCompatActivity {
         player = ViewModelProviders.of(this).get(PlayerViewModel.class).getPlayer();
 
         TextView text = findViewById(R.id.warp_label);
-
-        text.setText("Current planet: " + player.getLocation().toString() + "\nFuel: " + player.getShip().getCurrentFuel());
+        text.setText(String.format(Locale.US,
+                "Current planet: %s\nFuel: %d",
+                player.getLocation().toString(),
+                player.getShip().getCurrentFuel()));
 
         RecyclerView planets = findViewById(R.id.warp_recycler);
         planets.setLayoutManager(new LinearLayoutManager(this));

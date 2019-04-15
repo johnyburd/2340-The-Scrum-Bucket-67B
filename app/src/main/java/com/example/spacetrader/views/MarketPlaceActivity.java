@@ -16,6 +16,7 @@ import com.example.spacetrader.viewmodels.MarketPlaceViewModel;
 import com.example.spacetrader.viewmodels.PlayerViewModel;
 import com.example.spacetrader.viewmodels.SolarSystemViewModel;
 
+import java.util.Locale;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -55,36 +56,39 @@ public class MarketPlaceActivity extends AppCompatActivity {
         marketPlaceViewModel.createMarket(player, planet);
 
         credits = findViewById(R.id.marketplace_credits);
-        credits.setText("Credits: " + player.getCredits());
+        credits.setText(String.format(Locale.US, "Credits: %d", player.getCredits()));
 
         Observer creditsObserver = new Observer() {
             @Override
             public void update(Observable o, Object arg) {
-                credits.setText("Credits: " + arg);
+                credits.setText(String.format(Locale.US, "Credits: %d", (int) arg));
             }
         };
 
         player.addObserver(creditsObserver);
 
         storage = findViewById(R.id.marketplace_storage);
-        storage.setText("Storage: " + player.getTotalGoods() + "/15");
+        storage.setText(String.format(Locale.US, "Storage: %d/15", player.getTotalGoods()));
 
         Observer storageObserver = new Observer() {
             @Override
             public void update(Observable o, Object arg) {
-                storage.setText("Storage: " + player.getTotalGoods() + "/15");
+                storage.setText(String.format(Locale.US, "Storage: %d/15", player.getTotalGoods()));
             }
         };
         player.addObserver(storageObserver);
 
         fuel = findViewById(R.id.market_fuel);
-        fuel.setText("Fuel: " + player.getShip().getCurrentFuel());
+        fuel.setText(String.format(Locale.US,"Fuel: %d",
+                player.getShip().getCurrentFuel()));
 
         planet_info = findViewById(R.id.market_planet_label);
-        planet_info.setText("Current Planet: " + player.getLocation().getName());
+        planet_info.setText(String.format(Locale.US, "Current Planet: %s",
+                player.getLocation().getName()));
 
         hull = findViewById(R.id.hull_label);
-        hull.setText("Hull: " + player.getShip().getCurrHull() + "/" + player.getShip().getHull());
+        hull.setText(String.format(Locale.US, "Hull: %d/%d",
+                player.getShip().getCurrHull(), player.getShip().getHull()));
 
         final RecyclerView sellView = findViewById(R.id.sell_recycler);
         sellView.setLayoutManager(new LinearLayoutManager(this));
@@ -109,9 +113,12 @@ public class MarketPlaceActivity extends AppCompatActivity {
                     sellView.setAdapter(sellItemAdapter);
                     buyItemAdapter = new BuyItemAdapter();
                     buyView.setAdapter(buyItemAdapter);
-                    planet_info.setText("Current Planet: " + player.getLocation().getName());
-                    fuel.setText("Fuel: " + player.getShip().getCurrentFuel());
-                    hull.setText("Hull: " + player.getShip().getCurrHull() + "/" + player.getShip().getHull());
+                    planet_info.setText(String.format(Locale.US, "Current Planet: %s",
+                            player.getLocation().getName()));
+                    fuel.setText(String.format(Locale.US,"Fuel: %d",
+                            player.getShip().getCurrentFuel()));
+                    hull.setText(String.format(Locale.US, "Hull: %d/%d",
+                            player.getShip().getCurrHull(), player.getShip().getHull()));
                 } else {
                     sellItemAdapter.notifyDataSetChanged();
                     buyItemAdapter.notifyDataSetChanged();

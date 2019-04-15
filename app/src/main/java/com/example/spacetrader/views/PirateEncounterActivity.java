@@ -9,6 +9,8 @@ import com.example.spacetrader.R;
 import com.example.spacetrader.entity.Player;
 import com.example.spacetrader.models.Model;
 
+import java.util.Locale;
+
 public class PirateEncounterActivity extends AppCompatActivity {
     private Player player;
 
@@ -20,8 +22,9 @@ public class PirateEncounterActivity extends AppCompatActivity {
         player = Model.getInstance().getPlayer();
 
         TextView encounter = findViewById(R.id.pirate_encounter_label);
-        encounter.setText("On your way to " + player.getLocation().getName()
-                + ", you encounter a pirate hornet.\n\nYour opponent attacks.");
+        encounter.setText(String.format(Locale.US,
+                "On your way to %s, you encounter a pirate hornet.\n\nYour opponent attacks.",
+                player.getLocation().getName()));
     }
 
     public void onPirateAttackPressed(View view) {

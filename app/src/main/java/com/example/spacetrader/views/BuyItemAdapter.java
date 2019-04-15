@@ -14,6 +14,7 @@ import com.example.spacetrader.entity.Market;
 import com.example.spacetrader.models.Model;
 
 import java.util.EnumMap;
+import java.util.Locale;
 
 public class BuyItemAdapter extends RecyclerView.Adapter<BuyItemAdapter.BuyItemViewHolder> {
 
@@ -44,7 +45,7 @@ public class BuyItemAdapter extends RecyclerView.Adapter<BuyItemAdapter.BuyItemV
                 @Override
                 public void onClick(View v) {
                     message.setText(market.buy(good, 1));
-                    number.setText(inventory.get(good).toString());
+                    number.setText(String.format(Locale.US, "%d", inventory.get(good)));
                 }
             });
         }
@@ -63,8 +64,8 @@ public class BuyItemAdapter extends RecyclerView.Adapter<BuyItemAdapter.BuyItemV
         Good good = Good.values()[position];
         holder.good = good;
         holder.name.setText(good.getName());
-        holder.number.setText(inventory.get(good).toString());
-        holder.credits.setText("" + market.getPlanetPrices()[good.getNum()]);
+        holder.number.setText(String.format(Locale.US, "%s", inventory.get(good).toString()));
+        holder.credits.setText(String.format(Locale.US, "%d", market.getPlanetPrices()[good.getNum()]));
     }
 
     @Override

@@ -9,6 +9,8 @@ import com.example.spacetrader.R;
 import com.example.spacetrader.entity.Player;
 import com.example.spacetrader.models.Model;
 
+import java.util.Locale;
+
 public class PoliceEncounterActivity extends AppCompatActivity {
 
     private Player player;
@@ -19,8 +21,9 @@ public class PoliceEncounterActivity extends AppCompatActivity {
         player = Model.getInstance().getPlayer();
 
         TextView encounter = findViewById(R.id.police_encounter_label);
-        encounter.setText("On the way to " + player.getLocation().getName()
-                + ", you encounter a police wasp.\n\nThe police summon you to submit to an inspection.");
+        encounter.setText(String.format(Locale.US,
+                "On the way to %s, you encounter a police wasp.\n\nThe police summon you to submit to an inspection.",
+                player.getLocation().getName()));
     }
 
     public void onPoliceAttackPressed(View view) {
