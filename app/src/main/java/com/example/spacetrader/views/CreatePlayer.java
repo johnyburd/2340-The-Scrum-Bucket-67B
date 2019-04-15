@@ -14,6 +14,8 @@ import com.example.spacetrader.entity.Difficulty;
 import com.example.spacetrader.R;
 import com.example.spacetrader.viewmodels.PlayerViewModel;
 
+import java.util.Locale;
+
 public class CreatePlayer extends AppCompatActivity {
 
     private int totalPoints;
@@ -62,56 +64,56 @@ public class CreatePlayer extends AppCompatActivity {
         if (viewModel.validatePoints(pilotPoints + 1, fighterPoints, traderPoints, engineerPoints)) {
             pilotPoints++;
             totalPoints++;
-            pilotText.setText(String.format("%02d", pilotPoints));
+            pilotText.setText(String.format(Locale.US,"%02d", pilotPoints));
         }
     }
     public void onPilotMinusPressed(View view) {
         if (viewModel.validatePoints(pilotPoints - 1, fighterPoints, traderPoints, engineerPoints)) {
             pilotPoints--;
             totalPoints--;
-            pilotText.setText(String.format("%02d", pilotPoints));
+            pilotText.setText(String.format(Locale.US, "%02d", pilotPoints));
         }
     }
     public void onFighterAddPressed(View view) {
         if (viewModel.validatePoints(pilotPoints, fighterPoints + 1, traderPoints, engineerPoints)) {
             fighterPoints++;
             totalPoints++;
-            fighterText.setText(String.format("%02d", fighterPoints));
+            fighterText.setText(String.format(Locale.US, "%02d", fighterPoints));
         }
     }
     public void onFighterMinusPressed(View view) {
         if (viewModel.validatePoints(pilotPoints, fighterPoints - 1, traderPoints, engineerPoints)) {
             fighterPoints--;
             totalPoints--;
-            fighterText.setText(String.format("%02d", fighterPoints));
+            fighterText.setText(String.format(Locale.US, "%02d", fighterPoints));
         }
     }
     public void onTraderPlusPressed(View view) {
         if (viewModel.validatePoints(pilotPoints, fighterPoints, traderPoints + 1, engineerPoints)) {
             traderPoints++;
             totalPoints++;
-            traderText.setText(String.format("%02d", traderPoints));
+            traderText.setText(String.format(Locale.US, "%02d", traderPoints));
         }
     }
     public void onTraderMinusPressed(View view) {
         if (viewModel.validatePoints(pilotPoints, fighterPoints, traderPoints - 1, engineerPoints)) {
             traderPoints--;
             totalPoints--;
-            traderText.setText(String.format("%02d", traderPoints));
+            traderText.setText(String.format(Locale.US, "%02d", traderPoints));
         }
     }
     public void onEngineerPlusPressed(View view) {
         if (viewModel.validatePoints(pilotPoints, fighterPoints, traderPoints, engineerPoints + 1)) {
             engineerPoints++;
             totalPoints++;
-            engineerText.setText(String.format("%02d", engineerPoints));
+            engineerText.setText(String.format(Locale.US, "%02d", engineerPoints));
         }
     }
     public void onEngineerMinusPressed(View view) {
         if (viewModel.validatePoints(pilotPoints, fighterPoints, traderPoints, engineerPoints - 1)) {
             engineerPoints--;
             totalPoints--;
-            engineerText.setText(String.format("%02d", engineerPoints));
+            engineerText.setText(String.format(Locale.US, "%02d", engineerPoints));
         }
     }
 
