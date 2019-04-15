@@ -118,9 +118,8 @@ public class CreatePlayer extends AppCompatActivity {
     }
 
     public void onCreatePlayer(View view) {
-        if (totalPoints > 16) {
-            limit.setText("The number of skill points exceeds 16.");
-        } else if (totalPoints < 16) {
+        if (totalPoints > 16) limit.setText("The number of skill points exceeds 16.");
+        else if (totalPoints < 16) {
             limit.setText("The number of skill points is below 16.");
         } else {
             viewModel.createPlayer(name.getText().toString(),
