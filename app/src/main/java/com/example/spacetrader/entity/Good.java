@@ -1,5 +1,11 @@
 package com.example.spacetrader.entity;
 
+
+/**
+ * The goods that can be traded for
+ * @author Scrum Bucket
+ * @version 1.0
+ */
 public enum Good {
     WATER (0, 30, "WATER"),
     FURS (1, 250, "FURS"),
@@ -16,13 +22,33 @@ public enum Good {
     private int price;
     private String name;
 
+    /**
+     * Good constructor
+     * @param num the good's ID
+     * @param price the price of the good
+     * @param name the name of the good
+     */
     Good (int num, int price, String name) {
         this.num = num;
         this.price = price;
         this.name = name;
     }
 
+    /**
+     * Returns the ID
+     * @return ID of the good
+     */
     public int getNum() {return num;}
+
+    /**
+     * Returns the price
+     * @return price of the good
+     */
     public int getPrice() {return price;}
+
+    /**
+     * Returns the name of the good
+     * @return name of the good
+     */
     public String getName() {return name;}
 }

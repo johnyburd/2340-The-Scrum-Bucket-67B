@@ -4,6 +4,11 @@ import java.util.EnumMap;
 import java.util.Objects;
 import java.util.Random;
 
+/**
+ * The market used to trade goods between the player and the planet they are at
+ * @author Scrum Bucket
+ * @version 1.0
+ */
 public class Market {
 
     private Player player;
@@ -14,6 +19,11 @@ public class Market {
     private int[] playerPrices = new int[10];
     private int[] planetPrices = new int[10];
 
+    /**
+     * Market constructor
+     * @param player the player looking to buy and sell goods
+     * @param planet the planet the player is trading with
+     */
     public Market(Player player, SolarSystem planet) {
         this.player = player;
         this.planet = planet;
@@ -33,18 +43,34 @@ public class Market {
         }
     }
 
+    /**
+     * Returns the planet's inventory
+     * @return planet's inventory
+     */
     public EnumMap<Good, Integer> getInventory() {
         return inventory;
     }
 
+    /**
+     * Returns the current event on the planet
+     * @return event occurring on the planet
+     */
     public Event getEvent() {
         return planet.getEvent();
     }
 
+    /**
+     * Returns the prices of the player's goods on this planet
+     * @return array of the prices of the player's goods
+     */
     public int[] getPlayerPrices() {
         return playerPrices;
     }
 
+    /**
+     * Returns the prices of the planet's goods
+     * @return array of the prices of the planet's goods
+     */
     public int[] getPlanetPrices() {
         return planetPrices;
     }
@@ -327,6 +353,14 @@ public class Market {
         return base + (IPL(good)*(planet.getTechLevel().getLevel()-getMTLP(good))) + (base*calcVar(good)/100);
     }
 
+    /**
+     * The player buys however many goods they want to from the planet as
+     * long as they can afford it, have space in their cargo, and the planet still
+     * has the goods in stock
+     * @param good the good the player is trying to buy
+     * @param quantity how many units of the good the player wants to buy
+     * @return string describing the result of the attempted purchase
+     */
     public String buy(Good good, int quantity) {
         int price = quantity * planetPrices[good.getNum()];
         if (player.getCredits() < price) {
@@ -343,6 +377,14 @@ public class Market {
         return "Purchase complete";
     }
 
+    /**
+     * The player sells goods to the planet in order to make money, as long as
+     * the planet's tech level is high enough to buy the good and they do not
+     * try to sell more than they have
+     * @param good the good the player is trying to sell
+     * @param quantity how many units of the good the player wants to sell
+     * @return string describing the result of the attempted sale
+     */
     public String sell(Good good, int quantity) {
         if (!canSell(good)) {
             return "Planet's tech level is too low to buy this!";
