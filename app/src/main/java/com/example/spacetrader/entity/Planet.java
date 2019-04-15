@@ -2,6 +2,12 @@ package com.example.spacetrader.entity;
 
 import com.example.spacetrader.entity.Coordinate;
 
+/**
+ * Planets that populate each solar system, and are where the player goes to
+ * for trading, refueling, and entering the ship yard
+ * @author Scrum Bucket
+ * @version 1.0
+ */
 public enum Planet {
     A(5, 10, "ACAMAR"),
     B(50, 95, "BALOSNEE"),
@@ -34,16 +40,30 @@ public enum Planet {
     private int y;
     private String name;
 
+    /**
+     * Planet constructor
+     * @param x x coordinate
+     * @param y y coordinate
+     * @param name name of the planet
+     */
     Planet(int x, int y, String name) {
         this.x = x;
         this.y = y;
         this.name = name;
     }
 
+    /**
+     * Returns the coordinate of the planet
+     * @return coordinate of the planet
+     */
     public Coordinate getCoordinates() {
         return new Coordinate(x, y);
     }
 
+    /**
+     * Returns the name of the planet
+     * @return name of the planet
+     */
     public String getName() {
         return name;
     }

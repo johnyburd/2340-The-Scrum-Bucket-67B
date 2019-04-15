@@ -4,9 +4,24 @@ import android.support.annotation.NonNull;
 
 import java.io.Serializable;
 
+/**
+ * Coordinate class in order to keep track of location
+ * of where the player is and where solar systems are in
+ * the universe
+ *
+ * @author Scrum Bucket
+ * @version 1.0
+ */
+
 public class Coordinate implements Serializable {
     private int x;
     private int y;
+
+    /**
+     * Coordinate constructor
+     * @param x the x coordinate
+     * @param y the y coordinate
+     */
 
     public Coordinate (int x, int y) {
         int MAX_Y = 100;
@@ -18,9 +33,18 @@ public class Coordinate implements Serializable {
         this.y = y;
     }
 
+    /**
+     * Returns the x coordinate
+     * @return returns x coordinate
+     */
     public int getX() {
         return x;
     }
+
+    /**
+     * Returns the y coordinate
+     * @return returns y coordinate
+     */
     public int getY() {
         return y;
     }

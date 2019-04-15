@@ -4,6 +4,12 @@ import android.support.annotation.NonNull;
 
 import java.io.Serializable;
 
+/**
+ * Ship class, holding the stats off all the different types. Also used for traveling
+ * to different planets
+ * @author Scrum Bucket
+ * @version 1.0
+ */
 public class Ship implements Serializable {
     private Spaceship ship;
     private int cargo;
@@ -13,6 +19,9 @@ public class Ship implements Serializable {
     private int currentFuel;
     private int jump;
 
+    /**
+     * Default ship constructor
+     */
     public Ship() {
         ship = Spaceship.FLEA;
         cargo = 10;
@@ -21,20 +30,43 @@ public class Ship implements Serializable {
         currentFuel = 300;
         jump = 20;
     }
+
+    /**
+     * Sets the ship's current hull health
+     * @param currHull current hull health
+     */
     public void setCurrHull(int currHull){
         this.currHull = currHull;
     }
+
+    /**
+     * Sets the ship's max hull health
+     * @param hull max hull health
+     */
     public void setHull(int hull){
         this.hull = hull;
     }
 
+    /**
+     * Returns the ship's current hull health
+     * @return current hull health
+     */
     public int getCurrHull() {
         return currHull;
     }
 
+    /**
+     * Returns the ship's max hull health
+     * @return max hull health
+     */
     public int getHull() {
         return hull;
     }
+
+    /**
+     * Ship constructor, set to the given type
+     * @param s what type of ship to make
+     */
     public Ship(Spaceship s) {
         currentFuel = 300;
         if (s.equals(Spaceship.FLEA)) {
@@ -109,6 +141,12 @@ public class Ship implements Serializable {
         }
     }
 
+    /**
+     * Travels from one planet to another as long as the player has enough fuel
+     * @param player the player
+     * @param system the solar system the player is trying to travel to
+     * @return True if the player has enough fuel to travel, False otherwise
+     */
     public boolean Travel(Player player, SolarSystem system) {
         Coordinate start = player.getLocation().getLocation();
         Coordinate dest = system.getLocation();
@@ -121,9 +159,24 @@ public class Ship implements Serializable {
         return false;
     }
 
+    /**
+     * Returns what type of ship this is
+     * @return what type of ship this is
+     */
     public Spaceship getShip() {return ship;}
+
+    /**
+     * Returns how much cargo this ship can hold
+     * @return how much cargo this ship can hold
+     */
     public int getCargo() {return cargo;}
+
+    /**
+     * Returns how much fuel the ship currently has
+     * @return how much fuel the ship currently has
+     */
     public int getCurrentFuel() {return currentFuel;}
+
     @NonNull
     public String toString() {return ship.toString();}
 }
