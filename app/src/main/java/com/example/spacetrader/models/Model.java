@@ -69,7 +69,7 @@ public class Model {
      * Loads the serialized player from internal storage
      *
      * @param context Context from the main activity
-     * @return succesfully loaded the player
+     * @return successfully loaded the player
      */
     public boolean continuePlayer(Context context) {
         Log.i("io", "resuming");
