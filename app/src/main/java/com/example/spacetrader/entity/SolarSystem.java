@@ -1,5 +1,7 @@
 package com.example.spacetrader.entity;
 
+import android.support.annotation.NonNull;
+
 import com.example.spacetrader.entity.Coordinate;
 import com.example.spacetrader.entity.Planet;
 import com.example.spacetrader.entity.Resource;
@@ -35,6 +37,7 @@ public class SolarSystem implements Serializable {
         return chance < player.getPoliceRecord();
     }
 
+    @NonNull
     @Override
     public String toString() {
         return name + "\nlocation: " + location.toString()

@@ -3,7 +3,6 @@ package com.example.spacetrader.viewmodels;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.support.annotation.NonNull;
-import android.view.Display;
 
 import com.example.spacetrader.entity.SolarSystem;
 import com.example.spacetrader.models.Model;

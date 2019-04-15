@@ -1,10 +1,8 @@
 package com.example.spacetrader.entity;
 
-import android.media.Image;
-import java.util.Random;
+import android.support.annotation.NonNull;
 
 import java.io.Serializable;
-import java.util.Random;
 
 public class Ship implements Serializable {
     private Spaceship ship;
@@ -126,5 +124,6 @@ public class Ship implements Serializable {
     public Spaceship getShip() {return ship;}
     public int getCargo() {return cargo;}
     public int getCurrentFuel() {return currentFuel;}
+    @NonNull
     public String toString() {return ship.toString();}
 }

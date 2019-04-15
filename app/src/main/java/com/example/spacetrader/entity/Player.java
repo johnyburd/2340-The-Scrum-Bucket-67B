@@ -1,7 +1,10 @@
 package com.example.spacetrader.entity;
 
+import android.support.annotation.NonNull;
+
 import java.io.Serializable;
 import java.util.EnumMap;
+import java.util.Objects;
 import java.util.Observable;
 import java.util.Random;
 public class Player extends Observable implements Serializable {
@@ -54,8 +57,7 @@ public class Player extends Observable implements Serializable {
 
     public int bribeAmount(long seed) {
         Random rand = new Random(seed);
-        int amount = policeRecord * 10 + rand.nextInt(1000);
-        return amount; // after this you either pay or choose another option
+        return policeRecord * 10 + rand.nextInt(1000); // after this you either pay or choose another option
     }
 
     public void payBribe(int amount) {
@@ -65,13 +67,13 @@ public class Player extends Observable implements Serializable {
 
     public boolean submit() {
         boolean found = false;
-        if (inventory.get(Good.NARCOTICS) == null || inventory.get(Good.NARCOTICS) > 0) {
+        if (inventory.get(Good.NARCOTICS) == null || Objects.requireNonNull(inventory.get(Good.NARCOTICS)) > 0) {
             Integer removed = inventory.remove(Good.NARCOTICS);
             if (removed != null) {
                 totalGoods -= removed;
             }
             found = true;
-        } else if (inventory.get(Good.FIREARMS) == null || inventory.get(Good.FIREARMS) > 0) {
+        } else if (inventory.get(Good.FIREARMS) == null || Objects.requireNonNull(inventory.get(Good.FIREARMS)) > 0) {
             //Integer removed = inventory.remove(Good.FIREARMS, 0);
             found = true;
         }
@@ -279,6 +281,7 @@ public class Player extends Observable implements Serializable {
         return spaceship;
     }
 
+    @NonNull
     public String toString() {
         return "Player's name is " + name + " and has " + credits +
                 " credits with the " + spaceship.toString() + " ship. " + engineerPoints
@@ -288,7 +291,7 @@ public class Player extends Observable implements Serializable {
 
     public void buy(Good good, int quantity, int cost) {
         if (inventory.containsKey(good)) {
-            inventory.put(good, inventory.get(good)+quantity);
+            inventory.put(good, Objects.requireNonNull(inventory.get(good)) + quantity);
         }
         else {
             inventory.put(good, quantity);
@@ -300,7 +303,7 @@ public class Player extends Observable implements Serializable {
     }
 
     public void sell(Good good, int quantity, int profit) {
-        inventory.put(good, inventory.get(good)-quantity);
+        inventory.put(good, Objects.requireNonNull(inventory.get(good)) - quantity);
         credits += profit;
         totalGoods -= quantity;
         this.setChanged();

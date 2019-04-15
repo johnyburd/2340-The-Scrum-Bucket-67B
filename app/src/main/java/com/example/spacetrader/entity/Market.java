@@ -1,6 +1,7 @@
 package com.example.spacetrader.entity;
 
 import java.util.EnumMap;
+import java.util.Objects;
 import java.util.Random;
 
 public class Market {
@@ -334,11 +335,11 @@ public class Market {
         if (player.getTotalGoods()+quantity > player.getShip().getCargo()) {
             return "You cannot hold that many goods!";
         }
-        if (inventory.get(good) < 1) {
+        if (Objects.requireNonNull(inventory.get(good)) < 1) {
             return "There is/are no " + good.getName() + " left on this planet!";
         }
         player.buy(good, quantity, price);
-        inventory.put(good, inventory.get(good) - 1);
+        inventory.put(good, Objects.requireNonNull(inventory.get(good)) - 1);
         return "Purchase complete";
     }
 
@@ -346,7 +347,7 @@ public class Market {
         if (!canSell(good)) {
             return "Planet's tech level is too low to buy this!";
         }
-        if (quantity > player.getInventory().get(good)) {
+        if (quantity > Objects.requireNonNull(player.getInventory().get(good))) {
             return "You are trying to sell more than you have!";
         }
         player.sell(good, quantity, quantity*playerPrices[good.getNum()]);

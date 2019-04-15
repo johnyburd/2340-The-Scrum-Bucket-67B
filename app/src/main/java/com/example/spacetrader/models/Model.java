@@ -1,32 +1,22 @@
 package com.example.spacetrader.models;
 
 import android.content.Context;
-import android.os.Environment;
 import android.util.Log;
 
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.OptionalDataException;
-import java.io.StreamCorruptedException;
 import java.util.ArrayList;
-import java.util.EnumMap;
 import java.util.List;
 import java.util.EnumSet;
 
 import com.example.spacetrader.entity.Event;
-import com.example.spacetrader.entity.Good;
 import com.example.spacetrader.entity.Market;
 import com.example.spacetrader.entity.Player;
 import com.example.spacetrader.entity.Resource;
-import com.example.spacetrader.entity.Ship;
 import com.example.spacetrader.entity.SolarSystem;
 import com.example.spacetrader.entity.Planet;
-import com.example.spacetrader.entity.Spaceship;
 import com.example.spacetrader.entity.TechLevel;
 
 public class Model {
@@ -84,7 +74,7 @@ public class Model {
     public boolean continuePlayer(Context context) {
         Log.i("io", "resuming");
 
-        FileInputStream inStream = null;
+        FileInputStream inStream;
         try {
             inStream = context.openFileInput("player.dat");
             ObjectInputStream objectInStream = new ObjectInputStream(inStream);
@@ -104,7 +94,7 @@ public class Model {
      */
     public void savePlayer(Context context) {
         Log.i("io", "saving");
-        FileOutputStream outStream = null;
+        FileOutputStream outStream;
         try {
            // File f = new File(Environment.getExternalStorageDirectory(), "/player.dat");
             //outStream = new FileOutputStream(f);

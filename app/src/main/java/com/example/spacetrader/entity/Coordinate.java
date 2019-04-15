@@ -1,5 +1,7 @@
 package com.example.spacetrader.entity;
 
+import android.support.annotation.NonNull;
+
 import java.io.Serializable;
 
 public class Coordinate implements Serializable {
@@ -45,6 +47,7 @@ public class Coordinate implements Serializable {
         return (coordinate.x == this.x && coordinate.y == this.y);
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "(" + x + ", " + y + ")";

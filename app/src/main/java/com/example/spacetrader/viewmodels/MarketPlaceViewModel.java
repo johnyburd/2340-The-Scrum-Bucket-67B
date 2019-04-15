@@ -5,7 +5,6 @@ import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.support.annotation.NonNull;
 
-import com.example.spacetrader.entity.Event;
 import com.example.spacetrader.entity.Market;
 import com.example.spacetrader.entity.Player;
 import com.example.spacetrader.entity.SolarSystem;
