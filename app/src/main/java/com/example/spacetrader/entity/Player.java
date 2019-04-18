@@ -276,7 +276,6 @@ public class Player extends Observable implements Serializable {
     /**
      * Sets the player's credits
      * @param credits how many credits the player will have
-     * @return the player
      */
     public void setCredits(int credits) {
         this.credits = credits;
@@ -287,7 +286,6 @@ public class Player extends Observable implements Serializable {
     /**
      * Sets the player's police record
      * @param policeRecord the player's police record
-     * @return the player
      */
     public void setPoliceRecord(int policeRecord) {
         this.policeRecord = policeRecord;
@@ -296,7 +294,6 @@ public class Player extends Observable implements Serializable {
     /**
      * Sets the player's clout
      * @param clout the player's clout
-     * @return the player
      */
     public void setClout(int clout) {
         this.clout = policeRecord;
@@ -305,17 +302,14 @@ public class Player extends Observable implements Serializable {
     /**
      * Sets the player's spaceship
      * @param spaceship the player's spaceship
-     * @return the player
      */
-    public Player setSpaceship(Spaceship spaceship) {
+    public void setSpaceship(Spaceship spaceship) {
         this.spaceship = new Ship(spaceship);
-        return this;
     }
 
     /**
      * Sets the player's location
      * @param location the player's location
-     * @return the player
      */
     public void setLocation(SolarSystem location) {
         this.location = location;
@@ -323,6 +317,10 @@ public class Player extends Observable implements Serializable {
         marketLocationChanged = true;
         this.setChanged();
         this.notifyObservers(credits);
+    }
+
+    public void setTotalGoods(int num) {
+        totalGoods = num;
     }
 
     /**
