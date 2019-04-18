@@ -10,7 +10,7 @@ import com.example.spacetrader.models.Model;
 import java.util.List;
 
 public class SolarSystemViewModel extends AndroidViewModel{
-    private Model model;
+    private final Model model;
 
     public SolarSystemViewModel(@NonNull Application application) {
         super(application);

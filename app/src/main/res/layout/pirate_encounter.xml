@@ -39,7 +39,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="64dp"
         android:layout_marginEnd="24dp"
-        android:text="@string/at_15_clicks_from_planet_you_encounter_a_pirate_hornet_n_nyour_opponent_attacks"
+        android:text="@string/at_15_clicks_from_planet_you_encounter_a_pirate_hornet_and_your_opponent_attacks"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

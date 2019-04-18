@@ -1,7 +1,5 @@
 package com.example.spacetrader.entity;
 
-import com.example.spacetrader.entity.Coordinate;
-
 /**
  * Planets that populate each solar system, and are where the player goes to
  * for trading, refueling, and entering the ship yard
@@ -36,9 +34,9 @@ public enum Planet {
     Y(27, 63, "YEW"),
     Z(9, 40, "ZALKON");
 
-    private int x;
-    private int y;
-    private String name;
+    private final int x;
+    private final int y;
+    private final String name;
 
     /**
      * Planet constructor

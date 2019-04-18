@@ -15,20 +15,29 @@ import com.example.spacetrader.models.Model;
 
 import java.util.List;
 
+/**
+ * Adapter class for items in the WarpRecycler.
+ */
 public class WarpAdapter extends RecyclerView.Adapter<WarpAdapter.WarpItemViewHolder> {
 
-    private List<SolarSystem> solarSystems;
-    private Player player;
+    private final List<SolarSystem> solarSystems;
+    private final Player player;
 
+    /**
+     * Adapter constructor.
+     */
     public WarpAdapter() {
         solarSystems = Model.getInstance().getSolarSystems();
         player = Model.getInstance().getPlayer();
     }
 
+    /**
+     * ViewHolder for WarpItem
+     */
     class WarpItemViewHolder extends RecyclerView.ViewHolder {
-        private TextView planet;
-        private TextView location;
-        private Button warp;
+        private final TextView planet;
+        private final TextView location;
+        private final Button warp;
         private SolarSystem system;
 
         WarpItemViewHolder(@NonNull View itemView) {

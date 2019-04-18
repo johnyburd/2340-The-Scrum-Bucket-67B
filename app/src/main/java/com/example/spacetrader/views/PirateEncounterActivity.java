@@ -11,6 +11,11 @@ import com.example.spacetrader.models.Model;
 
 import java.util.Locale;
 
+/**
+ * Activity for Pirate Encounter screen.
+ * @author Scrum Bucket
+ * @version 1.0
+ */
 public class PirateEncounterActivity extends AppCompatActivity {
     private Player player;
 
@@ -27,16 +32,28 @@ public class PirateEncounterActivity extends AppCompatActivity {
                 player.getLocation().getName()));
     }
 
+    /**
+     * Calls attackPirates on player, and returns to MarketPlace.
+     * @param view View for button press
+     */
     public void onPirateAttackPressed(View view) {
         player.attackPirates(System.nanoTime());
         finish();
     }
 
+    /**
+     * Calls fleePirates on player, and returns to Marketplace.
+     * @param view View for button press
+     */
     public void onPirateFleePressed(View view) {
         player.fleePirates(System.nanoTime());
         finish();
     }
 
+    /**
+     * Calls surrender on player, and returns to Marketplace.
+     * @param view View for button press
+     */
     public void onPirateSurrenderPressed(View view) {
         player.surrender();
         finish();

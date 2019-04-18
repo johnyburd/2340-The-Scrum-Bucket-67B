@@ -17,22 +17,33 @@ import java.util.EnumMap;
 import java.util.Locale;
 import java.util.Objects;
 
+/**
+ * Adapter for item in the Marketplace buyRecycler.
+ * @version 1.0
+ * @author Scrum Bucket
+ */
 public class BuyItemAdapter extends RecyclerView.Adapter<BuyItemAdapter.BuyItemViewHolder> {
 
-    private Market market;
-    private EnumMap<Good, Integer> inventory;
+    private final Market market;
+    private final EnumMap<Good, Integer> inventory;
 
+    /**
+     * Adapter constructor.
+     */
     public BuyItemAdapter() {
         market = Model.getInstance().getMarket();
         inventory = market.getInventory();
     }
 
+    /**
+     * ViewHolder class for the BuyItemAdapter.
+     */
     public class BuyItemViewHolder extends RecyclerView.ViewHolder {
-        private TextView name;
-        private TextView message;
-        private TextView number;
-        private TextView credits;
-        private Button buy;
+        private final TextView name;
+        private final TextView message;
+        private final TextView number;
+        private final TextView credits;
+        private final Button buy;
         private Good good;
 
         BuyItemViewHolder(@NonNull View itemView) {

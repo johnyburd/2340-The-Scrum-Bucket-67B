@@ -10,6 +10,11 @@ import android.widget.Toast;
 import com.example.spacetrader.R;
 import com.example.spacetrader.viewmodels.PlayerViewModel;
 
+/**
+ * Activity for Game Start Screen.
+ * @author Scrum Bucket
+ * @version 1.0
+ */
 public class StartActivity extends AppCompatActivity {
 
     @Override
@@ -18,10 +23,18 @@ public class StartActivity extends AppCompatActivity {
         setContentView(R.layout.start);
     }
 
+    /**
+     * Starts CreatePlayer activity.
+     * @param view View for button press
+     */
     public void onNewGamePressed(View view) {
         startActivity(new Intent(StartActivity.this, CreatePlayer.class));
     }
 
+    /**
+     * If a previous game exists, resumes play.
+     * @param view View for button press
+     */
     public void onContinuePressed(View view) {
         PlayerViewModel viewModel = ViewModelProviders.of(this).get(PlayerViewModel.class);
         if (viewModel.continuePlayer(StartActivity.this)) {

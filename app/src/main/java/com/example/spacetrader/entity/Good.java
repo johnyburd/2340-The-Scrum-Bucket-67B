@@ -18,9 +18,9 @@ public enum Good {
     NARCOTICS (8, 3500, "NARCOTICS"),
     ROBOTS (9, 5000, "ROBOTS");
 
-    private int num;
-    private int price;
-    private String name;
+    private final int num;
+    private final int price;
+    private final String name;
 
     /**
      * Good constructor

@@ -15,7 +15,6 @@ public class Ship implements Serializable {
     private int cargo;
     private int currHull;
     private int hull;
-    private int fuel;
     private int currentFuel;
     private int jump;
 
@@ -23,12 +22,7 @@ public class Ship implements Serializable {
      * Default ship constructor
      */
     public Ship() {
-        ship = Spaceship.FLEA;
-        cargo = 10;
-        hull = 25;
-        currHull = 25;
-        currentFuel = 300;
-        jump = 20;
+        this(Spaceship.GNAT);
     }
 
     /**

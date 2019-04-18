@@ -9,7 +9,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.EnumSet;
 
 import com.example.spacetrader.entity.Event;
 import com.example.spacetrader.entity.Market;
@@ -22,21 +21,21 @@ import com.example.spacetrader.entity.TechLevel;
 public class Model {
 
     private Player player;
-    private List<SolarSystem> systems;
+    private final List<SolarSystem> systems;
     private Market market;
 
-    public Model() {
+    private Model() {
         systems = new ArrayList<>();
         loadSolarSystems();
     }
 
-    private static Model instance = new Model();
+    private static final Model instance = new Model();
     public static Model getInstance() {
         return instance;
     }
 
     private void loadSolarSystems() {
-        EnumSet<Planet> planets = EnumSet.allOf(Planet.class);
+        Planet[] planets = Planet.values();
         TechLevel[] levels = TechLevel.values();
         Resource[] resources = Resource.values();
         Event[] events = Event.values();

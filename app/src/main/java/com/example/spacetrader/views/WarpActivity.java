@@ -17,6 +17,11 @@ import java.util.Locale;
 import java.util.Observable;
 import java.util.Observer;
 
+/**
+ * Activity for Warp Screen.
+ * @author Scrum Bucket
+ * @version 1.0
+ */
 public class WarpActivity extends AppCompatActivity {
 
     private Player player;
@@ -45,7 +50,7 @@ public class WarpActivity extends AppCompatActivity {
             @Override
             public void update(Observable o, Object arg) {
                 if (player.isLocationChanged()) {
-                    if (player.getLocation().underAttack(System.nanoTime(), player)) {
+                    if (player.getLocation().underAttack(System.nanoTime())) {
                         startActivity(new Intent(WarpActivity.this, PirateEncounterActivity.class));
                     } else if (player.getLocation().underArrest(System.nanoTime(), player)) {
                         startActivity(new Intent(WarpActivity.this, PoliceEncounterActivity.class));
@@ -59,6 +64,10 @@ public class WarpActivity extends AppCompatActivity {
         player.addObserver(locationObserver);
     }
 
+    /**
+     * Returns back to MarketPlace screen.
+     * @param view View for button press
+     */
     public void onWarpCancelPressed(View view) {
         onBackPressed();
     }

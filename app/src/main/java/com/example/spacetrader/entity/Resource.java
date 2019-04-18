@@ -20,25 +20,14 @@ public enum Resource {
     AR (11, "ARTISTIC"),
     WL (12, "WARLIKE");
 
-    private int code;
-    private String name;
+    private final String name;
 
     /**
      * Resouce constructor
-     * @param code number indicating what resource the planet has
      * @param name what resource the planet has
      */
     Resource(int code, String name) {
-        this.code = code;
         this.name = name;
-    }
-
-    /**
-     * Returns the code that indicates which event is occurring
-     * @return code that indicates which event is occurring
-     */
-    public int getCode() {
-        return code;
     }
 
     /**

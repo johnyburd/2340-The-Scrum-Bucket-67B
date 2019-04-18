@@ -15,7 +15,7 @@ import java.util.Random;
  */
 public class Player extends Observable implements Serializable {
     private String name;
-    private int skillPoints;
+    private final int skillPoints;
     private int pilotPoints;
     private int fighterPoints;
     private int traderPoints;
@@ -23,7 +23,7 @@ public class Player extends Observable implements Serializable {
     private int credits;
     private Ship spaceship;
     private SolarSystem location;
-    private EnumMap<Good, Integer> inventory;
+    private final EnumMap<Good, Integer> inventory;
     private int totalGoods;
     private boolean locationChanged;
     private boolean marketLocationChanged;
@@ -37,7 +37,7 @@ public class Player extends Observable implements Serializable {
     public Player (){
         skillPoints = 16;
         credits = 1000;
-        spaceship = new Ship(Spaceship.GNAT);
+        spaceship = new Ship();
         inventory = new EnumMap<>(Good.class);
         locationChanged = false;
 
@@ -234,16 +234,6 @@ public class Player extends Observable implements Serializable {
     }
 
     /**
-     * Set's the player's skill points
-     * @param skillPoints how many skill points the player will have
-     * @return the player
-     */
-    public Player setSkillPoints(int skillPoints) {
-        this.skillPoints = skillPoints;
-        return this;
-    }
-
-    /**
      * Set's the player's pilot points
      * @param pilotPoints how many pilot points the player will have
      * @return the player
@@ -288,11 +278,10 @@ public class Player extends Observable implements Serializable {
      * @param credits how many credits the player will have
      * @return the player
      */
-    public Player setCredits(int credits) {
+    public void setCredits(int credits) {
         this.credits = credits;
         this.setChanged();
         this.notifyObservers(this.credits);
-        return this;
     }
 
     /**
@@ -300,9 +289,8 @@ public class Player extends Observable implements Serializable {
      * @param policeRecord the player's police record
      * @return the player
      */
-    public Player setPoliceRecord(int policeRecord) {
+    public void setPoliceRecord(int policeRecord) {
         this.policeRecord = policeRecord;
-        return this;
     }
 
     /**
@@ -310,9 +298,8 @@ public class Player extends Observable implements Serializable {
      * @param clout the player's clout
      * @return the player
      */
-    public Player setClout(int clout) {
+    public void setClout(int clout) {
         this.clout = policeRecord;
-        return this;
     }
 
     /**
@@ -330,13 +317,12 @@ public class Player extends Observable implements Serializable {
      * @param location the player's location
      * @return the player
      */
-    public Player setLocation(SolarSystem location) {
+    public void setLocation(SolarSystem location) {
         this.location = location;
         locationChanged = true;
         marketLocationChanged = true;
         this.setChanged();
         this.notifyObservers(credits);
-        return this;
     }
 
     /**

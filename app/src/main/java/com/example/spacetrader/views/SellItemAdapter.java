@@ -16,22 +16,33 @@ import com.example.spacetrader.models.Model;
 import java.util.EnumMap;
 import java.util.Locale;
 
+/**
+ * Adapter for item in MarketPlace sellRecycler.
+ * @author Scrum Bucket
+ * @version 1.0
+ */
 public class SellItemAdapter extends RecyclerView.Adapter<SellItemAdapter.SellItemViewHolder> {
 
-    private Market market;
-    private EnumMap<Good, Integer> inventory;
+    private final Market market;
+    private final EnumMap<Good, Integer> inventory;
 
+    /**
+     * Adapter constructor
+     */
     public SellItemAdapter() {
         market = Model.getInstance().getMarket();
         inventory = Model.getInstance().getPlayer().getInventory();
     }
 
+    /**
+     * ViewHolder class for SellItemAdapter.
+     */
     public class SellItemViewHolder extends RecyclerView.ViewHolder {
-        private TextView name;
-        private TextView message;
-        private TextView number;
-        private TextView credits;
-        private Button sell;
+        private final TextView name;
+        private final TextView message;
+        private final TextView number;
+        private final TextView credits;
+        private final Button sell;
         private Good good;
 
         SellItemViewHolder(@NonNull View itemView) {

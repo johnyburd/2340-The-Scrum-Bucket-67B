@@ -9,7 +9,7 @@ import com.example.spacetrader.entity.Player;
 import com.example.spacetrader.models.Model;
 
 public class PlayerViewModel extends AndroidViewModel{
-    private Model model;
+    private final Model model;
 
     public PlayerViewModel(@NonNull Application application) {
         super(application);

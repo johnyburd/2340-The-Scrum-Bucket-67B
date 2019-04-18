@@ -2,11 +2,6 @@ package com.example.spacetrader.entity;
 
 import android.support.annotation.NonNull;
 
-import com.example.spacetrader.entity.Coordinate;
-import com.example.spacetrader.entity.Planet;
-import com.example.spacetrader.entity.Resource;
-import com.example.spacetrader.entity.TechLevel;
-
 import java.io.Serializable;
 import java.util.Random;
 
@@ -16,11 +11,11 @@ import java.util.Random;
  * @version 1.0
  */
 public class SolarSystem implements Serializable {
-    private String name;
-    private Coordinate location;
-    private TechLevel techLevel;
-    private Resource resource;
-    private Event event;
+    private final String name;
+    private final Coordinate location;
+    private final TechLevel techLevel;
+    private final Resource resource;
+    private final Event event;
 
     /**
      * SolarSystem constructor
@@ -40,10 +35,9 @@ public class SolarSystem implements Serializable {
     /**
      * Checks if the player is attacked by pirates upon arrival
      * @param seed for more random chance
-     * @param player the player
      * @return True if the player is attacked by pirates, false otherwise
      */
-    public boolean underAttack(long seed, Player player){
+    public boolean underAttack(long seed){
         Random rand = new Random(seed);
         int chance = rand.nextInt(100);
         return chance < 10;

@@ -39,7 +39,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="64dp"
         android:layout_marginEnd="24dp"
-        android:text="@string/at_7_clicks_from_planet_you_encounter_a_police_wasp_n_nthe_police_summon_you_to_submit_to_an_inspection"
+        android:text="@string/at_7_clicks_from_planet_you_encounter_a_police_wasp_and_the_police_summon_you_to_submit_to_an_inspection"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

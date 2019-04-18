@@ -15,8 +15,8 @@ public enum TechLevel {
     PI (6, "POST INDUSTRIAL"),
     HT (7, "HI-TECH");
 
-    private int level;
-    private String name;
+    private final int level;
+    private final String name;
 
     /**
      * TechLevel constructor

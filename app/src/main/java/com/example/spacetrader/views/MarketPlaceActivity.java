@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.spacetrader.R;
+import com.example.spacetrader.entity.Market;
 import com.example.spacetrader.entity.Player;
 import com.example.spacetrader.entity.SolarSystem;
 import com.example.spacetrader.viewmodels.MarketPlaceViewModel;
@@ -20,9 +21,15 @@ import java.util.Locale;
 import java.util.Observable;
 import java.util.Observer;
 
+/**
+ * Activity for the MarketPlace screen.
+ * @author Scrum Bucket
+ * @version 1.0
+ */
 public class MarketPlaceActivity extends AppCompatActivity {
     private PlayerViewModel playerViewModel;
     private MarketPlaceViewModel marketPlaceViewModel;
+    private Market market;
 
     private TextView credits;
     private TextView storage;
@@ -54,6 +61,8 @@ public class MarketPlaceActivity extends AppCompatActivity {
         player.setLocation(planet);
 
         marketPlaceViewModel.createMarket(player, planet);
+        market = marketPlaceViewModel.getMarket();
+        market.setEvent(player.getLocation().getEvent());
 
         credits = findViewById(R.id.marketplace_credits);
         credits.setText(String.format(Locale.US, "Credits: %d", player.getCredits()));
@@ -68,12 +77,14 @@ public class MarketPlaceActivity extends AppCompatActivity {
         player.addObserver(creditsObserver);
 
         storage = findViewById(R.id.marketplace_storage);
-        storage.setText(String.format(Locale.US, "Storage: %d/15", player.getTotalGoods()));
+        storage.setText(String.format(Locale.US, "Storage: %d/%d",
+                player.getTotalGoods(), player.getShip().getCargo()));
 
         Observer storageObserver = new Observer() {
             @Override
             public void update(Observable o, Object arg) {
-                storage.setText(String.format(Locale.US, "Storage: %d/15", player.getTotalGoods()));
+                storage.setText(String.format(Locale.US, "Storage: %d/%d",
+                        player.getTotalGoods(), player.getShip().getCargo()));
             }
         };
         player.addObserver(storageObserver);
@@ -109,6 +120,8 @@ public class MarketPlaceActivity extends AppCompatActivity {
             public void update(Observable o, Object arg) {
                 if (player.isMarketLocationChanged()) {
                     marketPlaceViewModel.createMarket(player, player.getLocation());
+                    market = marketPlaceViewModel.getMarket();
+                    market.setEvent(player.getLocation().getEvent());
                     sellItemAdapter = new SellItemAdapter();
                     sellView.setAdapter(sellItemAdapter);
                     buyItemAdapter = new BuyItemAdapter();
@@ -134,6 +147,10 @@ public class MarketPlaceActivity extends AppCompatActivity {
         playerViewModel.savePlayer(MarketPlaceActivity.this);
     }
 
+    /**
+     * Opens the warp screen.
+     * @param view View for button press
+     */
     public void onTravelPressed(View view) {
         startActivity(new Intent(MarketPlaceActivity.this, WarpActivity.class));
     }

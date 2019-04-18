@@ -11,7 +11,7 @@ import com.example.spacetrader.entity.SolarSystem;
 import com.example.spacetrader.models.Model;
 
 public class MarketPlaceViewModel extends AndroidViewModel{
-    private Model model;
+    private final Model model;
 
     public MarketPlaceViewModel(@NonNull Application application) {
         super(application);

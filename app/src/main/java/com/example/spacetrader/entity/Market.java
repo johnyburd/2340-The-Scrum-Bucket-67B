@@ -11,13 +11,13 @@ import java.util.Random;
  */
 public class Market {
 
-    private Player player;
-    private SolarSystem planet;
+    private final Player player;
+    private final SolarSystem planet;
     private Event event;
     //private int var;
-    private EnumMap<Good, Integer> inventory;
-    private int[] playerPrices = new int[10];
-    private int[] planetPrices = new int[10];
+    private final EnumMap<Good, Integer> inventory;
+    private final int[] playerPrices = new int[10];
+    private final int[] planetPrices = new int[10];
 
     /**
      * Market constructor
@@ -51,12 +51,8 @@ public class Market {
         return inventory;
     }
 
-    /**
-     * Returns the current event on the planet
-     * @return event occurring on the planet
-     */
-    public Event getEvent() {
-        return planet.getEvent();
+    public void setEvent(Event event) {
+        this.event = event;
     }
 
     /**
