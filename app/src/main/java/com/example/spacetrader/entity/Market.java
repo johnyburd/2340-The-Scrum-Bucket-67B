@@ -57,7 +57,7 @@ public class Market {
      * @return array of the prices of the player's goods
      */
     public int[] getPlayerPrices() {
-        return playerPrices;
+        return playerPrices.clone();
     }
 
     /**
@@ -65,7 +65,7 @@ public class Market {
      * @return array of the prices of the planet's goods
      */
     public int[] getPlanetPrices() {
-        return planetPrices;
+        return planetPrices.clone();
     }
 
     private Good getGood(int good) {

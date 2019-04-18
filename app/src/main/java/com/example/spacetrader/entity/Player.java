@@ -14,11 +14,11 @@ import java.util.Random;
  * @version 1.0
  */
 public class Player extends Observable implements Serializable {
-    private String name;
-    private int pilotPoints;
-    private int fighterPoints;
-    private int traderPoints;
-    private int engineerPoints;
+    private final String name;
+    private final int pilotPoints;
+    private final int fighterPoints;
+    private final int traderPoints;
+    private final int engineerPoints;
     private int credits;
     private Ship spaceship;
     private SolarSystem location;
@@ -29,9 +29,6 @@ public class Player extends Observable implements Serializable {
 
     private int policeRecord;
     private int clout;
-
-    private final int INITIAL_POLICE_RECORD = 50;
-    private final int INITIAL_CLOUT = 50;
 
     /**
      * Player constructor, starts off with 1000 credits and the GNAT ship
@@ -52,8 +49,8 @@ public class Player extends Observable implements Serializable {
         credits = 1000;
         spaceship = new Ship();
         locationChanged = false;
-        policeRecord = INITIAL_POLICE_RECORD;
-        clout = INITIAL_CLOUT;
+        policeRecord = 50;
+        clout = 50;
         inventory = new EnumMap<>(Good.class);
         Good[] goods = Good.values();
         for (Good good : goods) {
@@ -178,9 +175,9 @@ public class Player extends Observable implements Serializable {
     public int attackPirates(long seed) {
         int damage = spaceship.attackPirates(seed, fighterPoints);
         if (damage < 10) {
-            setClout(getClout() - 5);
+            clout -= 5;
         } else {
-            setClout(getClout() + 5);
+            clout += 5;
         }
         //notifyObservers(credits);
         return damage;
@@ -204,65 +201,75 @@ public class Player extends Observable implements Serializable {
     public int fleePirates(long seed) {
         int damage = spaceship.fleePirates(seed, fighterPoints, pilotPoints);
         if (damage == -1) {
-            setClout(getClout() + 5);
+            clout += 5;
             damage = 0;
         } else if (damage < 10) {
-            setClout(getClout() - 5);
+            clout -= 5;
         } else {
-            setClout(getClout() + 5);
+            clout += 5;
         }
         return damage;
     }
 
-    /**
-     * Sets the player's name to the given string
-     * @param name name of the player
-     * @return the player
-     */
-    public Player setName(String name) {
-        this.name = name;
-        return this;
-    }
+// --Commented out by Inspection START (4/18/2019 3:57 PM):
+//    /**
+//     * Sets the player's name to the given string
+//     * @param name name of the player
+//     * @return the player
+//     */
+//    public Player setName(String name) {
+//        this.name = name;
+//        return this;
+//    }
+// --Commented out by Inspection STOP (4/18/2019 3:57 PM)
 
-    /**
-     * Set's the player's pilot points
-     * @param pilotPoints how many pilot points the player will have
-     * @return the player
-     */
-    public Player setPilotPoints(int pilotPoints) {
-        this.pilotPoints = pilotPoints;
-        return this;
-    }
+// --Commented out by Inspection START (4/18/2019 3:57 PM):
+//    /**
+//     * Set's the player's pilot points
+//     * @param pilotPoints how many pilot points the player will have
+//     * @return the player
+//     */
+//    public Player setPilotPoints(int pilotPoints) {
+//        this.pilotPoints = pilotPoints;
+//        return this;
+//    }
+// --Commented out by Inspection STOP (4/18/2019 3:57 PM)
 
-    /**
-     * Set's the player's fighter points
-     * @param fighterPoints how many fighter points the player will have
-     * @return the player
-     */
-    public Player setFighterPoints(int fighterPoints) {
-        this.fighterPoints = fighterPoints;
-        return this;
-    }
+// --Commented out by Inspection START (4/18/2019 3:57 PM):
+//    /**
+//     * Set's the player's fighter points
+//     * @param fighterPoints how many fighter points the player will have
+//     * @return the player
+//     */
+//    public Player setFighterPoints(int fighterPoints) {
+//        this.fighterPoints = fighterPoints;
+//        return this;
+//    }
+// --Commented out by Inspection STOP (4/18/2019 3:57 PM)
 
-    /**
-     * Sets the player's trader points
-     * @param traderPoints how many trader points the player will have
-     * @return thep player
-     */
-    public Player setTraderPoints(int traderPoints) {
-        this.traderPoints = traderPoints;
-        return this;
-    }
+// --Commented out by Inspection START (4/18/2019 3:56 PM):
+//    /**
+//     * Sets the player's trader points
+//     * @param traderPoints how many trader points the player will have
+//     * @return thep player
+//     */
+//    public Player setTraderPoints(int traderPoints) {
+//        this.traderPoints = traderPoints;
+//        return this;
+//    }
+// --Commented out by Inspection STOP (4/18/2019 3:56 PM)
 
-    /**
-     * Sets the player's engineer points
-     * @param engineerPoints how many engineer points the player will have
-     * @return the player
-     */
-    public Player setEngineerPoints(int engineerPoints) {
-        this.engineerPoints = engineerPoints;
-        return this;
-    }
+// --Commented out by Inspection START (4/18/2019 3:57 PM):
+//    /**
+//     * Sets the player's engineer points
+//     * @param engineerPoints how many engineer points the player will have
+//     * @return the player
+//     */
+//    public Player setEngineerPoints(int engineerPoints) {
+//        this.engineerPoints = engineerPoints;
+//        return this;
+//    }
+// --Commented out by Inspection STOP (4/18/2019 3:57 PM)
 
     /**
      * Sets the player's credits
@@ -278,16 +285,8 @@ public class Player extends Observable implements Serializable {
      * Sets the player's police record
      * @param policeRecord the player's police record
      */
-    public void setPoliceRecord(int policeRecord) {
+    private void setPoliceRecord(int policeRecord) {
         this.policeRecord = policeRecord;
-    }
-
-    /**
-     * Sets the player's clout
-     * @param clout the player's clout
-     */
-    public void setClout(int clout) {
-        this.clout = policeRecord;
     }
 
     /**
@@ -317,45 +316,55 @@ public class Player extends Observable implements Serializable {
         totalGoods = num;
     }
 
-    /**
-     * Returns the player's name
-     * @return the player's name
-     */
-    public String getName() {
-        return name;
-    }
+// --Commented out by Inspection START (4/18/2019 3:57 PM):
+//    /**
+//     * Returns the player's name
+//     * @return the player's name
+//     */
+//    public String getName() {
+//        return name;
+//    }
+// --Commented out by Inspection STOP (4/18/2019 3:57 PM)
 
-    /**
-     * Returns the player's pilot points
-     * @return the player's pilot points
-     */
-    public int getPilotPoints() {
-        return pilotPoints;
-    }
+// --Commented out by Inspection START (4/18/2019 3:57 PM):
+//    /**
+//     * Returns the player's pilot points
+//     * @return the player's pilot points
+//     */
+//    public int getPilotPoints() {
+//        return pilotPoints;
+//    }
+// --Commented out by Inspection STOP (4/18/2019 3:57 PM)
 
-    /**
-     * Returns the player's fighter points
-     * @return the player's fighter points
-     */
-    public int getFighterPoints() {
-        return fighterPoints;
-    }
+// --Commented out by Inspection START (4/18/2019 3:57 PM):
+//    /**
+//     * Returns the player's fighter points
+//     * @return the player's fighter points
+//     */
+//    public int getFighterPoints() {
+//        return fighterPoints;
+//    }
+// --Commented out by Inspection STOP (4/18/2019 3:57 PM)
 
-    /**
-     * Returns the player's trader points
-     * @return the player's trader points
-     */
-    public int getTraderPoints() {
-        return traderPoints;
-    }
+// --Commented out by Inspection START (4/18/2019 3:57 PM):
+//    /**
+//     * Returns the player's trader points
+//     * @return the player's trader points
+//     */
+//    public int getTraderPoints() {
+//        return traderPoints;
+//    }
+// --Commented out by Inspection STOP (4/18/2019 3:57 PM)
 
-    /**
-     * Returns the player's engineer points
-     * @return the player's engineer poitns
-     */
-    public int getEngineerPoints() {
-        return engineerPoints;
-    }
+// --Commented out by Inspection START (4/18/2019 3:56 PM):
+//    /**
+//     * Returns the player's engineer points
+//     * @return the player's engineer poitns
+//     */
+//    public int getEngineerPoints() {
+//        return engineerPoints;
+//    }
+// --Commented out by Inspection STOP (4/18/2019 3:56 PM)
 
     /**
      * Returns the player's amount of credits
@@ -363,14 +372,6 @@ public class Player extends Observable implements Serializable {
      */
     public int getCredits() {
         return credits;
-    }
-
-    /**
-     * Returns the player's clout
-     * @return the player's clout
-     */
-    public int getClout() {
-        return clout;
     }
 
     /**
@@ -384,14 +385,6 @@ public class Player extends Observable implements Serializable {
      * @return how many goods the player has
      */
     public int getTotalGoods() {return totalGoods;}
-
-    /**
-     * Returns the player's spaceship
-     * @return the player's spaceship
-     */
-    public Spaceship getSpaceship() {
-        return spaceship.getShip();
-    }
 
     /**
      * Returns which solar system the player is at
@@ -425,7 +418,7 @@ public class Player extends Observable implements Serializable {
     }
 
     /**
-     * @param seed
+     * @param seed to generate Random object
      * @return whether player is under attack
      */
     public boolean underAttack(long seed) {

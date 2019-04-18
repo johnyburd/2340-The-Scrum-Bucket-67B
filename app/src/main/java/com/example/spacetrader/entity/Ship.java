@@ -147,12 +147,6 @@ public class Ship implements Serializable {
     }
 
     /**
-     * Returns what type of ship this is
-     * @return what type of ship this is
-     */
-    public Spaceship getShip() {return ship;}
-
-    /**
      * Returns how much cargo this ship can hold
      * @return how much cargo this ship can hold
      */

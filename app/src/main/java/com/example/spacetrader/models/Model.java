@@ -9,6 +9,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.example.spacetrader.entity.Event;
@@ -19,18 +20,31 @@ import com.example.spacetrader.entity.SolarSystem;
 import com.example.spacetrader.entity.Planet;
 import com.example.spacetrader.entity.TechLevel;
 
+/**
+ * Model for MVVM
+ * @author Scrum Bucket
+ * @version 1.0
+ */
 public final class Model {
 
     private Player player;
     private final List<SolarSystem> systems;
     private Market market;
 
+    /**
+     * Constructor initializing solarSystem list
+     */
     private Model() {
         systems = new ArrayList<>();
         loadSolarSystems();
     }
 
     private static final Model instance = new Model();
+
+    /**
+     *
+     * @return instance of the model
+     */
     public static Model getInstance() {
         return instance;
     }
@@ -50,14 +64,30 @@ public final class Model {
         }
     }
 
+    /**
+     *
+     * @return list of the solarSystems
+     */
     public List<SolarSystem> getSolarSystems() {
-        return systems;
+        return Collections.unmodifiableList(systems);
     }
 
+    /**
+     *
+      * @return player from the model instance
+     */
     public Player getPlayer() {
         return player;
     }
 
+    /**
+     * Creates a new player
+     * @param name player name
+     * @param pilot pilot skill points
+     * @param fighter fighter skill points
+     * @param trader trader skill points
+     * @param engineer engineer skill points
+     */
     public void createPlayer(String name, int pilot, int fighter, int trader, int engineer) {
         player = new Player(name, pilot, fighter, trader, engineer);
         market = new Market(player, systems.get(0));
@@ -105,10 +135,19 @@ public final class Model {
         }
     }
 
+    /**
+     *
+     * @return market
+     */
     public Market getMarket() {
         return market;
     }
 
+    /**
+     * Creates a new market
+     * @param player player
+     * @param planet market location
+     */
     public void createMarket(Player player, SolarSystem planet) {
         market = new Market(player, planet);
     }
