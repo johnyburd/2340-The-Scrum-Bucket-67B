@@ -13,7 +13,7 @@ public class Market {
 
     private final Player player;
     private final SolarSystem planet;
-    private Event event;
+    private final Event event;
     //private int var;
     private final EnumMap<Good, Integer> inventory;
     private final int[] playerPrices = new int[10];
@@ -28,6 +28,7 @@ public class Market {
         this.player = player;
         this.planet = planet;
         Random rand = new Random();
+        event = planet.getEvent();
         //var = rand.nextInt(5);
         inventory = new EnumMap<>(Good.class);
         Good[] goods = Good.values();
@@ -51,10 +52,6 @@ public class Market {
         return inventory;
     }
 
-    public void setEvent(Event event) {
-        this.event = event;
-    }
-
     /**
      * Returns the prices of the player's goods on this planet
      * @return array of the prices of the player's goods
@@ -72,98 +69,67 @@ public class Market {
     }
 
     private Good getGood(int good) {
-        switch (good) {
-            case 0:
-                return Good.WATER;
-            case 1:
-                return Good.FURS;
-            case 2:
-                return Good.FOOD;
-            case 3:
-                return Good.ORE;
-            case 4:
-                return Good.GAMES;
-            case 5:
-                return Good.FIREARMS;
-            case 6:
-                return Good.MEDICINE;
-            case 7:
-                return Good.MACHINES;
-            case 8:
-                return Good.NARCOTICS;
-            case 9:
-                return Good.ROBOTS;
-        }
-        return Good.WATER;
+        return Good.values()[good];
     }
 
     private int BasePrice(Good good) {
         int price = good.getPrice();
+        Resource resource = planet.getResource();
         if (good.equals(Good.WATER)) {
             if (event == Event.DROUGHT) {
                 price += 20;
             }
-            if (planet.getResource() == Resource.DS) {
+            if (resource == Resource.DS) {
                 price += 20;
-            }
-            else if (planet.getResource() == Resource.WA) {
+            } else if (resource == Resource.WA) {
                 price -= 20;
             }
-        }
-        else if (good.equals(Good.FURS)) {
+        } else if (good.equals(Good.FURS)) {
             if (event == Event.COLD) {
                 price += 150;
             }
-            if (planet.getResource() == Resource.RF) {
+            if (resource == Resource.RF) {
                 price -= 150;
-            }
-            else if (planet.getResource() == Resource.LL) {
+            } else if (resource == Resource.LL) {
                 price += 150;
             }
-        }
-        else if (good.equals(Good.FOOD)) {
+        } else if (good.equals(Good.FOOD)) {
             if (event == Event.CROPFAIL) {
                 price += 50;
             }
-            if (planet.getResource() == Resource.RS) {
+            if (resource == Resource.RS) {
                 price -= 50;
-            }
-            else if (planet.getResource() == Resource.PS) {
+            } else if (resource == Resource.PS) {
                 price += 50;
             }
-        }
-        else if (good.equals(Good.ORE)) {
+        } else if (good.equals(Good.ORE)) {
             if (event == Event.WAR) {
                 price += 200;
             }
-            if (planet.getResource() == Resource.MR) {
+            if (resource == Resource.MR) {
                 price -= 200;
-            }
-            else if (planet.getResource() == Resource.MP) {
+            } else if (resource == Resource.MP) {
                 price += 200;
             }
-        }
-        else if (good.equals(Good.GAMES)) {
+        } else if (good.equals(Good.GAMES)) {
             if (event == Event.BOREDOM) {
                 price += 150;
             }
-            if (planet.getResource() == Resource.AR) {
+            if (resource == Resource.AR) {
                 price -= 150;
             }
-        }
-        else if (good.equals(Good.FIREARMS)) {
+        } else if (good.equals(Good.FIREARMS)) {
             if (event == Event.WAR) {
                 price += 500;
             }
-            if (planet.getResource() == Resource.WL) {
+            if (resource == Resource.WL) {
                 price -= 500;
             }
-        }
-        else if (good.equals(Good.MEDICINE)) {
+        } else if (good.equals(Good.MEDICINE)) {
             if (event == Event.PLAGUE) {
                 price += 350;
             }
-            if (planet.getResource() == Resource.HE) {
+            if (resource == Resource.HE) {
                 price -= 350;
             }
         }
@@ -176,7 +142,7 @@ public class Market {
             if (event == Event.BOREDOM) {
                 price += 1000;
             }
-            if (planet.getResource() == Resource.WM) {
+            if (resource == Resource.WM) {
                 price -= 1000;
             }
         }
@@ -267,29 +233,7 @@ public class Market {
     }
 
     private boolean canSell(Good good) {
-        switch (good) {
-            case WATER:
-                return planet.getTechLevel().getLevel() >= 0;
-            case FURS:
-                return planet.getTechLevel().getLevel() >= 0;
-            case FOOD:
-                return planet.getTechLevel().getLevel() >= 0;
-            case ORE:
-                return planet.getTechLevel().getLevel() >= 2;
-            case GAMES:
-                return planet.getTechLevel().getLevel() >= 1;
-            case FIREARMS:
-                return planet.getTechLevel().getLevel() >= 1;
-            case MEDICINE:
-                return planet.getTechLevel().getLevel() >= 1;
-            case MACHINES:
-                return planet.getTechLevel().getLevel() >= 3;
-            case NARCOTICS:
-                return planet.getTechLevel().getLevel() >= 0;
-            case ROBOTS:
-                return planet.getTechLevel().getLevel() >= 4;
-        }
-        return false;
+        return planet.canSell(good);
     }
 
     private int getMTLP(Good good) {
@@ -346,7 +290,9 @@ public class Market {
 
     private int calcPrice(Good good) {
         int base = BasePrice(good);
-        return base + (IPL(good)*(planet.getTechLevel().getLevel()-getMTLP(good))) + (base*calcVar(good)/100);
+        return base + (IPL(good) *
+                (planet.getTechLevel() - getMTLP(good)))
+                + ((base * calcVar(good)) / 100);
     }
 
     /**
@@ -359,18 +305,14 @@ public class Market {
      */
     public String buy(Good good, int quantity) {
         int price = quantity * planetPrices[good.getNum()];
-        if (player.getCredits() < price) {
-            return "You do not have enough credits to buy that!";
-        }
-        if (player.getTotalGoods()+quantity > player.getShip().getCargo()) {
-            return "You cannot hold that many goods!";
-        }
         if (Objects.requireNonNull(inventory.get(good)) < 1) {
             return "There is/are no " + good.getName() + " left on this planet!";
         }
-        player.buy(good, quantity, price);
-        inventory.put(good, Objects.requireNonNull(inventory.get(good)) - 1);
-        return "Purchase complete";
+        String msg = player.buy(good, quantity, price);
+        if (("Purchase complete").equals(msg)) {
+            inventory.put(good, Objects.requireNonNull(inventory.get(good)) - 1);
+        }
+        return msg;
     }
 
     /**

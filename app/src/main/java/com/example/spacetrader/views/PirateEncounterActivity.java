@@ -1,5 +1,6 @@
 package com.example.spacetrader.views;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -7,7 +8,7 @@ import android.widget.TextView;
 
 import com.example.spacetrader.R;
 import com.example.spacetrader.entity.Player;
-import com.example.spacetrader.models.Model;
+import com.example.spacetrader.viewmodels.PlayerViewModel;
 
 import java.util.Locale;
 
@@ -24,12 +25,12 @@ public class PirateEncounterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pirate_encounter);
 
-        player = Model.getInstance().getPlayer();
+        player = ViewModelProviders.of(this).get(PlayerViewModel.class).getPlayer();
 
         TextView encounter = findViewById(R.id.pirate_encounter_label);
         encounter.setText(String.format(Locale.US,
                 "On your way to %s, you encounter a pirate hornet.\n\nYour opponent attacks.",
-                player.getLocation().getName()));
+                player.getLocationName()));
     }
 
     /**

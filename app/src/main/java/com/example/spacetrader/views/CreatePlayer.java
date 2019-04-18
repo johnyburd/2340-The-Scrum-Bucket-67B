@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.view.View;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import com.example.spacetrader.entity.Difficulty;
@@ -23,6 +24,7 @@ import java.util.Locale;
  */
 public class CreatePlayer extends AppCompatActivity {
 
+    private final int MAX_POINTS = 16;
     private int totalPoints;
 
     private EditText name;
@@ -37,17 +39,13 @@ public class CreatePlayer extends AppCompatActivity {
     private TextView traderText;
     private TextView engineerText;
 
-    private PlayerViewModel viewModel;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_player);
 
-        viewModel = ViewModelProviders.of(this).get(PlayerViewModel.class);
-
         Spinner difficultySpinner = findViewById(R.id.difficulty_spinner);
-        ArrayAdapter<Difficulty> difficulty_adapter = new ArrayAdapter<>
+        SpinnerAdapter difficulty_adapter = new ArrayAdapter<>
                 (this, android.R.layout.simple_spinner_item, Difficulty.values());
         difficultySpinner.setAdapter(difficulty_adapter);
 
@@ -62,7 +60,7 @@ public class CreatePlayer extends AppCompatActivity {
         fighterPoints = 4;
         traderPoints = 4;
         engineerPoints = 4;
-        totalPoints = 16;
+        totalPoints = pilotPoints + fighterPoints + traderPoints + engineerPoints;
     }
 
     /**
@@ -70,7 +68,8 @@ public class CreatePlayer extends AppCompatActivity {
      * @param view View for button press
      */
     public void onPilotAddPressed(View view) {
-        if (viewModel.validatePoints(pilotPoints + 1, fighterPoints, traderPoints, engineerPoints)) {
+        if (validatePoints(pilotPoints + 1,
+                fighterPoints, traderPoints, engineerPoints)) {
             pilotPoints++;
             totalPoints++;
             pilotText.setText(String.format(Locale.US,"%02d", pilotPoints));
@@ -82,7 +81,8 @@ public class CreatePlayer extends AppCompatActivity {
      * @param view View for button press
      */
     public void onPilotMinusPressed(View view) {
-        if (viewModel.validatePoints(pilotPoints - 1, fighterPoints, traderPoints, engineerPoints)) {
+        if (validatePoints(pilotPoints - 1,
+                fighterPoints, traderPoints, engineerPoints)) {
             pilotPoints--;
             totalPoints--;
             pilotText.setText(String.format(Locale.US, "%02d", pilotPoints));
@@ -94,7 +94,8 @@ public class CreatePlayer extends AppCompatActivity {
      * @param view View for button press
      */
     public void onFighterAddPressed(View view) {
-        if (viewModel.validatePoints(pilotPoints, fighterPoints + 1, traderPoints, engineerPoints)) {
+        if (validatePoints(pilotPoints, fighterPoints + 1,
+                traderPoints, engineerPoints)) {
             fighterPoints++;
             totalPoints++;
             fighterText.setText(String.format(Locale.US, "%02d", fighterPoints));
@@ -106,7 +107,8 @@ public class CreatePlayer extends AppCompatActivity {
      * @param view View for button press
      */
     public void onFighterMinusPressed(View view) {
-        if (viewModel.validatePoints(pilotPoints, fighterPoints - 1, traderPoints, engineerPoints)) {
+        if (validatePoints(pilotPoints, fighterPoints - 1,
+                traderPoints, engineerPoints)) {
             fighterPoints--;
             totalPoints--;
             fighterText.setText(String.format(Locale.US, "%02d", fighterPoints));
@@ -118,7 +120,8 @@ public class CreatePlayer extends AppCompatActivity {
      * @param view View for button press
      */
     public void onTraderPlusPressed(View view) {
-        if (viewModel.validatePoints(pilotPoints, fighterPoints, traderPoints + 1, engineerPoints)) {
+        if (validatePoints(pilotPoints, fighterPoints,
+                traderPoints + 1, engineerPoints)) {
             traderPoints++;
             totalPoints++;
             traderText.setText(String.format(Locale.US, "%02d", traderPoints));
@@ -130,7 +133,8 @@ public class CreatePlayer extends AppCompatActivity {
      * @param view View for button press
      */
     public void onTraderMinusPressed(View view) {
-        if (viewModel.validatePoints(pilotPoints, fighterPoints, traderPoints - 1, engineerPoints)) {
+        if (validatePoints(pilotPoints, fighterPoints,
+                traderPoints - 1, engineerPoints)) {
             traderPoints--;
             totalPoints--;
             traderText.setText(String.format(Locale.US, "%02d", traderPoints));
@@ -142,7 +146,8 @@ public class CreatePlayer extends AppCompatActivity {
      * @param view View for button press
      */
     public void onEngineerPlusPressed(View view) {
-        if (viewModel.validatePoints(pilotPoints, fighterPoints, traderPoints, engineerPoints + 1)) {
+        if (validatePoints(pilotPoints, fighterPoints,
+                traderPoints, engineerPoints + 1)) {
             engineerPoints++;
             totalPoints++;
             engineerText.setText(String.format(Locale.US, "%02d", engineerPoints));
@@ -154,7 +159,8 @@ public class CreatePlayer extends AppCompatActivity {
      * @param view View for button press
      */
     public void onEngineerMinusPressed(View view) {
-        if (viewModel.validatePoints(pilotPoints, fighterPoints, traderPoints, engineerPoints - 1)) {
+        if (validatePoints(pilotPoints, fighterPoints,
+                traderPoints, engineerPoints - 1)) {
             engineerPoints--;
             totalPoints--;
             engineerText.setText(String.format(Locale.US, "%02d", engineerPoints));
@@ -167,14 +173,18 @@ public class CreatePlayer extends AppCompatActivity {
      * @param view View for button press
      */
     public void onCreatePlayer(View view) {
-        if (totalPoints > 16) {
-            limit.setText("The number of skill points exceeds 16.");
-        } else if (totalPoints < 16) {
-            limit.setText("The number of skill points is below 16.");
+        if (totalPoints < MAX_POINTS) {
+            limit.setText(getString(R.string.invalid_skill_points));
         } else {
-            viewModel.createPlayer(name.getText().toString(),
-                    pilotPoints, fighterPoints, traderPoints, engineerPoints);
+            PlayerViewModel pvm = ViewModelProviders.of(this).get(PlayerViewModel.class);
+            pvm.createPlayer(name.getText().toString(),
+                            pilotPoints, fighterPoints, traderPoints, engineerPoints);
             startActivity(new Intent(CreatePlayer.this, MarketPlaceActivity.class));
         }
+    }
+
+    private boolean validatePoints(int pilot, int fighter, int trader, int engineer) {
+        return ((pilot + fighter + trader + engineer) <= MAX_POINTS) &&
+                (pilot >= 0) && (fighter >= 0) && (trader >= 0) && (engineer >= 0);
     }
 }

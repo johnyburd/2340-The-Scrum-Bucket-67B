@@ -6,6 +6,7 @@ import android.util.Log;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,7 @@ import com.example.spacetrader.entity.SolarSystem;
 import com.example.spacetrader.entity.Planet;
 import com.example.spacetrader.entity.TechLevel;
 
-public class Model {
+public final class Model {
 
     private Player player;
     private final List<SolarSystem> systems;
@@ -58,9 +59,7 @@ public class Model {
     }
 
     public void createPlayer(String name, int pilot, int fighter, int trader, int engineer) {
-        player = new Player().setName(name)
-                .setPilotPoints(pilot).setFighterPoints(fighter)
-                .setTraderPoints(trader).setEngineerPoints(engineer);
+        player = new Player(name, pilot, fighter, trader, engineer);
         market = new Market(player, systems.get(0));
     }
 
@@ -98,7 +97,7 @@ public class Model {
            // File f = new File(Environment.getExternalStorageDirectory(), "/player.dat");
             //outStream = new FileOutputStream(f);
             outStream = context.openFileOutput("player.dat", Context.MODE_PRIVATE);
-            ObjectOutputStream objectOutStream = new ObjectOutputStream(outStream);
+            ObjectOutput objectOutStream = new ObjectOutputStream(outStream);
             objectOutStream.writeObject(player);
             objectOutStream.close();
         } catch (Exception e) {

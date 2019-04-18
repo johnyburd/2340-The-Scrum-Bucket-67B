@@ -3,6 +3,7 @@ package com.example.spacetrader.entity;
 import android.support.annotation.NonNull;
 
 import java.io.Serializable;
+import java.util.Random;
 
 /**
  * Ship class, holding the stats off all the different types. Also used for traveling
@@ -31,14 +32,6 @@ public class Ship implements Serializable {
      */
     public void setCurrHull(int currHull){
         this.currHull = currHull;
-    }
-
-    /**
-     * Sets the ship's max hull health
-     * @param hull max hull health
-     */
-    public void setHull(int hull){
-        this.hull = hull;
     }
 
     /**
@@ -142,10 +135,10 @@ public class Ship implements Serializable {
      * @return True if the player has enough fuel to travel, False otherwise
      */
     public boolean Travel(Player player, SolarSystem system) {
-        Coordinate start = player.getLocation().getLocation();
-        Coordinate dest = system.getLocation();
-        double dist = Math.sqrt(Math.pow(start.getX() - dest.getX(), 2) + Math.pow(start.getY() - dest.getY(), 2));
-        int consumed = (int)dist/jump;
+        SolarSystem l = player.getLocation();
+        int dist = Coordinate.distance(
+                l.getLocation(), system.getLocation());
+        int consumed = dist / jump;
         if (consumed < currentFuel) {
             currentFuel -= consumed;
             return true;
@@ -173,4 +166,79 @@ public class Ship implements Serializable {
 
     @NonNull
     public String toString() {return ship.toString();}
+
+    /**
+     * Calculates damage done from attacking police.
+     * @param seed for more random chance
+     * @param fighter fighter points of attacking player
+     * @return damage done
+     */
+    public int attackPolice(long seed, int fighter) {
+        Random rand = new Random(seed);
+        int damage = rand.nextInt(hull);
+        currHull -= Math.max(0, damage - (fighter * 3));
+        if (currHull < 0) {
+            currHull = 0;
+        }
+        return damage;
+    }
+
+    /**
+     * Calculates damage from fleeing from police.
+     * @param seed for rand
+     * @param fighter fighter points of fleeing player
+     * @param pilot pilot points of fleeing player
+     * @return damage done
+     */
+    public int fleePolice(long seed, int fighter, int pilot) {
+        Random rand = new Random(seed);
+        int luck = pilot * rand.nextInt(10);
+        if (luck > 40) {
+            return 0; // you got away
+        }
+        int damage = rand.nextInt(hull);
+        currHull -= Math.max(0, (damage / 2) - (fighter * 3));
+        //otherwise you are attacked with less damage
+        if(currHull < 0) {
+            currHull = 0;
+        }
+        return damage;
+    }
+
+    /**
+     * Calculates damage from fleeing from pirates.
+     * @param seed for rand
+     * @param fighter fighter points of fleeing player
+     * @param pilot pilot points of fleeing player
+     * @return damage done
+     */
+    public int fleePirates(long seed, int fighter, int pilot) {
+        Random rand = new Random(seed);
+        int luck = pilot * rand.nextInt(10);
+        if (luck > 40) {
+            return -1; // you got away
+        }
+        int damage = rand.nextInt(hull);
+        currHull -= Math.max(0, (damage / 2) - (fighter * 3));
+        if (currHull < 0) {
+            currHull = 0;
+        }
+        return damage;
+    }
+
+    /**
+     * Calculates damage done attacking pirates.
+     * @param seed for rand
+     * @param fighter fighter points of attacking player
+     * @return damage done
+     */
+    public int attackPirates(long seed, int fighter) {
+        Random rand = new Random(seed);
+        int damage = rand.nextInt(hull);
+        currHull -= Math.max(0, damage - (fighter * 3));
+        if (currHull < 0) {
+            currHull = 0;
+        }
+        return damage;
+    }
 }

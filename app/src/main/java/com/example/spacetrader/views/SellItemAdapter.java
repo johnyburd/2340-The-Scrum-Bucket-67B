@@ -1,6 +1,9 @@
 package com.example.spacetrader.views;
 
+import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,9 +14,10 @@ import android.widget.TextView;
 import com.example.spacetrader.R;
 import com.example.spacetrader.entity.Good;
 import com.example.spacetrader.entity.Market;
-import com.example.spacetrader.models.Model;
+import com.example.spacetrader.viewmodels.MarketPlaceViewModel;
+import com.example.spacetrader.viewmodels.PlayerViewModel;
 
-import java.util.EnumMap;
+import java.util.AbstractMap;
 import java.util.Locale;
 
 /**
@@ -24,20 +28,24 @@ import java.util.Locale;
 public class SellItemAdapter extends RecyclerView.Adapter<SellItemAdapter.SellItemViewHolder> {
 
     private final Market market;
-    private final EnumMap<Good, Integer> inventory;
+    private final AbstractMap<Good, Integer> inventory;
 
     /**
      * Adapter constructor
+     * @param context context from which the Adapter is made
      */
-    public SellItemAdapter() {
-        market = Model.getInstance().getMarket();
-        inventory = Model.getInstance().getPlayer().getInventory();
+    public SellItemAdapter(Context context) {
+        market = ViewModelProviders.of((FragmentActivity) context)
+                .get(MarketPlaceViewModel.class)
+                .getMarket();
+        inventory = ViewModelProviders.of((FragmentActivity) context)
+                .get(PlayerViewModel.class).getPlayerInventory();
     }
 
     /**
      * ViewHolder class for SellItemAdapter.
      */
-    public class SellItemViewHolder extends RecyclerView.ViewHolder {
+    class SellItemViewHolder extends RecyclerView.ViewHolder {
         private final TextView name;
         private final TextView message;
         private final TextView number;
@@ -76,7 +84,8 @@ public class SellItemAdapter extends RecyclerView.Adapter<SellItemAdapter.SellIt
         holder.good = good;
         holder.name.setText(good.getName());
         holder.number.setText(String.format(Locale.US, "%d", inventory.get(good)));
-        holder.credits.setText(String.format(Locale.US, "%d", market.getPlayerPrices()[good.getNum()]));
+        holder.credits.setText(String.format(Locale.US, "%d",
+                market.getPlayerPrices()[good.getNum()]));
     }
 
     @Override

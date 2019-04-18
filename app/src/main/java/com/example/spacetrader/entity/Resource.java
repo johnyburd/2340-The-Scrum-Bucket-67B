@@ -6,19 +6,19 @@ package com.example.spacetrader.entity;
  * @version 1.0
  */
 public enum Resource {
-    NR (0, "NO SPECIAL RESOURCES"),
-    MR (1, "MINERAL RICH"),
-    MP (2, "MINERAL POOR"),
-    DS (3, "DESERT"),
-    WA (4, "LOTS OF WATER"),
-    RS (5, "RICH SOIL"),
-    PS (6, "POOR SOIL"),
-    RF (7, "RICH FAUNA"),
-    LL (8, "LIFELESS"),
-    WM (9, "WEIRD MUSHROOMS"),
-    HE (10, "LOTS OF HERBS"),
-    AR (11, "ARTISTIC"),
-    WL (12, "WARLIKE");
+    NR ("NO SPECIAL RESOURCES"),
+    MR ("MINERAL RICH"),
+    MP ("MINERAL POOR"),
+    DS ("DESERT"),
+    WA ("LOTS OF WATER"),
+    RS ("RICH SOIL"),
+    PS ("POOR SOIL"),
+    RF ("RICH FAUNA"),
+    LL ("LIFELESS"),
+    WM ("WEIRD MUSHROOMS"),
+    HE ("LOTS OF HERBS"),
+    AR ("ARTISTIC"),
+    WL ("WARLIKE");
 
     private final String name;
 
@@ -26,7 +26,7 @@ public enum Resource {
      * Resouce constructor
      * @param name what resource the planet has
      */
-    Resource(int code, String name) {
+    Resource(String name) {
         this.name = name;
     }
 

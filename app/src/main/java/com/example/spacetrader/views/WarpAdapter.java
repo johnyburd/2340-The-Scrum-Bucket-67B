@@ -1,6 +1,9 @@
 package com.example.spacetrader.views;
 
+import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +14,8 @@ import android.widget.TextView;
 import com.example.spacetrader.R;
 import com.example.spacetrader.entity.Player;
 import com.example.spacetrader.entity.SolarSystem;
-import com.example.spacetrader.models.Model;
+import com.example.spacetrader.viewmodels.PlayerViewModel;
+import com.example.spacetrader.viewmodels.SolarSystemViewModel;
 
 import java.util.List;
 
@@ -25,14 +29,20 @@ public class WarpAdapter extends RecyclerView.Adapter<WarpAdapter.WarpItemViewHo
 
     /**
      * Adapter constructor.
+     * @param context context from which the Adapter is made
      */
-    public WarpAdapter() {
-        solarSystems = Model.getInstance().getSolarSystems();
-        player = Model.getInstance().getPlayer();
+    public WarpAdapter(Context context) {
+        //Model model = Model.getInstance();
+        solarSystems = ViewModelProviders.of(
+                (FragmentActivity) context).get(SolarSystemViewModel.class)
+                .getSolarSystems();
+        player = ViewModelProviders.of(
+                (FragmentActivity) context).get(PlayerViewModel.class)
+                .getPlayer();
     }
 
     /**
-     * ViewHolder for WarpItem
+     * ViewHolder for WarpItem.
      */
     class WarpItemViewHolder extends RecyclerView.ViewHolder {
         private final TextView planet;
@@ -48,9 +58,7 @@ public class WarpAdapter extends RecyclerView.Adapter<WarpAdapter.WarpItemViewHo
             warp.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (player.getShip().Travel(player, system)) {
-                        player.setLocation(system);
-                    }
+                    player.travel(system);
                 }
             });
         }
@@ -67,7 +75,7 @@ public class WarpAdapter extends RecyclerView.Adapter<WarpAdapter.WarpItemViewHo
     @Override
     public void onBindViewHolder(@NonNull WarpAdapter.WarpItemViewHolder holder, int i) {
         SolarSystem planet = solarSystems.get(i);
-        holder.location.setText(planet.getLocation().toString());
+        holder.location.setText(planet.getLocationString());
         holder.planet.setText(planet.getName());
         holder.system = planet;
     }

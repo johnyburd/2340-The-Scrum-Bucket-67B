@@ -5,8 +5,12 @@ import android.arch.lifecycle.AndroidViewModel;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import com.example.spacetrader.entity.Good;
 import com.example.spacetrader.entity.Player;
 import com.example.spacetrader.models.Model;
+
+import java.util.AbstractMap;
+import java.util.EnumMap;
 
 public class PlayerViewModel extends AndroidViewModel{
     private final Model model;
@@ -28,12 +32,11 @@ public class PlayerViewModel extends AndroidViewModel{
         return model.continuePlayer(context);
     }
 
-    public boolean validatePoints(int pilot, int fighter, int trader, int engineer) {
-        return pilot + fighter + trader + engineer <= 16 &&
-                pilot >= 0 && fighter >= 0 && trader >= 0 && engineer >= 0;
-    }
-
     public Player getPlayer() {
         return model.getPlayer();
+    }
+
+    public AbstractMap<Good, Integer> getPlayerInventory() {
+        return getPlayer().getInventory();
     }
 }

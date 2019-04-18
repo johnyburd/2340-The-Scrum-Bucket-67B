@@ -68,8 +68,8 @@ public class SolarSystem implements Serializable {
      * Returns the solar system's tech level
      * @return solar system's tech level
      */
-    public TechLevel getTechLevel() {
-        return techLevel;
+    public int getTechLevel() {
+        return techLevel.getLevel();
     }
 
     /**
@@ -97,10 +97,44 @@ public class SolarSystem implements Serializable {
     }
 
     /**
+     * @return system Coordinates as a string
+     */
+    public String getLocationString() {
+        return location.toString();
+    }
+
+    /**
      * Returns the event occurring in the solar system
      * @return event occurring in the solar system
      */
     public Event getEvent() {
         return event;
+    }
+
+    public boolean canSell(Good good) {
+        int tech = techLevel.getLevel();
+        switch (good) {
+            case WATER:
+                return tech >= 0;
+            case FURS:
+                return tech >= 0;
+            case FOOD:
+                return tech >= 0;
+            case ORE:
+                return tech >= 2;
+            case GAMES:
+                return tech >= 1;
+            case FIREARMS:
+                return tech >= 1;
+            case MEDICINE:
+                return tech >= 1;
+            case MACHINES:
+                return tech >= 3;
+            case NARCOTICS:
+                return tech >= 0;
+            case ROBOTS:
+                return tech >= 4;
+        }
+        return false;
     }
 }

@@ -1,6 +1,9 @@
 package com.example.spacetrader.views;
 
+import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +14,7 @@ import android.widget.TextView;
 import com.example.spacetrader.R;
 import com.example.spacetrader.entity.Good;
 import com.example.spacetrader.entity.Market;
-import com.example.spacetrader.models.Model;
+import com.example.spacetrader.viewmodels.MarketPlaceViewModel;
 
 import java.util.EnumMap;
 import java.util.Locale;
@@ -29,16 +32,19 @@ public class BuyItemAdapter extends RecyclerView.Adapter<BuyItemAdapter.BuyItemV
 
     /**
      * Adapter constructor.
+     * @param context context from which the Adapter is made
      */
-    public BuyItemAdapter() {
-        market = Model.getInstance().getMarket();
+    public BuyItemAdapter(Context context) {
+        MarketPlaceViewModel marketPlaceViewModel = ViewModelProviders.of(
+                (FragmentActivity) context).get(MarketPlaceViewModel.class);
+        market = marketPlaceViewModel.getMarket();
         inventory = market.getInventory();
     }
 
     /**
      * ViewHolder class for the BuyItemAdapter.
      */
-    public class BuyItemViewHolder extends RecyclerView.ViewHolder {
+    class BuyItemViewHolder extends RecyclerView.ViewHolder {
         private final TextView name;
         private final TextView message;
         private final TextView number;
@@ -76,8 +82,11 @@ public class BuyItemAdapter extends RecyclerView.Adapter<BuyItemAdapter.BuyItemV
         Good good = Good.values()[position];
         holder.good = good;
         holder.name.setText(good.getName());
-        holder.number.setText(String.format(Locale.US, "%s", Objects.requireNonNull(inventory.get(good)).toString()));
-        holder.credits.setText(String.format(Locale.US, "%d", market.getPlanetPrices()[good.getNum()]));
+        holder.number.setText(String.format(
+                Locale.US, "%s",
+                Objects.requireNonNull(inventory.get(good)).toString()));
+        holder.credits.setText(String.format(Locale.US,
+                "%d", market.getPlanetPrices()[good.getNum()]));
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.example.spacetrader.views;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -7,7 +8,7 @@ import android.widget.TextView;
 
 import com.example.spacetrader.R;
 import com.example.spacetrader.entity.Player;
-import com.example.spacetrader.models.Model;
+import com.example.spacetrader.viewmodels.PlayerViewModel;
 
 import java.util.Locale;
 
@@ -23,12 +24,13 @@ public class PoliceEncounterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.police_encounter);
-        player = Model.getInstance().getPlayer();
+        player = ViewModelProviders.of(this).get(PlayerViewModel.class).getPlayer();
 
         TextView encounter = findViewById(R.id.police_encounter_label);
         encounter.setText(String.format(Locale.US,
-                "On the way to %s, you encounter a police wasp.\n\nThe police summon you to submit to an inspection.",
-                player.getLocation().getName()));
+                "On the way to %s, you encounter a police wasp.\n\n" +
+                        "The police summon you to submit to an inspection.",
+                player.getLocationName()));
     }
 
     /**

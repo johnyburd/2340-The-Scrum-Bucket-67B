@@ -15,7 +15,6 @@ import java.util.Random;
  */
 public class Player extends Observable implements Serializable {
     private String name;
-    private final int skillPoints;
     private int pilotPoints;
     private int fighterPoints;
     private int traderPoints;
@@ -31,22 +30,40 @@ public class Player extends Observable implements Serializable {
     private int policeRecord;
     private int clout;
 
+    private final int INITIAL_POLICE_RECORD = 50;
+    private final int INITIAL_CLOUT = 50;
+
     /**
      * Player constructor, starts off with 1000 credits and the GNAT ship
      */
     public Player (){
-        skillPoints = 16;
+        this("Player", 4, 4, 4, 4);
+    }
+
+    /**
+     * Creates a new player with the given parameters.
+     * @param name player name
+     * @param pilot pilot skill points
+     * @param fighter fighter skill points
+     * @param trader trader skill points
+     * @param engineer engineer skill points
+     */
+    public Player(String name, int pilot, int fighter, int trader, int engineer) {
         credits = 1000;
         spaceship = new Ship();
-        inventory = new EnumMap<>(Good.class);
         locationChanged = false;
-
-        policeRecord = 50;
-        int clout = 50;
+        policeRecord = INITIAL_POLICE_RECORD;
+        clout = INITIAL_CLOUT;
+        inventory = new EnumMap<>(Good.class);
         Good[] goods = Good.values();
         for (Good good : goods) {
             inventory.put(good, 0);
         }
+        this.name = name;
+        pilotPoints = pilot;
+        fighterPoints = fighter;
+        traderPoints = trader;
+        engineerPoints = engineer;
     }
 
     /**
@@ -80,7 +97,8 @@ public class Player extends Observable implements Serializable {
      */
     public int bribeAmount(long seed) {
         Random rand = new Random(seed);
-        return policeRecord * 10 + rand.nextInt(1000); // after this you either pay or choose another option
+        return (policeRecord * 10) + rand.nextInt(1000);
+        // after this you either pay or choose another option
     }
 
     /**
@@ -98,22 +116,26 @@ public class Player extends Observable implements Serializable {
      */
     public boolean submit() {
         boolean found = false;
-        if (inventory.get(Good.NARCOTICS) == null || Objects.requireNonNull(inventory.get(Good.NARCOTICS)) > 0) {
+        if ((inventory.get(Good.NARCOTICS) == null)
+                || (Objects.requireNonNull(inventory.get(Good.NARCOTICS)) > 0)) {
             Integer removed = inventory.remove(Good.NARCOTICS);
             if (removed != null) {
                 totalGoods -= removed;
             }
             found = true;
-        } else if (inventory.get(Good.FIREARMS) == null || Objects.requireNonNull(inventory.get(Good.FIREARMS)) > 0) {
+        } else if ((inventory.get(Good.FIREARMS) == null)
+                || (Objects.requireNonNull(inventory.get(Good.FIREARMS)) > 0)) {
             //Integer removed = inventory.remove(Good.FIREARMS, 0);
             found = true;
         }
-        if (found && policeRecord >= 10) {
+        if (found && (policeRecord >= 10)) {
             policeRecord += 10;
-            setCredits(3 * credits / 4); // you lose a fourth of your credits
+            setCredits((3 * credits) / 4); // you lose a fourth of your credits
         } else {
             policeRecord -= 10;
-            if (policeRecord < 0) policeRecord = 0;
+            if (policeRecord < 0) {
+                policeRecord = 0;
+            }
         }
         notifyObservers(credits);
         return found;
@@ -144,15 +166,8 @@ public class Player extends Observable implements Serializable {
      * @return damage done to the player's ship
      */
     public int attackPolice(long seed) {
-        Random rand = new Random(seed);
-        int damage = rand.nextInt(spaceship.getHull());
-        spaceship.setCurrHull(spaceship.getCurrHull() - Math.max(0, damage - (getFighterPoints() * 3)));
-        if(spaceship.getCurrHull() < 0) {
-            spaceship.setCurrHull(0);
-        }
         setPoliceRecord(getPoliceRecord() + 10);
-        //notifyObservers(credits);
-        return damage;
+        return spaceship.attackPolice(seed, fighterPoints);
     }
 
     /**
@@ -161,12 +176,7 @@ public class Player extends Observable implements Serializable {
      * @return damage done to the player's ship
      */
     public int attackPirates(long seed) {
-        Random rand = new Random(seed);
-        int damage = rand.nextInt(spaceship.getHull());
-        spaceship.setCurrHull(spaceship.getCurrHull() - Math.max(0, damage - (getFighterPoints() * 3)));
-        if(spaceship.getCurrHull() < 0) {
-            spaceship.setCurrHull(0);
-        }
+        int damage = spaceship.attackPirates(seed, fighterPoints);
         if (damage < 10) {
             setClout(getClout() - 5);
         } else {
@@ -183,18 +193,7 @@ public class Player extends Observable implements Serializable {
      */
     public int fleePolice(long seed) {
         setPoliceRecord(getPoliceRecord() + 10);
-        Random rand = new Random(seed);
-        int luck = getPilotPoints() * rand.nextInt(10);
-        if (luck > 40) {
-            return 0; // you got away
-        }
-        int damage = rand.nextInt(spaceship.getHull());
-        spaceship.setCurrHull(spaceship.getCurrHull() - Math.max(0, (damage / 2) - (getFighterPoints() * 3))); //otherwise you are attacked with less damage
-        if(spaceship.getCurrHull() < 0) {
-            spaceship.setCurrHull(0);
-        }
-        //notifyObservers(credits);
-        return damage;
+        return spaceship.fleePolice(seed, fighterPoints, pilotPoints);
     }
 
     /**
@@ -203,23 +202,15 @@ public class Player extends Observable implements Serializable {
      * @return damage done to player's ship
      */
     public int fleePirates(long seed) {
-        Random rand = new Random(seed);
-        int luck = getPilotPoints() * rand.nextInt(10);
-        if (luck > 40) {
+        int damage = spaceship.fleePirates(seed, fighterPoints, pilotPoints);
+        if (damage == -1) {
             setClout(getClout() + 5);
-            return 0; // you got away
-        }
-        int damage = rand.nextInt(spaceship.getHull());
-        spaceship.setCurrHull(spaceship.getCurrHull() - Math.max(0, (damage / 2) - (getFighterPoints() * 3))); //otherwise you are attacked with less damage
-        if(spaceship.getCurrHull() < 0) {
-            spaceship.setCurrHull(0);
-        }
-        if (damage < 10) {
+            damage = 0;
+        } else if (damage < 10) {
             setClout(getClout() - 5);
         } else {
             setClout(getClout() + 5);
         }
-        //notifyObservers(credits);
         return damage;
     }
 
@@ -319,6 +310,9 @@ public class Player extends Observable implements Serializable {
         this.notifyObservers(credits);
     }
 
+    /**
+     * @param num Number to set totalGoods to
+     */
     public void setTotalGoods(int num) {
         totalGoods = num;
     }
@@ -329,14 +323,6 @@ public class Player extends Observable implements Serializable {
      */
     public String getName() {
         return name;
-    }
-
-    /**
-     * Returns the player's skill points
-     * @return the player's skill points
-     */
-    public int getSkillPoints() {
-        return skillPoints;
     }
 
     /**
@@ -416,6 +402,13 @@ public class Player extends Observable implements Serializable {
     }
 
     /**
+     * @return location of player as a String
+     */
+    public String getLocationName() {
+        return location.getName();
+    }
+
+    /**
      * Returns the player's inventory
      * @return the player's inventory
      */
@@ -429,6 +422,24 @@ public class Player extends Observable implements Serializable {
      */
     public Ship getShip() {
         return spaceship;
+    }
+
+    /**
+     * @param seed
+     * @return whether player is under attack
+     */
+    public boolean underAttack(long seed) {
+        return location.underAttack(seed);
+    }
+
+    public boolean underArrest(long seed) {
+        return location.underArrest(seed, this);
+    }
+
+    public void travel(SolarSystem system) {
+        if (spaceship.Travel(this, system)) {
+            setLocation(system);
+        }
     }
 
     @NonNull
@@ -445,18 +456,25 @@ public class Player extends Observable implements Serializable {
      * @param good the good the player buys
      * @param quantity how many of the good the player bought
      * @param cost how much the player has to pay for the goods
+     * @return success/failure message
      */
-    public void buy(Good good, int quantity, int cost) {
+    public String buy(Good good, int quantity, int cost) {
+        if (credits < cost) {
+            return "You do not have enough credits to buy that!";
+        }
+        if ((totalGoods + quantity) > spaceship.getCargo()) {
+            return "You cannot hold that many goods!";
+        }
         if (inventory.containsKey(good)) {
             inventory.put(good, Objects.requireNonNull(inventory.get(good)) + quantity);
-        }
-        else {
+        } else {
             inventory.put(good, quantity);
         }
         credits -= cost;
         totalGoods += quantity;
         this.setChanged();
         this.notifyObservers(credits);
+        return "Purchase complete";
     }
 
     /**
